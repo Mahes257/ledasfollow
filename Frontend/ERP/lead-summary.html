@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<script src="js/storage-guard.js"></script>
+<script src="js/modules/auth-shim.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lead Summary - VISHAK TECH Enterprise CRM</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/sidebar.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/clients.css">
+    <style>
+        .ls-container { max-width: 1400px; margin: 0 auto; }
+        .ls-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; flex-wrap: wrap; gap: 12px; }
+        .ls-header-left { display: flex; align-items: center; gap: 16px; }
+        .ls-header-right { display: flex; gap: 8px; }
+        .ls-badge-lg { font-size: 13px; padding: 4px 14px; border-radius: 20px; font-weight: 600; }
+
+        .ls-lead-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 24px; margin-bottom: 20px; display: flex; gap: 24px; flex-wrap: wrap; align-items: center; }
+        .ls-lead-avatar { width: 64px; height: 64px; border-radius: 16px; background: linear-gradient(135deg, #0B4A3D, #0B4A3D); display: flex; align-items: center; justify-content: center; font-size: 24px; color: #fff; font-weight: 700; flex-shrink: 0; }
+        .ls-lead-info { flex: 1; min-width: 200px; }
+        .ls-lead-name { font-size: 22px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+        .ls-lead-company { font-size: 14px; color: var(--text-secondary, #64748b); margin-bottom: 8px; }
+        .ls-lead-meta { display: flex; gap: 16px; flex-wrap: wrap; font-size: 13px; color: var(--text-secondary); }
+        .ls-lead-meta span { display: flex; align-items: center; gap: 6px; }
+        .ls-lead-stats { display: flex; gap: 16px; flex-wrap: wrap; }
+        .ls-stat { text-align: center; padding: 8px 16px; background: var(--bg-secondary); border-radius: 10px; min-width: 80px; }
+        .ls-stat-value { font-size: 20px; font-weight: 700; color: var(--text); }
+        .ls-stat-label { font-size: 11px; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.3px; }
+
+        .ls-tabs { display: flex; gap: 2px; margin-bottom: 0; background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px 12px 0 0; padding: 4px 4px 0; overflow-x: auto; }
+        .ls-tab { padding: 10px 16px; font-size: 13px; font-weight: 500; color: var(--text-secondary); cursor: pointer; border: none; background: transparent; font-family: Inter; white-space: nowrap; border-radius: 8px 8px 0 0; transition: all 0.15s ease; position: relative; }
+        .ls-tab:hover { color: var(--text-primary); background: var(--bg-secondary); }
+        .ls-tab.active { color: #0B4A3D; font-weight: 600; background: var(--bg-card); }
+        .ls-tab.active::after { content: ''; position: absolute; bottom: 0; left: 16px; right: 16px; height: 2px; background: #0B4A3D; border-radius: 2px 2px 0 0; }
+        .ls-tab-count { font-size: 11px; color: var(--text-muted); margin-left: 4px; }
+
+        .ls-content { background: var(--bg-card); border: 1px solid var(--border); border-top: none; border-radius: 0 0 12px 12px; padding: 20px; min-height: 400px; }
+        .ls-tab-pane { display: none; }
+        .ls-tab-pane.active { display: block; animation: fadeIn 0.2s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+
+        .ls-doc-card { display: flex; align-items: center; gap: 12px; padding: 12px 16px; border: 1px solid var(--border); border-radius: 10px; margin-bottom: 8px; transition: all 0.15s ease; cursor: pointer; background: var(--bg-card); }
+        .ls-doc-card:hover { border-color: #E5E7EB; box-shadow: 0 2px 8px rgba(10,79,68,0.08); }
+        .ls-doc-icon { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .ls-doc-icon.pr { background: rgba(10,79,68,0.1); color: #0B4A3D; }
+        .ls-doc-icon.qt { background: rgba(59,130,246,0.1); color: #2563eb; }
+        .ls-doc-icon.sc { background: rgba(16,185,129,0.1); color: #059669; }
+        .ls-doc-icon.so { background: rgba(245,158,11,0.1); color: #d97706; }
+        .ls-doc-icon.dc { background: rgba(236,72,153,0.1); color: #db2777; }
+        .ls-doc-icon.inv { background: rgba(239,68,68,0.1); color: #dc2626; }
+        .ls-doc-icon.pay { background: rgba(16,185,129,0.1); color: #059669; }
+        .ls-doc-icon.fu { background: rgba(11, 74, 61,0.1); color: #0B4A3D; }
+        .ls-doc-info { flex: 1; min-width: 0; }
+        .ls-doc-title { font-size: 14px; font-weight: 600; color: var(--text); }
+        .ls-doc-meta { font-size: 12px; color: var(--text-secondary); margin-top: 2px; }
+        .ls-doc-amount { font-size: 15px; font-weight: 700; color: var(--text); white-space: nowrap; }
+
+        .ls-timeline { position: relative; padding-left: 28px; }
+        .ls-timeline::before { content: ''; position: absolute; left: 8px; top: 0; bottom: 0; width: 2px; background: var(--border); }
+        .ls-tl-item { position: relative; padding: 0 0 20px 16px; }
+        .ls-tl-item:last-child { padding-bottom: 0; }
+        .ls-tl-dot { position: absolute; left: -24px; top: 4px; width: 16px; height: 16px; border-radius: 50%; border: 3px solid; background: var(--bg-card); }
+        .ls-tl-dot.created { border-color: #0B4A3D; }
+        .ls-tl-dot.approved { border-color: #059669; }
+        .ls-tl-dot.sent { border-color: #2563eb; }
+        .ls-tl-dot.converted { border-color: #d97706; }
+        .ls-tl-dot.completed { border-color: #059669; }
+        .ls-tl-dot.rejected { border-color: #dc2626; }
+        .ls-tl-title { font-size: 13px; font-weight: 600; color: var(--text); }
+        .ls-tl-desc { font-size: 12px; color: var(--text-secondary); margin-top: 2px; }
+        .ls-tl-time { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+
+        .ls-empty { text-align: center; padding: 60px 20px; color: var(--text-secondary); }
+        .ls-empty i { font-size: 48px; color: #d1d5db; margin-bottom: 12px; }
+        .ls-empty h3 { font-size: 16px; color: var(--text); margin-bottom: 6px; }
+        .ls-empty p { font-size: 13px; color: var(--text-secondary); }
+
+        .ls-badge { display: inline-flex; align-items: center; gap: 4px; padding: 2px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; }
+        .ls-badge.status-new { background: #f0fdf4; color: #16a34a; }
+        .ls-badge.status-contacted { background: #eff6ff; color: #2563eb; }
+        .ls-badge.status-qualified { background: #E8F0EE; color: #0B4A3D; }
+        .ls-badge.status-proposal { background: #fffbeb; color: #d97706; }
+        .ls-badge.status-negotiation { background: #fef2f2; color: #dc2626; }
+        .ls-badge.status-won { background: #f0fdf4; color: #16a34a; }
+        .ls-badge.status-lost { background: #fef2f2; color: #dc2626; }
+        .ls-badge.status-pending { background: #fffbeb; color: #d97706; }
+        .ls-badge.status-approved { background: #f0fdf4; color: #16a34a; }
+        .ls-badge.status-rejected { background: #fef2f2; color: #dc2626; }
+
+        .ls-client-card { display: flex; align-items: flex-start; gap: 16px; padding: 16px; border: 1px solid var(--border-color); border-radius: 12px; margin-bottom: 12px; background: var(--bg-card); }
+        .ls-client-avatar { width: 48px; height: 48px; border-radius: 12px; background: var(--accent-light); display: flex; align-items: center; justify-content: center; font-size: 18px; color: #0B4A3D; flex-shrink: 0; }
+        .ls-client-details { flex: 1; }
+        .ls-client-name { font-size: 15px; font-weight: 600; color: var(--text); }
+        .ls-client-row { font-size: 13px; color: var(--text-secondary); margin-top: 2px; display: flex; gap: 8px; flex-wrap: wrap; }
+
+        @media (max-width: 768px) {
+            .ls-header { flex-direction: column; align-items: stretch; }
+            .ls-lead-card { flex-direction: column; text-align: center; }
+            .ls-lead-stats { justify-content: center; }
+            .ls-tabs { flex-wrap: nowrap; overflow-x: auto; }
+            .ls-tab { padding: 8px 12px; font-size: 12px; }
+        }
+    </style>
+    <link rel="stylesheet" href="css/theme.css">
+    <link rel="stylesheet" href="css/unified.css">
+</head>
+<body data-page="lead-summary">
+    <nav class="sidebar">
+        <div class="sidebar-brand">
+            <div class="brand-logo">V</div>
+            <div class="brand-text">
+                <div class="brand-name">VISHAK TECH</div>
+                <div class="brand-sub">Enterprise Portal</div>
+            </div>
+        </div>
+        <div class="sidebar-user-card">
+            <div class="user-avatar-wrap">
+                <div class="user-avatar">A</div>
+                <span class="user-online"></span>
+            </div>
+            <div class="user-info">
+                <div class="user-name">Admin User</div>
+                <div class="user-role">Administrator</div>
+            </div>
+        </div>
+        <div class="sidebar-search">
+            <i class="fas fa-search sidebar-search-icon"></i>
+            <input type="text" placeholder="Search menu..." oninput="VT.Sidebar.filterMenu(this.value)">
+        </div>
+        <div class="sidebar-nav sidebar-menu"></div>
+        <div class="sidebar-bottom">
+            <a class="theme-toggle" onclick="VT.Theme.toggle()"><i class="fas fa-moon"></i><span>Dark Mode</span></a>
+            <a onclick="VT.Auth.logout()"><i class="fas fa-sign-out-alt"></i><span>Sign Out</span></a>
+        </div>
+    </nav>
+    <div class="sidebar-overlay"></div>
+    <div class="main-area">
+        <header class="topbar">
+            <button class="topbar-toggle sidebar-toggle"><i class="fas fa-bars"></i></button>
+            <h1 class="topbar-title">Lead Summary</h1>
+            <div class="topbar-actions">
+                <button class="theme-toggle" onclick="VT.Theme.toggle()"><i class="fas fa-moon"></i></button>
+                <button class="notification-btn"><i class="fas fa-bell"></i><span class="notification-badge">3</span></button>
+                <div class="user-dropdown">
+                    <div class="user-dropdown-trigger"><div class="user-avatar small">A</div><i class="fas fa-chevron-down"></i></div>
+                    <div class="user-dropdown-menu"><a href="#"><i class="fas fa-user-cog"></i> Settings</a><a href="#" onclick="VT.Auth.logout()"><i class="fas fa-sign-out-alt"></i> Sign Out</a></div>
+                </div>
+            </div>
+        </header>
+        <div class="page-content">
+            <div class="ls-container" id="leadSummaryContainer">
+                <!-- Will be filled by JS -->
+                <div class="ls-empty" style="padding:100px 20px">
+                    <i class="fas fa-spinner fa-spin"></i>
+                    <h3>Loading Lead Summary...</h3>
+                    <p>Please select a lead from the CRM module to view its summary.</p>
+                    <div style="margin-top:16px">
+                        <a href="crm.html" class="btn btn-primary"><i class="fas fa-address-card"></i> Go to CRM</a>
+                        <a href="clients.html" class="btn btn-secondary" style="margin-left:8px"><i class="fas fa-users"></i> View Clients</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="toastContainer"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="js/modules/data.js"></script>
+    <script src="js/modules/auth.js"></script>
+    <script src="js/modules/utils.js"></script>
+<script src="js/modules/standard.js"></script>
+    <script src="js/modules/export.js"></script>
+    <script src="js/modules/column-manager.js"></script>
+    <script src="js/modules/data-table-toolbar.js"></script>
+    <script src="js/modules/theme.js"></script><script src="js/modules/session.js"></script>
+    <script src="js/sidebar.js"></script>
+    <script src="js/lead-summary.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

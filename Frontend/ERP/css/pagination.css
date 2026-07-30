@@ -1,0 +1,153 @@
+/* =========================================================================
+   Shared Pagination Component — Master reference: CPR List (pr-list.html)
+   ========================================================================= */
+.vt-pagination {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 20px;
+    border-top: 1px solid #e5e7eb;
+    font-size: 13px;
+    color: #6b7280;
+    font-family: 'Inter', sans-serif;
+    flex-shrink: 0;
+}
+
+.vt-pagination-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.vt-pagination-right {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.vt-pagination .vt-pg-info {
+    font-size: 13px;
+    color: #6b7280;
+    white-space: nowrap;
+}
+
+.vt-pagination .vt-pg-rows {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 13px;
+    color: #6b7280;
+}
+
+.vt-pagination .vt-pg-rows select {
+    padding: 4px 8px;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    font-size: 13px;
+    font-family: 'Inter', sans-serif;
+    outline: none;
+    color: #374151;
+    background: #fff;
+    cursor: pointer;
+    transition: border-color 0.15s;
+}
+
+.vt-pagination .vt-pg-rows select:hover {
+    border-color: #0B4A3D;
+}
+
+.vt-pagination .page-btns {
+    display: flex;
+    gap: 4px;
+}
+
+.vt-pagination .page-btns button {
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    border: 1px solid #e5e7eb;
+    background: #fff;
+    color: #374151;
+    cursor: pointer;
+    font-size: 13px;
+    font-family: 'Inter', sans-serif;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s;
+    line-height: 1;
+    padding: 0;
+}
+
+.vt-pagination .page-btns button:hover:not(:disabled):not(.active) {
+    background: #f3f4f6;
+    border-color: #d1d5db;
+}
+
+.vt-pagination .page-btns button.active {
+    background: #0B4A3D;
+    color: #fff;
+    border-color: #0B4A3D;
+}
+
+.vt-pagination .page-btns button:disabled {
+    opacity: 0.4;
+    cursor: default;
+    pointer-events: none;
+}
+
+.vt-pagination .page-btns button i {
+    font-size: 11px;
+}
+
+/* Dark mode support */
+[data-theme="dark"] .vt-pagination {
+    border-top-color: #374151;
+    color: #9ca3af;
+}
+
+[data-theme="dark"] .vt-pagination .vt-pg-info {
+    color: #9ca3af;
+}
+
+[data-theme="dark"] .vt-pagination .vt-pg-rows {
+    color: #9ca3af;
+}
+
+[data-theme="dark"] .vt-pagination .vt-pg-rows select {
+    background: #1f2937;
+    border-color: #374151;
+    color: #e5e7eb;
+}
+
+[data-theme="dark"] .vt-pagination .vt-pg-rows select:hover {
+    border-color: #0B4A3D;
+}
+
+[data-theme="dark"] .vt-pagination .page-btns button {
+    background: #1f2937;
+    border-color: #374151;
+    color: #e5e7eb;
+}
+
+[data-theme="dark"] .vt-pagination .page-btns button:hover:not(:disabled):not(.active) {
+    background: #374151;
+}
+
+[data-theme="dark"] .vt-pagination .page-btns button.active {
+    background: #0B4A3D;
+    color: #fff;
+    border-color: #0B4A3D;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .vt-pagination {
+        flex-direction: column;
+        gap: 10px;
+        padding: 12px 16px;
+    }
+    .vt-pagination .vt-pg-info {
+        font-size: 12px;
+    }
+}

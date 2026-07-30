@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<script src="js/storage-guard.js"></script>
+<script src="js/modules/auth-shim.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lead Overview - VISHAK TECH Enterprise CRM</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/sidebar.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/leads.css">
+    <link rel="stylesheet" href="css/sales-crm.css">
+    <link rel="stylesheet" href="css/lead-overview.css">
+    <link rel="stylesheet" href="css/theme.css">
+    <link rel="stylesheet" href="css/unified.css">
+    <style>
+        /* Lead Overview — minimal critical-path styles, bulk in lead-overview.css */
+        .lo-sidebar { display:flex;flex-direction:column;gap:16px; }
+        .lo-timeline { scrollbar-width:thin; }
+        .lo-timeline::-webkit-scrollbar { width:3px; }
+        .lo-timeline::-webkit-scrollbar-thumb { background:var(--text-muted,#d1d5db);border-radius:3px; }
+    </style>
+</head>
+<body data-page="lead-overview">
+    <nav class="sidebar">
+        <div class="sidebar-brand">
+            <div class="brand-logo">V</div>
+            <div class="brand-text">
+                <div class="brand-name">VISHAK TECH</div>
+                <div class="brand-sub">Enterprise Portal</div>
+            </div>
+        </div>
+        <div class="sidebar-user-card">
+            <div class="user-avatar-wrap">
+                <div class="user-avatar">A</div>
+                <span class="user-online"></span>
+            </div>
+            <div class="user-info">
+                <div class="user-name">Admin User</div>
+                <div class="user-role">Administrator</div>
+            </div>
+        </div>
+        <div class="sidebar-search">
+            <i class="fas fa-search sidebar-search-icon"></i>
+            <input type="text" placeholder="Search menu..." aria-label="Search menu" oninput="VT.Sidebar.filterMenu(this.value)">
+        </div>
+        <div class="sidebar-nav sidebar-menu"></div>
+        <div class="sidebar-bottom">
+            <a class="theme-toggle" onclick="VT.Theme.toggle()"><i class="fas fa-moon"></i><span>Dark Mode</span></a>
+            <a onclick="VT.Auth.logout()"><i class="fas fa-sign-out-alt"></i><span>Sign Out</span></a>
+        </div>
+    </nav>
+    <div class="sidebar-overlay"></div>
+    <div class="main-area">
+        <header class="topbar">
+            <button class="topbar-toggle sidebar-toggle"><i class="fas fa-bars"></i></button>
+            <h1 class="topbar-title">Lead Overview</h1>
+            <div class="topbar-actions">
+                <button class="theme-toggle" onclick="VT.Theme.toggle()"><i class="fas fa-moon"></i></button>
+                <button class="notification-btn"><i class="fas fa-bell"></i><span class="notification-badge">3</span></button>
+                <div class="user-dropdown">
+                    <div class="user-dropdown-trigger"><div class="user-avatar small">A</div><i class="fas fa-chevron-down"></i></div>
+                    <div class="user-dropdown-menu"><a href="#"><i class="fas fa-user-cog"></i> Settings</a><a href="#" onclick="VT.Auth.logout()"><i class="fas fa-sign-out-alt"></i> Sign Out</a></div>
+                </div>
+            </div>
+        </header>
+        <div class="page-content" id="loContainer">
+            <!-- Content rendered by VT.LeadOverview.init() -->
+        </div>
+    </div>
+
+    <div id="toastContainer"></div>
+
+    <script src="js/modules/data.js"></script>
+    <script src="js/modules/auth.js"></script>
+    <script src="js/modules/utils.js"></script>
+<script src="js/modules/standard.js"></script>
+    <script src="js/modules/theme.js?v=2"></script><script src="js/modules/session.js"></script>
+    <script src="js/sidebar.js"></script>
+    <script src="js/modules/notification-service.js"></script>
+    <script src="js/shared/format.js"></script>
+    <script src="js/shared/lead-utils.js"></script>
+    <script src="js/shared/document-preview.js"></script>
+    <script src="js/shared/attachment-service.js"></script>
+    <script src="js/shared/datahub.js"></script>
+    <script src="js/shared/view-state-persistence.js"></script>
+    <script src="js/shared/badge.js"></script>
+    <script src="js/shared/timeline.js"></script>
+    <script src="js/shared/activity-log.js"></script>
+    <script src="js/shared/empty-state.js"></script>
+    <script src="js/lead-overview.js"></script>
+    <script src="js/app.js"></script>
+    <script>
+    (function() {
+        if (typeof VT !== 'undefined' && VT.NotificationService) {
+            VT.NotificationService.init({ pollInterval: 60000, enableSound: true });
+            VT.NotificationService.start();
+        }
+        document.addEventListener('VT:DataUpdated', function() {
+            if (VT.NotificationService) VT.NotificationService.checkNow();
+        });
+        document.addEventListener('visibilitychange', function() {
+            if (!document.hidden && VT.NotificationService) VT.NotificationService.checkNow();
+        });
+    })();
+    </script>
+</body>
+</html>

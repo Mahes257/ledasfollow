@@ -1,0 +1,110 @@
+/* ===== FINANCE MODULE ===== */
+/* Filter Panel - matches Credit Notes design exactly */
+.finance-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.finance-toolbar-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.finance-toolbar-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.finance-filter-panel {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 20px 24px;
+  margin-bottom: 20px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  display: none;
+}
+
+.finance-filter-panel.show {
+  display: block;
+}
+
+.finance-filter-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  align-items: end;
+}
+
+.finance-filter-panel .filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.finance-filter-panel .filter-group .filter-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: #374151;
+}
+
+.finance-filter-panel .filter-group select,
+.finance-filter-panel .filter-group input {
+  padding: 8px 12px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 13px;
+  font-family: Inter, sans-serif;
+  outline: none;
+  background: #fff;
+  width: 100%;
+  height: 40px;
+}
+
+.finance-filter-panel .filter-group select:focus,
+.finance-filter-panel .filter-group input:focus {
+  border-color: #0A4F44;
+  box-shadow: 0 0 0 3px rgba(10,79,68,0.1);
+}
+
+.finance-filter-panel .filter-actions {
+  display: flex;
+  gap: 8px;
+  align-items: flex-end;
+}
+
+[data-theme="dark"] .finance-filter-panel {
+  background: #1a1a2e;
+  border-color: rgba(255,255,255,0.1);
+}
+
+[data-theme="dark"] .finance-filter-panel .filter-group .filter-label {
+  color: #e2e8f0;
+}
+
+[data-theme="dark"] .finance-filter-panel .filter-group select,
+[data-theme="dark"] .finance-filter-panel .filter-group input {
+  background: rgba(255,255,255,0.06);
+  border-color: rgba(255,255,255,0.1);
+  color: #e2e8f0;
+}
+
+@media (max-width: 768px) {
+  .finance-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .finance-toolbar-left,
+  .finance-toolbar-right {
+    flex-wrap: wrap;
+  }
+  .finance-filter-grid {
+    grid-template-columns: 1fr;
+  }
+}

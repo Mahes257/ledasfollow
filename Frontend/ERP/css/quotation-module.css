@@ -1,0 +1,1385 @@
+/* ==========================================================================
+   QUOTATION MODULE — Enterprise Design System
+   Inherits the exact Sales Module design language (Sales Orders).
+   Uses the same design tokens, spacing, typography, colors, cards, tables,
+   buttons, filters, badges, modals, and responsive behavior.
+   ========================================================================== */
+
+/* ── Design Tokens (inherits from :root in styles.css + theme.css) ── */
+.qm-theme {
+    --qm-accent: var(--primary, #0B4A3D);
+    --qm-accent-light: var(--primary-light, #EDF7F4);
+    --qm-accent-hover: var(--primary-hover, #136754);
+    --qm-bg-card: var(--bg-card, #ffffff);
+    --qm-bg-secondary: var(--bg-secondary, #F8FAF9);
+    --qm-border: var(--border-color, #E5E7EB);
+    --qm-text: var(--text-primary, #111827);
+    --qm-text-secondary: var(--text-secondary, #4B5563);
+    --qm-text-muted: var(--text-muted, #9CA3AF);
+    --qm-radius: var(--radius, 12px);
+    --qm-radius-sm: var(--radius-sm, 8px);
+    --qm-radius-lg: var(--radius-lg, 16px);
+    --qm-shadow: var(--shadow);
+    --qm-shadow-lg: var(--shadow-lg);
+    --qm-success: var(--success, #16A34A);
+    --qm-warning: var(--warning, #F59E0B);
+    --qm-danger: var(--danger, #DC2626);
+    --qm-info: var(--info, #2563EB);
+    --qm-font: var(--font, 'Inter', sans-serif);
+    --qm-transition: var(--transition, 200ms ease);
+}
+
+/* ── Page Layout ── */
+.qm-page-content {
+    padding: 24px 32px;
+}
+
+/* ── Breadcrumb (Sales Module style) ── */
+.qm-breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--qm-text-secondary);
+    margin-bottom: 4px;
+}
+.qm-breadcrumb a {
+    color: var(--qm-accent);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color var(--qm-transition);
+}
+.qm-breadcrumb a:hover {
+    color: var(--qm-accent-hover);
+    text-decoration: underline;
+}
+.qm-breadcrumb i {
+    font-size: 10px;
+    color: var(--qm-text-muted);
+}
+.qm-breadcrumb span {
+    color: var(--qm-text-secondary);
+    font-weight: 500;
+}
+
+/* ── Page Header (Sales Module style) ── */
+.qm-page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+.qm-page-header h1 {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--qm-text);
+    margin: 0;
+    letter-spacing: -0.3px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.qm-page-header h1 i {
+    color: var(--qm-accent);
+}
+.qm-page-header-actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.qm-page-header-subtitle {
+    font-size: 13px;
+    color: var(--qm-text-secondary);
+    margin: 4px 0 0;
+}
+
+/* ── KPI Cards Grid (Sales Module style matching salesorders.css .so-kpi-grid) ── */
+.qm-kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+}
+.qm-kpi-card {
+    background: var(--qm-bg-card);
+    border: 1px solid var(--qm-border);
+    border-radius: var(--qm-radius);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    cursor: pointer;
+    transition: all var(--qm-transition);
+    position: relative;
+    overflow: hidden;
+}
+.qm-kpi-card:hover {
+    box-shadow: var(--qm-shadow);
+    border-color: var(--qm-accent);
+    transform: translateY(-2px);
+}
+.qm-kpi-card.active {
+    border-color: var(--qm-accent);
+    background: var(--qm-accent-light);
+}
+.qm-kpi-card .qm-kpi-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 4px;
+}
+.qm-kpi-card .qm-kpi-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+}
+.qm-kpi-card .qm-kpi-value {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--qm-text);
+    line-height: 1.2;
+}
+.qm-kpi-card .qm-kpi-label {
+    font-size: 12px;
+    color: var(--qm-text-secondary);
+    font-weight: 500;
+}
+.qm-kpi-card .qm-kpi-sub {
+    font-size: 11px;
+    color: var(--qm-text-muted);
+    margin-top: 2px;
+}
+.qm-kpi-card .qm-kpi-trend {
+    font-size: 11px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 2px;
+}
+.qm-kpi-card .qm-kpi-trend.up { color: var(--qm-success); }
+.qm-kpi-card .qm-kpi-trend.down { color: var(--qm-danger); }
+
+/* ── Segmented Control (Sales Module style) ── */
+.qm-segmented-control {
+    display: flex;
+    gap: 4px;
+    padding: 4px;
+    background: var(--qm-bg-secondary);
+    border-radius: var(--qm-radius-sm);
+    margin-bottom: 16px;
+    border: 1px solid var(--qm-border);
+    flex-wrap: wrap;
+}
+.qm-segmented-option {
+    padding: 8px 16px;
+    border-radius: var(--qm-radius-sm);
+    border: none;
+    background: transparent;
+    color: var(--qm-text-secondary);
+    font-size: 13px;
+    font-weight: 500;
+    font-family: var(--qm-font);
+    cursor: pointer;
+    transition: all var(--qm-transition);
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.qm-segmented-option:hover {
+    color: var(--qm-text);
+    background: var(--qm-bg-card);
+}
+.qm-segmented-option.active {
+    background: var(--qm-bg-card);
+    color: var(--qm-accent);
+    font-weight: 600;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+.qm-segmented-option .tab-count {
+    font-size: 11px;
+    padding: 1px 6px;
+    border-radius: 10px;
+    background: var(--qm-accent-light);
+    color: var(--qm-accent);
+    font-weight: 600;
+}
+
+/* ── Cards (Sales Module accordion style) ── */
+.qm-card {
+    background: var(--qm-bg-card);
+    border: 1px solid var(--qm-border);
+    border-radius: var(--qm-radius-lg);
+    margin-bottom: 16px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    overflow: hidden;
+}
+.qm-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 20px;
+    cursor: pointer;
+    user-select: none;
+}
+.qm-card-header h3 {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--qm-text);
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.qm-card-header h3 i {
+    color: var(--qm-accent);
+    font-size: 14px;
+}
+.qm-card-header .qm-chevron {
+    font-size: 14px;
+    color: var(--qm-text-muted);
+    transition: transform 0.2s;
+}
+.qm-card-body {
+    padding: 20px;
+    border-top: 1px solid var(--qm-border);
+}
+.qm-card-body:empty {
+    display: none;
+}
+
+/* ── Filters (Horizontal filter bar, Sales Module style) ── */
+.qm-filter-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 16px;
+    align-items: end;
+}
+.qm-filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+.qm-filter-group .qm-filter-label {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--qm-text);
+}
+.qm-filter-group select,
+.qm-filter-group input {
+    padding: 8px 12px;
+    border: 1px solid var(--qm-border);
+    border-radius: var(--qm-radius-sm);
+    font-size: 13px;
+    font-family: var(--qm-font);
+    outline: none;
+    background: var(--qm-bg-card);
+    width: 100%;
+    height: 40px;
+    transition: border-color var(--qm-transition);
+    box-sizing: border-box;
+}
+.qm-filter-group select:focus,
+.qm-filter-group input:focus {
+    border-color: var(--qm-accent);
+    box-shadow: 0 0 0 3px rgba(11,74,61,0.1);
+}
+.qm-filter-actions {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid var(--qm-border);
+}
+.qm-applied-filters {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+.qm-filter-chip {
+    padding: 4px 10px;
+    background: var(--qm-accent-light);
+    border-radius: 6px;
+    font-size: 12px;
+    color: var(--qm-accent);
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+.qm-filter-chip i {
+    cursor: pointer;
+    font-size: 10px;
+}
+
+/* ── Search Input ── */
+.qm-search-wrap {
+    position: relative;
+    width: 320px;
+}
+.qm-search-wrap .qm-search-icon {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--qm-text-muted);
+    font-size: 13px;
+    pointer-events: none;
+}
+.qm-search-wrap input {
+    width: 100%;
+    padding: 8px 14px 8px 32px;
+    height: 36px;
+    border: 1px solid var(--qm-border);
+    border-radius: var(--qm-radius-sm);
+    font-size: 13px;
+    background: var(--qm-bg-card);
+    color: var(--qm-text);
+    font-family: var(--qm-font);
+    outline: none;
+    box-sizing: border-box;
+    transition: border-color var(--qm-transition);
+}
+.qm-search-wrap input:focus {
+    border-color: var(--qm-accent);
+    box-shadow: 0 0 0 3px rgba(11,74,61,0.08);
+}
+
+/* ── Toolbar ── */
+.qm-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+.qm-toolbar-left {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.qm-toolbar-right {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+/* ── Table (Sales Module style matching components.css) ── */
+.qm-table-wrap {
+    overflow-x: auto;
+    border: 1px solid var(--qm-border);
+    border-radius: var(--qm-radius);
+    background: var(--qm-bg-card);
+}
+.qm-table {
+    width: max-content;
+    min-width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+}
+.qm-table thead {
+    background: var(--qm-accent);
+}
+.qm-table th {
+    padding: 0 16px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+    color: #ffffff;
+    background: var(--qm-accent);
+    border: 1px solid var(--qm-accent-hover);
+    white-space: nowrap;
+    vertical-align: middle;
+    height: 48px;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    cursor: pointer;
+    user-select: none;
+}
+.qm-table th:first-child {
+    padding-left: 20px;
+}
+.qm-table th:last-child {
+    padding-right: 20px;
+    cursor: default;
+    text-align: center;
+}
+.qm-table th.sortable i {
+    margin-left: 4px;
+    font-size: 12px;
+    opacity: 0.6;
+    color: rgba(255,255,255,0.6);
+}
+.qm-table th.sortable:hover i {
+    opacity: 1;
+}
+.qm-table th.sort-asc i,
+.qm-table th.sort-desc i {
+    opacity: 1;
+    color: #ffffff;
+}
+.qm-table td {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--qm-border);
+    color: var(--qm-text-secondary);
+    vertical-align: middle;
+}
+.qm-table td:first-child {
+    padding-left: 20px;
+}
+.qm-table td:last-child {
+    padding-right: 20px;
+    text-align: center;
+}
+.qm-table tbody tr:hover td {
+    background: var(--qm-accent-light);
+}
+.qm-table tbody tr:nth-child(even) td {
+    background: var(--qm-bg-secondary);
+}
+.qm-table tbody tr:nth-child(even):hover td {
+    background: var(--qm-accent-light);
+}
+.qm-table td.text-right {
+    text-align: right;
+}
+.qm-table td.text-center {
+    text-align: center;
+}
+.qm-table .qm-link {
+    color: var(--qm-accent);
+    text-decoration: none;
+    font-weight: 500;
+}
+.qm-table .qm-link:hover {
+    text-decoration: underline;
+}
+.qm-table .qm-client {
+    font-weight: 500;
+    color: var(--qm-text);
+}
+.qm-table .qm-amount {
+    font-weight: 600;
+    color: var(--qm-text);
+}
+/* Checkbox width/alignment handled by unified.css (erp-checkbox component) */
+.qm-table input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    accent-color: var(--qm-accent);
+}
+
+/* ── Sortable columns ── */
+.qm-table .fa-sort,
+.qm-table .fa-sort-up,
+.qm-table .fa-sort-down {
+    color: rgba(255,255,255,0.6);
+    margin-left: 3px;
+}
+.qm-table .fa-sort-up,
+.qm-table .fa-sort-down {
+    color: #fff;
+}
+
+/* ── Status Badges (Sales Module style matching components.css .badge) ── */
+.qm-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    white-space: nowrap;
+    line-height: 1.5;
+    letter-spacing: 0.2px;
+}
+.qm-badge i { font-size: 7px; }
+
+.qm-badge-draft { background: #F3F4F6; color: #6B7280; }
+.qm-badge-pending-approval { background: #FEF3C7; color: #D97706; }
+.qm-badge-approved { background: #F0FDF4; color: #16A34A; }
+.qm-badge-sent { background: #DBEAFE; color: #2563EB; }
+.qm-badge-viewed { background: #E0F2FE; color: #0284C7; }
+.qm-badge-accepted { background: #D1FAE5; color: #059669; }
+.qm-badge-rejected { background: #FEE2E2; color: #DC2626; }
+.qm-badge-expired { background: #F3F4F6; color: #9CA3AF; }
+.qm-badge-cancelled { background: #F3F4F6; color: #9CA3AF; }
+.qm-badge-converted-to-contract { background: #DBEAFE; color: #2563EB; }
+
+[data-theme="dark"] .qm-badge-draft { background: rgba(107,114,128,0.15); color: #9CA3AF; }
+[data-theme="dark"] .qm-badge-pending-approval { background: rgba(217,119,6,0.15); color: #FBBF24; }
+[data-theme="dark"] .qm-badge-approved { background: rgba(22,163,74,0.15); color: #4ADE80; }
+[data-theme="dark"] .qm-badge-sent { background: rgba(37,99,235,0.15); color: #93C5FD; }
+[data-theme="dark"] .qm-badge-viewed { background: rgba(2,132,199,0.15); color: #7DD3FC; }
+[data-theme="dark"] .qm-badge-accepted { background: rgba(5,150,105,0.15); color: #6EE7B7; }
+[data-theme="dark"] .qm-badge-rejected { background: rgba(220,38,38,0.15); color: #FCA5A5; }
+[data-theme="dark"] .qm-badge-expired { background: rgba(156,163,175,0.15); color: #9CA3AF; }
+[data-theme="dark"] .qm-badge-cancelled { background: rgba(156,163,175,0.15); color: #9CA3AF; }
+[data-theme="dark"] .qm-badge-converted-to-contract { background: rgba(37,99,235,0.15); color: #93C5FD; }
+
+/* ── Buttons (Sales Module style matching components.css .btn, .erp-btn-primary) ── */
+.qm-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    height: 40px;
+    padding: 0 22px;
+    border-radius: var(--qm-radius-sm);
+    font-size: 14px;
+    font-weight: 500;
+    font-family: var(--qm-font);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 1px solid transparent;
+    text-decoration: none;
+    line-height: 1;
+    white-space: nowrap;
+}
+.qm-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+.qm-btn:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+.qm-btn-primary {
+    background: linear-gradient(135deg, #136754 0%, #0B4A3D 55%, #003930 100%);
+    color: #fff;
+    border: none;
+    box-shadow: 0 2px 8px rgba(11,74,61,0.25);
+}
+.qm-btn-primary:hover {
+    background: linear-gradient(135deg, #17806A 0%, #0F5C4C 55%, #04473B 100%);
+    box-shadow: 0 6px 18px rgba(11,74,61,0.35);
+    color: #fff;
+}
+.qm-btn-secondary {
+    background: var(--qm-bg-card);
+    color: var(--qm-text);
+    border-color: var(--qm-border);
+}
+.qm-btn-secondary:hover {
+    background: var(--qm-bg-secondary);
+    border-color: var(--qm-text-muted);
+    color: var(--qm-text);
+}
+.qm-btn-ghost {
+    background: transparent;
+    color: var(--qm-text-secondary);
+    border-color: transparent;
+}
+.qm-btn-ghost:hover {
+    background: var(--qm-bg-secondary);
+    transform: none;
+    box-shadow: none;
+}
+.qm-btn-success {
+    background: var(--qm-success);
+    color: #fff;
+    border-color: var(--qm-success);
+}
+.qm-btn-success:hover { background: #15803d; }
+.qm-btn-danger {
+    background: var(--qm-danger);
+    color: #fff;
+    border-color: var(--qm-danger);
+}
+.qm-btn-danger:hover { background: #b91c1c; }
+.qm-btn-sm {
+    height: 32px;
+    padding: 0 14px;
+    font-size: 12px;
+    border-radius: var(--qm-radius-sm);
+}
+.qm-btn-icon {
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+.qm-btn-icon.qm-btn-sm {
+    width: 32px;
+    height: 32px;
+}
+
+/* ── Action Menus (Three-dot) ── */
+.qm-action-menu-wrap {
+    display: inline-block;
+    position: relative;
+}
+.qm-action-menu-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    border: none;
+    background: transparent;
+    color: var(--qm-text-secondary);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s ease;
+    font-size: 16px;
+}
+.qm-action-menu-btn:hover {
+    background: var(--qm-accent-light);
+    color: var(--qm-accent);
+}
+.qm-action-menu {
+    position: absolute;
+    right: 0;
+    top: 100%;
+    width: 240px;
+    background: var(--qm-bg-card);
+    border-radius: var(--qm-radius);
+    box-shadow: 0 10px 35px rgba(0,0,0,.15);
+    padding: 8px;
+    z-index: 99999;
+    display: none;
+    animation: actionMenuFadeIn 0.12s ease-out;
+    border: 1px solid var(--qm-border);
+}
+.qm-action-menu.open {
+    display: block;
+}
+@keyframes actionMenuFadeIn {
+    from { opacity: 0; transform: translateY(-4px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+.qm-action-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    padding: 10px 14px;
+    border: none;
+    border-radius: var(--qm-radius-sm);
+    font-size: 13px;
+    font-weight: 500;
+    font-family: var(--qm-font);
+    color: var(--qm-text);
+    background: none;
+    cursor: pointer;
+    white-space: nowrap;
+    text-align: left;
+    transition: background 0.12s ease, color 0.12s ease;
+}
+.qm-action-item:hover {
+    background: var(--qm-accent-light);
+    color: var(--qm-accent);
+}
+.qm-action-item i {
+    width: 18px;
+    text-align: center;
+    font-size: 14px;
+    flex-shrink: 0;
+    color: var(--qm-text-secondary);
+}
+.qm-action-item:hover i {
+    color: var(--qm-accent);
+}
+.qm-action-item.text-danger { color: var(--qm-danger); }
+.qm-action-item.text-danger i { color: var(--qm-danger); }
+.qm-action-item.text-danger:hover { background: rgba(239,68,68,0.08); }
+.qm-action-item.text-success { color: var(--qm-success); }
+.qm-action-item.text-success i { color: var(--qm-success); }
+.qm-action-item.text-success:hover { background: rgba(34,197,94,0.08); }
+.qm-action-menu .qm-menu-divider {
+    height: 1px;
+    background: var(--qm-border);
+    margin: 6px 8px;
+}
+.qm-action-menu-heading {
+    padding: 8px 14px 4px;
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--qm-text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    pointer-events: none;
+}
+
+/* ── Pagination (Sales Module style) ── */
+.qm-pagination {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 20px;
+    border-top: 1px solid var(--qm-border);
+    font-size: 13px;
+    color: var(--qm-text-secondary);
+    flex-wrap: wrap;
+    gap: 8px;
+}
+.qm-pagination .qm-page-btns {
+    display: flex;
+    gap: 4px;
+}
+.qm-pagination .qm-page-btns button {
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    border: 1px solid var(--qm-border);
+    background: var(--qm-bg-card);
+    color: var(--qm-text);
+    cursor: pointer;
+    font-size: 13px;
+    font-family: var(--qm-font);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s;
+}
+.qm-pagination .qm-page-btns button:hover {
+    background: var(--qm-accent-light);
+    border-color: var(--qm-accent);
+}
+.qm-pagination .qm-page-btns button.active {
+    background: var(--qm-accent);
+    color: #fff;
+    border-color: var(--qm-accent);
+}
+.qm-pagination .qm-page-btns button:disabled {
+    opacity: 0.4;
+    cursor: default;
+}
+.qm-pagination select {
+    padding: 4px 8px;
+    border: 1px solid var(--qm-border);
+    border-radius: 6px;
+    font-size: 13px;
+    font-family: var(--qm-font);
+    outline: none;
+    background: var(--qm-bg-card);
+}
+
+/* ── Empty State ── */
+.qm-empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--qm-text-muted);
+}
+.qm-empty-state i {
+    font-size: 48px;
+    display: block;
+    margin-bottom: 12px;
+    color: #D1D5DB;
+}
+.qm-empty-state h3 {
+    font-size: 18px;
+    color: var(--qm-text);
+    margin: 0 0 8px;
+}
+.qm-empty-state p {
+    font-size: 14px;
+    color: var(--qm-text-muted);
+    margin: 0 0 20px;
+}
+
+/* ── Dashboard Chart Cards ── */
+.qm-dash-chart {
+    background: var(--qm-bg-card);
+    border: 1px solid var(--qm-border);
+    border-radius: var(--qm-radius-lg);
+    overflow: hidden;
+    margin-bottom: 20px;
+    transition: box-shadow var(--qm-transition);
+}
+.qm-dash-chart:hover {
+    box-shadow: var(--qm-shadow);
+}
+.qm-dash-chart-header {
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--qm-border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+.qm-dash-chart-header h3 {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--qm-text);
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.qm-dash-chart-header h3 i {
+    color: var(--qm-accent);
+    font-size: 14px;
+}
+.qm-dash-chart-body {
+    padding: 16px 20px;
+}
+.qm-chart-grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-bottom: 20px;
+}
+.qm-chart-grid-2 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+/* ── View Switcher ── */
+.qm-view-switcher {
+    display: inline-flex;
+    gap: 4px;
+    padding: 4px;
+    background: var(--qm-bg-secondary);
+    border-radius: var(--qm-radius-sm);
+    border: 1px solid var(--qm-border);
+    margin-bottom: 20px;
+}
+.qm-view-btn {
+    padding: 6px 14px;
+    border-radius: var(--qm-radius-sm);
+    border: none;
+    background: transparent;
+    color: var(--qm-text-secondary);
+    font-size: 13px;
+    font-weight: 500;
+    font-family: var(--qm-font);
+    cursor: pointer;
+    transition: all var(--qm-transition);
+}
+.qm-view-btn:hover {
+    color: var(--qm-text);
+    background: var(--qm-bg-card);
+}
+.qm-view-btn.active {
+    background: var(--qm-bg-card);
+    color: var(--qm-accent);
+    font-weight: 600;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+
+/* ── Activity Timeline ── */
+.qm-timeline {
+    position: relative;
+    padding: 8px 0;
+}
+.qm-timeline::before {
+    content: '';
+    position: absolute;
+    left: 17px;
+    top: 24px;
+    bottom: 24px;
+    width: 2px;
+    background: var(--qm-border);
+}
+.qm-timeline-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 10px 0;
+    position: relative;
+}
+.qm-timeline-icon {
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    color: #fff;
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+}
+.qm-timeline-icon.success { background: var(--qm-success); }
+.qm-timeline-icon.info { background: var(--qm-accent); }
+.qm-timeline-icon.warning { background: var(--qm-warning); }
+.qm-timeline-icon.danger { background: var(--qm-danger); }
+.qm-timeline-icon.neutral { background: var(--qm-text-muted); }
+
+.qm-timeline-content {
+    flex: 1;
+    padding-top: 6px;
+}
+.qm-timeline-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--qm-text);
+    margin-bottom: 2px;
+}
+.qm-timeline-desc {
+    font-size: 12px;
+    color: var(--qm-text-secondary);
+    margin-bottom: 2px;
+}
+.qm-timeline-time {
+    font-size: 11px;
+    color: var(--qm-text-muted);
+}
+.qm-timeline-user {
+    font-size: 11px;
+    color: var(--qm-accent);
+    font-weight: 500;
+}
+
+/* ── Linked Document Card ── */
+.qm-linked-doc {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    background: var(--qm-bg-secondary);
+    border: 1px solid var(--qm-border);
+    border-radius: var(--qm-radius-sm);
+    transition: all var(--qm-transition);
+    cursor: pointer;
+}
+.qm-linked-doc:hover {
+    border-color: var(--qm-accent);
+    background: var(--qm-accent-light);
+}
+.qm-linked-doc-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+}
+.qm-linked-doc-icon.doc { background: #E8F0EE; color: var(--qm-accent); }
+.qm-linked-doc-icon.so { background: #FEF3C7; color: #D97706; }
+.qm-linked-doc-icon.invoice { background: #DBEAFE; color: #2563EB; }
+.qm-linked-doc-icon.contract { background: #F0FDF4; color: #16A34A; }
+.qm-linked-doc-info {
+    flex: 1;
+    min-width: 0;
+}
+.qm-linked-doc-info .qm-doc-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--qm-text);
+}
+.qm-linked-doc-info .qm-doc-sub {
+    font-size: 12px;
+    color: var(--qm-text-secondary);
+}
+.qm-linked-doc-info .qm-doc-status {
+    font-size: 11px;
+    margin-top: 2px;
+}
+.qm-linked-doc-arrow {
+    color: var(--qm-text-muted);
+    font-size: 14px;
+}
+
+/* ── Workflow Timeline (Horizontal progress) ── */
+.qm-wf-steps {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 16px 0 8px;
+    gap: 0;
+    min-width: 700px;
+}
+.qm-wf-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    flex: 1;
+    min-width: 60px;
+    position: relative;
+}
+.qm-wf-step-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    font-size: 13px;
+    color: #fff;
+}
+.qm-wf-step-icon.done { background: var(--qm-success); }
+.qm-wf-step-icon.current {
+    background: var(--qm-accent);
+    box-shadow: 0 0 0 4px rgba(11,74,61,0.25);
+    animation: qmPulse 2s infinite;
+}
+@keyframes qmPulse {
+    0% { box-shadow: 0 0 0 0 rgba(11,74,61,0.3); }
+    70% { box-shadow: 0 0 0 8px rgba(11,74,61,0); }
+    100% { box-shadow: 0 0 0 0 rgba(11,74,61,0); }
+}
+.qm-wf-step-icon.pending {
+    background: #F3F4F6;
+    color: #9CA3AF;
+    border: 2px dashed #D1D5DB;
+}
+.qm-wf-step-icon.rejected { background: var(--qm-danger); }
+.qm-wf-step-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--qm-text);
+    line-height: 1.3;
+    max-width: 100px;
+    margin-top: 4px;
+}
+.qm-wf-step-label.done { color: var(--qm-success); }
+.qm-wf-step-label.current { color: var(--qm-accent); font-weight: 700; }
+.qm-wf-step-label.pending { color: var(--qm-text-muted); }
+.qm-wf-step-label.rejected { color: var(--qm-danger); }
+.qm-wf-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 8px;
+    color: var(--qm-border);
+    flex-shrink: 0;
+}
+.qm-wf-arrow.active { color: var(--qm-accent); }
+
+/* ── Modal (Sales Module style matching components.css) ── */
+.qm-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    z-index: 2000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+.qm-modal-overlay.open {
+    display: flex;
+}
+.qm-modal {
+    background: var(--qm-bg-card);
+    border-radius: var(--qm-radius-lg);
+    width: 100%;
+    max-width: 600px;
+    max-height: 85vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+    border: 1px solid var(--qm-border);
+}
+.qm-modal-lg { max-width: 900px; }
+.qm-modal-header {
+    padding: 20px 24px 16px;
+    border-bottom: 1px solid var(--qm-border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    background: var(--qm-bg-card);
+    z-index: 1;
+}
+.qm-modal-header h3 {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0;
+    color: var(--qm-text);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.qm-modal-header h3 i { color: var(--qm-accent); }
+.qm-modal-close {
+    width: 32px;
+    height: 32px;
+    border-radius: var(--qm-radius-sm);
+    border: none;
+    background: var(--qm-bg-secondary);
+    color: var(--qm-text-secondary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    transition: background 0.15s;
+}
+.qm-modal-close:hover {
+    background: var(--qm-border);
+    color: var(--qm-text);
+}
+.qm-modal-body {
+    padding: 20px 24px;
+}
+.qm-modal-footer {
+    padding: 16px 24px;
+    border-top: 1px solid var(--qm-border);
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    position: sticky;
+    bottom: 0;
+    background: var(--qm-bg-card);
+}
+
+/* ── Row actions (quick action buttons in table) ── */
+.qm-row-actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+}
+.qm-row-actions .qm-btn-icon {
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    border-radius: var(--qm-radius-sm);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--qm-text-secondary);
+    background: none;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: all 0.15s;
+}
+.qm-row-actions .qm-btn-icon:hover {
+    background: var(--qm-accent-light);
+    color: var(--qm-accent);
+    border-color: var(--qm-border);
+}
+.qm-row-actions .qm-btn-icon.text-danger:hover {
+    background: rgba(239,68,68,0.08);
+    color: var(--qm-danger);
+    border-color: rgba(239,68,68,0.2);
+}
+.qm-row-actions .qm-btn-icon.text-success:hover {
+    background: rgba(22,163,74,0.08);
+    color: var(--qm-success);
+    border-color: rgba(22,163,74,0.2);
+}
+
+/* ── Detail sections (View page) ── */
+.qm-detail-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 20px;
+    align-items: start;
+}
+.qm-info-card {
+    padding: 20px;
+}
+.qm-info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+.qm-info-field {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+.qm-info-field label {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--qm-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+.qm-info-field .qm-value {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--qm-text);
+    padding: 4px 0;
+}
+.qm-info-field .qm-value a {
+    color: var(--qm-accent);
+    text-decoration: none;
+    font-weight: 600;
+}
+.qm-info-field .qm-value a:hover { text-decoration: underline; }
+.qm-info-field .qm-value-muted {
+    color: var(--qm-text-muted);
+    font-weight: 400;
+}
+
+/* ── Totals Panel ── */
+.qm-totals {
+    max-width: 360px;
+    margin-left: auto;
+}
+.qm-total-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 0;
+    font-size: 13px;
+    color: var(--qm-text);
+}
+.qm-total-row span:first-child {
+    color: var(--qm-text-secondary);
+}
+.qm-total-row span:last-child {
+    font-weight: 600;
+}
+.qm-total-grand {
+    border-top: 2px solid var(--qm-accent);
+    margin-top: 4px;
+    padding-top: 10px;
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--qm-text);
+}
+.qm-total-grand span:last-child {
+    color: var(--qm-accent);
+    font-size: 20px;
+}
+.qm-total-words {
+    font-size: 11px;
+    color: var(--qm-text-muted);
+    font-style: italic;
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid var(--qm-border);
+}
+
+/* ── Form Styles ── */
+.qm-form-grid {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 24px;
+    align-items: start;
+}
+.qm-form-main {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    min-width: 0;
+}
+.qm-form-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    position: sticky;
+    top: 90px;
+}
+.qm-form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+.qm-form-label {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--qm-text);
+    margin-bottom: 2px;
+}
+.qm-form-input,
+.qm-form-select,
+.qm-form-textarea {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid var(--qm-border);
+    border-radius: var(--qm-radius-sm);
+    font-size: 13px;
+    font-family: var(--qm-font);
+    color: var(--qm-text);
+    background: var(--qm-bg-card);
+    outline: none;
+    transition: border-color var(--qm-transition);
+    box-sizing: border-box;
+}
+.qm-form-input:focus,
+.qm-form-select:focus,
+.qm-form-textarea:focus {
+    border-color: var(--qm-accent);
+    box-shadow: 0 0 0 3px rgba(11,74,61,0.08);
+}
+.qm-form-input::placeholder,
+.qm-form-textarea::placeholder {
+    color: var(--qm-text-muted);
+}
+.qm-form-textarea {
+    resize: vertical;
+    min-height: 70px;
+    line-height: 1.5;
+}
+.qm-form-select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    padding-right: 30px;
+    cursor: pointer;
+}
+.qm-form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+}
+.qm-form-row-3 {
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+/* ── Sidebar navigation active state for Quotation pages ── */
+[data-page^="quotation-"] .nav-item[data-page="quotations"],
+[data-page="quotation-dashboard"] .nav-item[data-page="quotations"],
+body[data-page*="quotation"] .nav-item[data-page="quotations"] {
+    background: var(--bg-sidebar-active, rgba(79,70,229,0.15));
+    color: var(--text-sidebar-active, #ffffff);
+}
+
+/* ── Responsive (matches Sales Module responsive breakpoints) ── */
+@media (max-width: 1399px) {
+    .qm-table-wrap { overflow-x: auto; }
+    .qm-table { min-width: 1000px; }
+}
+@media (max-width: 1199px) {
+    .qm-chart-grid-3 { grid-template-columns: 1fr 1fr; }
+    .qm-kpi-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
+}
+@media (max-width: 991px) {
+    .qm-detail-grid { grid-template-columns: 1fr; }
+    .qm-form-grid { grid-template-columns: 1fr; }
+    .qm-form-sidebar { position: static; }
+    .qm-chart-grid-2 { grid-template-columns: 1fr; }
+    .qm-chart-grid-3 { grid-template-columns: 1fr; }
+}
+@media (max-width: 768px) {
+    .qm-page-content { padding: 16px; }
+    .qm-page-header { flex-direction: column; align-items: flex-start; }
+    .qm-page-header-actions { width: 100%; }
+    .qm-kpi-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .qm-toolbar { flex-direction: column; align-items: flex-start; }
+    .qm-toolbar-left, .qm-toolbar-right { width: 100%; }
+    .qm-search-wrap { width: 100%; }
+    .qm-info-grid { grid-template-columns: 1fr; }
+    .qm-form-row { grid-template-columns: 1fr; }
+    .qm-form-row-3 { grid-template-columns: 1fr; }
+    .qm-filter-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 576px) {
+    .qm-kpi-grid { grid-template-columns: 1fr; }
+}

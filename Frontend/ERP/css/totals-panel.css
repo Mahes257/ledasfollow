@@ -1,0 +1,134 @@
+/* ===== SHARED TOTALS PANEL ===== */
+/* Right sidebar totals card with consistent label/value alignment */
+/* Matches the DC Create reference design */
+
+.sh-totals-card {
+    border: 1px solid var(--iv-border, #E5E7EB);
+    border-radius: var(--iv-radius, 12px);
+    margin-bottom: 16px;
+}
+
+.sh-totals-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 12px;
+    background: #FAFBFC;
+    border-bottom: 1px solid var(--iv-border, #E5E7EB);
+}
+.sh-totals-card-header h4 {
+    margin: 0;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--iv-text, #1E293B);
+}
+
+.sh-totals-card-body {
+    padding: 12px;
+}
+
+/* Toggle */
+.sh-totals-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--iv-text-muted, #64748B);
+    cursor: pointer;
+}
+.sh-totals-toggle input[type="checkbox"] {
+    accent-color: #0A4F44;
+    width: 13px;
+    height: 13px;
+}
+
+/* Total rows - consistent spacing */
+.sh-total-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 0;
+    font-size: 13px;
+    min-height: 32px;
+}
+.sh-total-row .sh-total-label {
+    color: var(--iv-text-muted, #64748B);
+    flex: 1;
+}
+.sh-total-row .sh-total-value {
+    font-weight: 600;
+    color: var(--iv-text, #1E293B);
+    text-align: right;
+    min-width: 80px;
+}
+
+/* Editable total rows (discount, charges) */
+.sh-total-row .sh-total-input {
+    width: 80px;
+    height: 30px;
+    border: 1px solid var(--iv-border, #E5E7EB);
+    border-radius: 6px;
+    padding: 0 6px;
+    font-family: var(--iv-font, 'Inter', -apple-system, sans-serif);
+    font-size: 12px;
+    color: var(--iv-text, #1E293B);
+    text-align: right;
+    outline: none;
+    background: #fff;
+}
+.sh-total-row .sh-total-input:focus {
+    border-color: #0A4F44;
+    box-shadow: 0 0 0 2px rgba(10,79,68,0.08);
+}
+
+/* Divider */
+.sh-total-divider {
+    height: 1px;
+    background: var(--iv-border, #E5E7EB);
+    margin: 4px 0;
+}
+
+/* Grand total row - prominent */
+.sh-total-grand {
+    padding: 8px 0 4px;
+}
+.sh-total-grand .sh-total-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--iv-text, #1E293B);
+}
+.sh-total-grand .sh-total-value {
+    font-size: 16px;
+    font-weight: 700;
+    color: #0A4F44;
+}
+
+/* Words row */
+.sh-total-words {
+    font-size: 11px;
+    color: var(--iv-text-muted, #64748B);
+    font-style: italic;
+    padding: 4px 0 6px;
+    border-top: 1px solid var(--iv-border, #E5E7EB);
+    margin-top: 6px;
+}
+
+/* Custom fields button */
+.sh-total-add-field {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: var(--iv-font, 'Inter', -apple-system, sans-serif);
+    font-size: 12px;
+    font-weight: 500;
+    color: #0A4F44;
+    padding: 6px 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.15s;
+}
+.sh-total-add-field:hover {
+    color: #083D34;
+}

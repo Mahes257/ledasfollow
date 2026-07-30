@@ -1,0 +1,237 @@
+/* ===== DEBIT NOTES MODULE ===== */
+
+/* --- KPI Cards (reuse inv-* styles from invoices page) --- */
+[data-page="debit-notes"] .page-content {
+    width: calc(100vw - 60px);
+    max-width: none;
+    padding: 24px;
+}
+
+/* Create page: full-width container */
+[data-page="debit-note-create"] .page-content {
+    width: 100%;
+    max-width: none;
+}
+
+/* --- Stepper --- */
+.dn-stepper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 24px;
+}
+.dn-step {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.dn-step-num {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #e5e7eb;
+    color: #6b7280;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 600;
+}
+.dn-step.active .dn-step-num {
+    background: linear-gradient(135deg, var(--accent, #0A4F44), #0B4A3D);
+    color: #fff;
+}
+.dn-step-text {
+    font-size: 14px;
+    font-weight: 500;
+    color: #374151;
+}
+.dn-step.active .dn-step-text {
+    color: var(--accent, #0A4F44);
+    font-weight: 600;
+}
+.dn-step-divider {
+    width: 60px;
+    height: 2px;
+    background: #e5e7eb;
+}
+
+/* --- Debit Note layout reuses pi-* classes from invoice-create.css --- */
+
+/* --- DN Items table --- */
+#dnItemsBody input[type="text"],
+#dnItemsBody input[type="number"],
+#dnItemsBody select {
+    width: 100%;
+    padding: 6px 8px;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    font-size: 13px;
+    font-family: Inter, sans-serif;
+    background: #fff;
+    outline: none;
+    box-sizing: border-box;
+}
+#dnItemsBody input:focus,
+#dnItemsBody select:focus {
+    border-color: var(--accent, #0A4F44);
+    box-shadow: 0 0 0 2px rgba(10,79,68,0.1);
+}
+#dnItemsBody .dn-item-img {
+    width: 32px;
+    height: 32px;
+    object-fit: cover;
+    border-radius: 4px;
+    vertical-align: middle;
+}
+#dnItemsBody .dn-desc-row textarea {
+    width: 100%;
+    padding: 6px 8px;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    font-size: 13px;
+    font-family: Inter, sans-serif;
+    resize: vertical;
+    outline: none;
+    box-sizing: border-box;
+}
+#dnItemsBody .dn-desc-row textarea:focus {
+    border-color: var(--accent, #0A4F44);
+    box-shadow: 0 0 0 2px rgba(10,79,68,0.1);
+}
+#dnItemsBody .dn-group-row td {
+    background: #f8f6ff;
+    font-weight: 600;
+    color: var(--accent, #0A4F44);
+    padding: 8px 12px;
+}
+#dnItemsBody .dn-group-row td input {
+    background: transparent;
+    border: none;
+    font-weight: 600;
+    color: var(--accent, #0A4F44);
+    padding: 0;
+}
+#dnItemsBody .dn-unit-input {
+    width: 50px !important;
+    margin-left: 4px;
+}
+
+/* --- Empty state --- */
+.dn-empty-state {
+    padding: 40px 20px;
+    text-align: center;
+    color: #9ca3af;
+}
+.dn-empty-state i {
+    font-size: 32px;
+    display: block;
+    margin-bottom: 8px;
+}
+
+/* --- Page-specific overrides for create page topbar --- */
+[data-page="debit-note-create"] .topbar {
+    display: none !important;
+    background: linear-gradient(135deg, var(--accent, #0A4F44), #0B4A3D) !important;
+    color: #fff;
+    position: fixed;
+    top: 0;
+    left: 60px;
+    right: 0;
+    height: 56px;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    padding: 0 24px;
+}
+[data-page="debit-note-create"] .main-area {
+    margin-left: 60px;
+}
+[data-page="debit-note-create"] .topbar-title {
+    color: #fff;
+    font-size: 18px;
+    margin: 0;
+}
+[data-page="debit-note-create"] .topbar .notification-btn {
+    color: rgba(255,255,255,0.85);
+}
+[data-page="debit-note-create"] .topbar .user-avatar {
+    background: rgba(255,255,255,0.2);
+    color: #fff;
+}
+
+/* --- GST Modal radio labels --- */
+.iv-radio-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.15s;
+    background: #fff;
+    color: #374151;
+}
+.iv-radio-label:hover {
+    border-color: #E5E7EB;
+}
+.iv-radio-label input[type="radio"],
+.iv-radio-label input[type="checkbox"] {
+    accent-color: var(--accent, #0A4F44);
+    margin: 0;
+}
+
+/* --- Create page layout: full-width item table, 70/30 bottom --- */
+[data-page="debit-note-create"] .item-table-section {
+    margin-bottom: 24px;
+}
+
+[data-page="debit-note-create"] .dn-bottom-grid {
+    display: grid;
+    grid-template-columns: 70fr 30fr;
+    gap: 24px;
+    align-items: start;
+    margin-bottom: 24px;
+}
+
+[data-page="debit-note-create"] .dn-bottom-left {
+    min-width: 0;
+}
+
+[data-page="debit-note-create"] .dn-bottom-right {
+    min-width: 0;
+}
+
+[data-page="debit-note-create"] .dn-bottom-right .pi-right-card,
+[data-page="debit-note-create"] .dn-bottom-right .sh-totals-card {
+    margin-bottom: 16px;
+}
+
+/* Advanced Options: full width, start expanded */
+[data-page="debit-note-create"] .pi-advanced-card {
+    margin-bottom: 24px;
+}
+
+/* Bottom bar */
+[data-page="debit-note-create"] .pi-bottom-bar {
+    margin-top: 0;
+}
+
+/* Responsive */
+@media (max-width: 1399px) {
+    #dnTable { min-width: 1000px; }
+}
+@media (max-width: 1024px) {
+    [data-page="debit-note-create"] .dn-bottom-grid {
+        grid-template-columns: 1fr;
+    }
+}
+@media (max-width: 768px) {
+    .inv-kpi-cards { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+}
+@media (max-width: 576px) {
+    .inv-kpi-cards { grid-template-columns: 1fr; }
+}

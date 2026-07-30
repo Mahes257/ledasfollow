@@ -1,0 +1,4149 @@
+/* ==========================================================================
+   UNIFIED DESIGN SYSTEM — VISHAK TECH ERP
+   Load this AFTER theme.css as the final visual layer.
+   It bridges ALL module-specific class systems (sales-*, po-*, vm-*, prm-*,
+   qtn-*, client-*) so every page looks and feels identical.
+   
+   Principles:
+   - ZERO HTML changes needed — pure CSS overrides
+   - All filter panels: hidden by default, horizontal layout
+   - All tables: same headers, spacing, hover, pagination
+   - All cards: same border-radius, shadow, padding
+   - All buttons: same height, font, color, hover
+   - All forms: same input height, labels, spacing
+   - All breadcrumbs: same look and feel
+   - All KPI cards: same dimensions and interaction
+   - All badges: same color semantics across modules
+   ========================================================================== */
+
+/* ==========================================================================
+   1. BOOTSTRAP OVERRIDE — Make Bootstrap pages match the app design system
+   ========================================================================== */
+
+/* Override Bootstrap cards to match app cards */
+.bootstrap .card,
+.page-content .card,
+.main-area .card {
+    background: var(--bg-card, #ffffff) !important;
+    border: 1px solid var(--border-color, #e5e7eb) !important;
+    border-radius: var(--radius-lg, 16px) !important;
+    box-shadow: var(--shadow-sm, 0 1px 3px rgba(0,0,0,0.04)) !important;
+    transition: box-shadow 0.2s ease, transform 0.2s ease !important;
+}
+
+.bootstrap .card:hover,
+.page-content .card:hover {
+    box-shadow: var(--shadow-md, 0 6px 20px rgba(0,0,0,0.08)) !important;
+}
+
+.bootstrap .card-header,
+.page-content .card-header {
+    padding: 18px 20px !important;
+    border-bottom: 1px solid var(--border-color, #e5e7eb) !important;
+    background: transparent !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+}
+
+.bootstrap .card-header h3,
+.bootstrap .card-header h5,
+.bootstrap .card-header h6,
+.page-content .card-header h3,
+.page-content .card-header h5,
+.page-content .card-header h6 {
+    font-size: var(--text-card-title-size, 18px) !important;
+    font-weight: 600 !important;
+    margin: 0 !important;
+    color: var(--text-heading, #111827) !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+}
+
+.bootstrap .card-body,
+.page-content .card-body {
+    padding: 20px !important;
+}
+
+.bootstrap .card-body.p-0,
+.page-content .card-body.p-0 {
+    padding: 0 !important;
+}
+
+/* Override Bootstrap tables */
+.bootstrap .table,
+.page-content .table,
+.table-hover {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    font-size: 13px !important;
+    margin-bottom: 0 !important;
+    color: var(--text-body, #374151) !important;
+}
+
+.bootstrap .table thead th,
+.page-content .table thead th,
+.table-hover thead th {
+    padding: 0 16px !important;
+    text-align: left !important;
+    font-weight: 600 !important;
+    font-size: 13px !important;
+    letter-spacing: 0.2px !important;
+    text-transform: none !important;
+    color: #ffffff !important;
+    background: var(--primary, #0B4A3D) !important;
+    border: 1px solid var(--primary-dark, #136754) !important;
+    white-space: nowrap !important;
+    vertical-align: middle !important;
+    height: 52px !important;
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 10 !important;
+}
+
+.bootstrap .table thead th:first-child,
+.page-content .table thead th:first-child {
+    padding-left: 20px !important;
+}
+
+.bootstrap .table thead th:last-child,
+.page-content .table thead th:last-child {
+    padding-right: 20px !important;
+}
+
+.bootstrap .table tbody td,
+.page-content .table tbody td {
+    padding: 15px 16px !important;
+    border-bottom: 1px solid var(--border-color, #e5e7eb) !important;
+    color: var(--text-body, #4B5563) !important;
+    vertical-align: middle !important;
+}
+
+.bootstrap .table tbody td:first-child,
+.page-content .table tbody td:first-child {
+    padding-left: 20px !important;
+}
+
+.bootstrap .table tbody td:last-child,
+.page-content .table tbody td:last-child {
+    padding-right: 20px !important;
+}
+
+.bootstrap .table tbody tr:hover td,
+.page-content .table tbody tr:hover td {
+    background: var(--bg-hover, #EDF7F4) !important;
+}
+
+.bootstrap .table tbody tr:nth-child(even) td,
+.page-content .table tbody tr:nth-child(even) td {
+    background: var(--bg-secondary, #FBFCFC) !important;
+}
+
+.bootstrap .table tbody tr:nth-child(even):hover td,
+.page-content .table tbody tr:nth-child(even):hover td {
+    background: var(--bg-hover, #EDF7F4) !important;
+}
+
+/* Override Bootstrap form controls */
+.bootstrap .form-control,
+.page-content .form-control {
+    width: 100% !important;
+    padding: 8px 12px !important;
+    border: 1px solid var(--border-input, #e5e7eb) !important;
+    border-radius: var(--radius-sm, 8px) !important;
+    font-size: 13px !important;
+    font-family: var(--font, 'Inter', sans-serif) !important;
+    color: var(--text-primary, #374151) !important;
+    background: var(--bg-card, #fff) !important;
+    outline: none !important;
+    height: 40px !important;
+    box-shadow: none !important;
+    transition: border-color 0.15s, box-shadow 0.15s !important;
+}
+
+.bootstrap .form-control:focus,
+.page-content .form-control:focus {
+    border-color: var(--accent, #0B4A3D) !important;
+    box-shadow: var(--shadow-input, 0 0 0 3px rgba(11,74,61,0.12)) !important;
+}
+
+.bootstrap .form-select,
+.page-content .form-select {
+    width: 100% !important;
+    padding: 8px 30px 8px 12px !important;
+    border: 1px solid var(--border-input, #e5e7eb) !important;
+    border-radius: var(--radius-sm, 8px) !important;
+    font-size: 13px !important;
+    font-family: var(--font, 'Inter', sans-serif) !important;
+    color: var(--text-primary, #374151) !important;
+    background: var(--bg-card, #fff) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E") no-repeat right 10px center !important;
+    outline: none !important;
+    height: 40px !important;
+    appearance: none !important;
+    -webkit-appearance: none !important;
+    box-shadow: none !important;
+    cursor: pointer !important;
+    transition: border-color 0.15s, box-shadow 0.15s !important;
+}
+
+.bootstrap .form-select:focus,
+.page-content .form-select:focus {
+    border-color: var(--accent, #0B4A3D) !important;
+    box-shadow: var(--shadow-input, 0 0 0 3px rgba(11,74,61,0.12)) !important;
+}
+
+.bootstrap .form-label,
+.page-content .form-label {
+    display: block !important;
+    font-size: 13px !important;
+    font-weight: 500 !important;
+    color: var(--text-primary, #374151) !important;
+    margin-bottom: 6px !important;
+}
+
+.bootstrap .form-textarea,
+.page-content .form-textarea {
+    width: 100% !important;
+    padding: 8px 12px !important;
+    border: 1px solid var(--border-input, #e5e7eb) !important;
+    border-radius: var(--radius-sm, 8px) !important;
+    font-size: 13px !important;
+    font-family: var(--font, 'Inter', sans-serif) !important;
+    color: var(--text-primary, #374151) !important;
+    background: var(--bg-card, #fff) !important;
+    outline: none !important;
+    min-height: 80px !important;
+    resize: vertical !important;
+    transition: border-color 0.15s, box-shadow 0.15s !important;
+}
+
+.bootstrap .form-textarea:focus,
+.page-content .form-textarea:focus {
+    border-color: var(--accent, #0B4A3D) !important;
+    box-shadow: var(--shadow-input, 0 0 0 3px rgba(11,74,61,0.12)) !important;
+}
+
+/* Override Bootstrap buttons to match app buttons */
+.bootstrap .btn,
+.page-content .btn {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 8px !important;
+    height: 40px !important;
+    padding: 0 22px !important;
+    border-radius: var(--radius-sm, 10px) !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    font-family: var(--font, 'Inter', sans-serif) !important;
+    cursor: pointer !important;
+    transition: all 0.2s ease !important;
+    border: 1px solid transparent !important;
+    text-decoration: none !important;
+    line-height: 1 !important;
+    white-space: nowrap !important;
+    background: var(--bg-card, #ffffff) !important;
+    color: var(--text-body, #374151) !important;
+    border-color: var(--border-input, #D1D5DB) !important;
+    box-shadow: none !important;
+}
+
+.bootstrap .btn:hover,
+.page-content .btn:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1) !important;
+}
+
+.bootstrap .btn:active,
+.page-content .btn:active {
+    transform: translateY(0) !important;
+}
+
+.bootstrap .btn-primary,
+.page-content .btn-primary {
+    background: var(--gradient-primary, linear-gradient(135deg, #136754 0%, #0B4A3D 55%, #003930 100%)) !important;
+    border-color: transparent !important;
+    color: var(--blush, #E8C9B5) !important;
+    box-shadow: 0 2px 8px rgba(11,74,61,0.25) !important;
+}
+
+.bootstrap .btn-primary:hover,
+.page-content .btn-primary:hover {
+    background: var(--gradient-primary-hover, linear-gradient(135deg, #17806A 0%, #0F5C4C 55%, #04473B 100%)) !important;
+    box-shadow: 0 6px 18px rgba(11,74,61,0.35) !important;
+    transform: translateY(-2px) !important;
+}
+
+.bootstrap .btn-sm,
+.page-content .btn-sm {
+    height: 32px !important;
+    padding: 0 14px !important;
+    font-size: 12px !important;
+    border-radius: var(--radius-sm, 8px) !important;
+}
+
+.bootstrap .btn-ghost,
+.page-content .btn-ghost {
+    background: transparent !important;
+    color: var(--text-secondary, #6B7280) !important;
+    border-color: transparent !important;
+}
+
+.bootstrap .btn-ghost:hover,
+.page-content .btn-ghost:hover {
+    background: var(--primary-light, #F3F4F6) !important;
+    color: var(--primary, #0B4A3D) !important;
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+.bootstrap .btn-danger,
+.page-content .btn-danger {
+    background: var(--danger, #dc2626) !important;
+    color: #fff !important;
+    border-color: var(--danger, #dc2626) !important;
+}
+
+.bootstrap .btn-danger:hover,
+.page-content .btn-danger:hover {
+    filter: brightness(0.92) !important;
+}
+
+/* Override Bootstrap badges */
+.bootstrap .badge,
+.page-content .badge {
+    display: inline-flex !important;
+    align-items: center !important;
+    padding: 4px 12px !important;
+    border-radius: 20px !important;
+    font-size: 11px !important;
+    font-weight: 600 !important;
+    line-height: 1.4 !important;
+    white-space: nowrap !important;
+    letter-spacing: 0.2px !important;
+}
+
+.bootstrap .bg-success,
+.page-content .bg-success {
+    background: var(--success-bg, #F0FDF4) !important;
+    color: var(--success, #16a34a) !important;
+}
+
+.bootstrap .bg-warning,
+.page-content .bg-warning {
+    background: var(--warning-bg, #FFFBEB) !important;
+    color: var(--warning, #D97706) !important;
+}
+
+.bootstrap .bg-danger,
+.page-content .bg-danger {
+    background: var(--danger-bg, #FEF2F2) !important;
+    color: var(--danger, #DC2626) !important;
+}
+
+.bootstrap .bg-info,
+.page-content .bg-info {
+    background: var(--info-bg, #EFF6FF) !important;
+    color: var(--info, #2563EB) !important;
+}
+
+/* Override Bootstrap breadcrumbs */
+.bootstrap .breadcrumb,
+.page-content .breadcrumb {
+    padding: 0 !important;
+    margin: 0 !important;
+    background: transparent !important;
+    border-radius: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    font-size: 13px !important;
+    color: var(--text-muted, #94a3b8) !important;
+    margin-bottom: 8px !important;
+}
+
+.bootstrap .breadcrumb-item,
+.page-content .breadcrumb-item {
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    font-size: 13px !important;
+}
+
+.bootstrap .breadcrumb-item a,
+.page-content .breadcrumb-item a {
+    color: var(--accent, #0B4A3D) !important;
+    text-decoration: none !important;
+    font-weight: 500 !important;
+}
+
+.bootstrap .breadcrumb-item a:hover,
+.page-content .breadcrumb-item a:hover {
+    text-decoration: underline !important;
+}
+
+.bootstrap .breadcrumb-item.active,
+.page-content .breadcrumb-item.active {
+    color: var(--text-secondary, #64748b) !important;
+    font-weight: 500 !important;
+}
+
+.bootstrap .breadcrumb-item + .breadcrumb-item::before,
+.page-content .breadcrumb-item + .breadcrumb-item::before {
+    content: "›" !important;
+    color: var(--text-muted, #cbd5e1) !important;
+    padding: 0 !important;
+}
+
+/* Override Bootstrap modal */
+.bootstrap .modal-content,
+.page-content .modal-content {
+    background: var(--bg-card, #fff) !important;
+    border-radius: var(--radius-lg, 16px) !important;
+    border: 1px solid var(--border-color, #e5e7eb) !important;
+    box-shadow: var(--shadow-lg, 0 20px 60px rgba(0,0,0,0.15)) !important;
+}
+
+.bootstrap .modal-header,
+.page-content .modal-header {
+    padding: 20px 24px 16px !important;
+    border-bottom: 1px solid var(--border-color, #e5e7eb) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+}
+
+.bootstrap .modal-header .modal-title,
+.page-content .modal-header .modal-title {
+    font-size: 18px !important;
+    font-weight: 600 !important;
+    color: var(--text-heading, #111827) !important;
+}
+
+.bootstrap .modal-footer,
+.page-content .modal-footer {
+    padding: 16px 24px !important;
+    border-top: 1px solid var(--border-color, #e5e7eb) !important;
+    display: flex !important;
+    justify-content: flex-end !important;
+    gap: 10px !important;
+}
+
+.bootstrap .modal-body,
+.page-content .modal-body {
+    padding: 20px 24px !important;
+}
+
+/* Override Bootstrap input-group for search */
+.bootstrap .input-group,
+.page-content .input-group {
+    display: flex !important;
+    align-items: center !important;
+    border: 1px solid var(--border-input, #e5e7eb) !important;
+    border-radius: var(--radius-sm, 8px) !important;
+    background: var(--bg-card, #fff) !important;
+    overflow: hidden !important;
+}
+
+.bootstrap .input-group .input-group-text,
+.page-content .input-group .input-group-text {
+    background: transparent !important;
+    border: none !important;
+    color: var(--text-muted, #9ca3af) !important;
+    padding: 0 8px 0 12px !important;
+    font-size: 13px !important;
+}
+
+.bootstrap .input-group .form-control,
+.page-content .input-group .form-control {
+    border: none !important;
+    padding-left: 0 !important;
+    height: 36px !important;
+    background: transparent !important;
+}
+
+.bootstrap .input-group .form-control:focus,
+.page-content .input-group .form-control:focus {
+    box-shadow: none !important;
+}
+
+.bootstrap .input-group:focus-within,
+.page-content .input-group:focus-within {
+    border-color: var(--accent, #0B4A3D) !important;
+    box-shadow: var(--shadow-input, 0 0 0 3px rgba(11,74,61,0.12)) !important;
+}
+
+/* Override Bootstrap stat-icon (reports page) */
+.bootstrap .stat-icon,
+.page-content .stat-icon {
+    border-radius: var(--radius, 12px) !important;
+}
+
+/* Override Bootstrap row + g-3 spacing to use app grid gap */
+.bootstrap .row.g-3,
+.page-content .row.g-3 {
+    --bs-gutter-x: 16px !important;
+    --bs-gutter-y: 16px !important;
+}
+
+/* Override Bootstrap page-header */
+.bootstrap .page-header,
+.page-content .page-header {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    margin-bottom: 16px !important;
+    flex-wrap: wrap !important;
+    gap: 12px !important;
+}
+
+.bootstrap .page-header h4,
+.page-content .page-header h4 {
+    font-size: 24px !important;
+    font-weight: 700 !important;
+    color: var(--text-heading, #1e293b) !important;
+    margin: 0 !important;
+}
+
+/* Override Bootstrap toolbar */
+.bootstrap .toolbar,
+.page-content .toolbar {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    flex-wrap: wrap !important;
+    gap: 10px !important;
+}
+
+.bootstrap .toolbar-left,
+.page-content .toolbar-left {
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+}
+
+.bootstrap .toolbar-right,
+.page-content .toolbar-right {
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+}
+
+/* Override Bootstrap btn-close */
+.bootstrap .btn-close,
+.page-content .btn-close {
+    width: 32px !important;
+    height: 32px !important;
+    border-radius: 8px !important;
+    border: none !important;
+    background: var(--bg-secondary, #F3F4F6) !important;
+    color: var(--text-secondary, #6B7280) !important;
+    cursor: pointer !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 16px !important;
+    transition: background 0.15s !important;
+    opacity: 1 !important;
+    padding: 0 !important;
+}
+
+.bootstrap .btn-close:hover,
+.page-content .btn-close:hover {
+    background: var(--border-color, #E5E7EB) !important;
+    color: var(--text-primary, #111827) !important;
+}
+
+/* Override Bootstrap charts container */
+.bootstrap .chart-container,
+.page-content .chart-container {
+    position: relative !important;
+    min-height: 260px !important;
+}
+
+/* ==========================================================================
+   2. FILTER PANEL STANDARDIZATION — Hidden by default, horizontal layout
+   Override ALL module-specific filter patterns to look consistent
+   ========================================================================== */
+
+/* ALL filter panels: hidden by default */
+.po-filters,
+.prm-filters,
+.vm-filters,
+.client-filters,
+.qtn-filters,
+.sales-filter-panel,
+.filter-panel,
+.filter-container,
+#filterPanel,
+#qtnFilters,
+#invFiltersCard,
+#clientFilterPanel,
+#vlFilterPanel,
+#scFiltersCard,
+#cnFiltersCard,
+#prFiltersCard,
+#fupFilterPanel {
+    display: none !important;
+}
+
+/* Show when open */
+.po-filters.show,
+.po-filters.open,
+.prm-filters.show,
+.prm-filters.open,
+.vm-filters.show,
+.vm-filters.open,
+.client-filters.show,
+.client-filters.open,
+.qtn-filters.show,
+.qtn-filters.open,
+.sales-filter-panel.show,
+.sales-filter-panel.open,
+.filter-panel.show,
+.filter-panel.open,
+.filter-container.show,
+.filter-container.open,
+#filterPanel.show,
+#filterPanel.open,
+#qtnFilters.show,
+#qtnFilters.open,
+#invFiltersCard.show,
+#invFiltersCard.open,
+#clientFilterPanel.show,
+#clientFilterPanel.open,
+#vlFilterPanel.show,
+#vlFilterPanel.open,
+#scFiltersCard.show,
+#scFiltersCard.open,
+#cnFiltersCard.show,
+#cnFiltersCard.open,
+#prFiltersCard.show,
+#prFiltersCard.open,
+#fupFilterPanel.show,
+#fupFilterPanel.open {
+    display: block !important;
+}
+
+/* Standard filter grid: horizontal layout */
+.sales-filter-grid,
+.po-filter-grid,
+.prm-filter-grid,
+.vm-filter-grid,
+.client-filter-grid,
+.qtn-filter-grid,
+.finance-filter-grid,
+#vlFilterPanel .sales-filter-grid,
+#vlFilterPanel > div,
+#qtnFilters > div,
+#invFiltersCard > div,
+#filterPanel > div,
+#clientFilterPanel > div,
+#scFiltersCard .sales-filter-grid,
+#scFiltersCard > div,
+#cnFiltersCard .sales-filter-grid,
+#cnFiltersCard > div,
+#prFiltersCard .finance-filter-grid,
+#prFiltersCard > div,
+#fupFilterPanel .sales-filter-grid,
+#fupFilterPanel > div {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)) !important;
+    gap: 16px !important;
+    align-items: end !important;
+}
+
+/* Standard filter group */
+.filter-group,
+.po-filter-group,
+.prm-filter-group,
+.vm-filter-group,
+.client-filter-group,
+.qtn-filter-group,
+.finance-filter-group,
+.sales-filter-panel .filter-group {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 6px !important;
+}
+
+/* Standard filter label */
+.filter-label,
+.po-filter-group label,
+.prm-filter-label,
+.vm-filter-label,
+.client-filter-label,
+.qtn-filter-label,
+.finance-filter-grid .filter-label,
+.sales-filter-panel .filter-label {
+    font-size: 13px !important;
+    font-weight: 500 !important;
+    color: var(--text-primary, #374151) !important;
+    margin-bottom: 0 !important;
+}
+
+/* Standard filter inputs/selects */
+.filter-group select,
+.filter-group input,
+.po-filter-group select,
+.po-filter-group input,
+.prm-filter-group select,
+.prm-filter-group input,
+.prm-filter-select,
+.prm-filter-input,
+.vm-filter-group select,
+.vm-filter-group input,
+.client-filter-group select,
+.client-filter-group input,
+.qtn-filter-group select,
+.qtn-filter-group input,
+.finance-filter-grid select,
+.finance-filter-grid input,
+.sales-filter-panel select,
+.sales-filter-panel input {
+    padding: 8px 12px !important;
+    border: 1px solid var(--border-input, #e5e7eb) !important;
+    border-radius: var(--radius-sm, 8px) !important;
+    font-size: 13px !important;
+    font-family: var(--font, 'Inter', sans-serif) !important;
+    color: var(--text-primary, #374151) !important;
+    background: var(--bg-card, #fff) !important;
+    outline: none !important;
+    width: 100% !important;
+    height: 40px !important;
+    box-sizing: border-box !important;
+    transition: border-color 0.15s, box-shadow 0.15s !important;
+}
+
+.filter-group select:focus,
+.filter-group input:focus,
+.po-filter-group select:focus,
+.po-filter-group input:focus,
+.prm-filter-group select:focus,
+.prm-filter-group input:focus,
+.prm-filter-select:focus,
+.prm-filter-input:focus,
+.vm-filter-group select:focus,
+.vm-filter-group input:focus,
+.client-filter-group select:focus,
+.client-filter-group input:focus,
+.qtn-filter-group select:focus,
+.qtn-filter-group input:focus,
+.finance-filter-grid select:focus,
+.finance-filter-grid input:focus,
+.sales-filter-panel select:focus,
+.sales-filter-panel input:focus {
+    border-color: var(--accent, #0B4A3D) !important;
+    box-shadow: var(--shadow-input, 0 0 0 3px rgba(11,74,61,0.12)) !important;
+}
+
+/* Filter actions row */
+.filter-actions,
+.po-filter-actions {
+    display: flex !important;
+    gap: 8px !important;
+    align-items: flex-end !important;
+}
+
+/* Standard filter panel background */
+.sales-filter-panel,
+.po-filters,
+.prm-filters,
+.vm-filters,
+.client-filters,
+.qtn-filters,
+.finance-filter-panel,
+#filterPanel,
+#qtnFilters,
+#invFiltersCard,
+#vlFilterPanel,
+#clientFilterPanel,
+#scFiltersCard,
+#cnFiltersCard,
+#prFiltersCard,
+#fupFilterPanel {
+    background: var(--bg-card, #ffffff) !important;
+    border: 1px solid var(--border-color, #e5e7eb) !important;
+    border-radius: var(--radius-lg, 16px) !important;
+    padding: 20px 24px !important;
+    margin-bottom: 20px !important;
+    box-shadow: var(--shadow-xs, 0 1px 3px rgba(0,0,0,0.04)) !important;
+}
+
+/* ==========================================================================
+   3. BREADCRUMB STANDARDIZATION
+   ========================================================================== */
+
+.sales-breadcrumb,
+.po-breadcrumb,
+.vm-breadcrumb,
+.client-breadcrumb,
+.qtn-breadcrumb {
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    font-size: 13px !important;
+    color: var(--text-muted, #94a3b8) !important;
+    margin-bottom: 8px !important;
+}
+
+.sales-breadcrumb a,
+.po-breadcrumb a,
+.vm-breadcrumb a,
+.client-breadcrumb a,
+.qtn-breadcrumb a {
+    color: var(--accent, #0B4A3D) !important;
+    text-decoration: none !important;
+    font-weight: 500 !important;
+}
+
+.sales-breadcrumb a:hover,
+.po-breadcrumb a:hover,
+.vm-breadcrumb a:hover,
+.client-breadcrumb a:hover,
+.qtn-breadcrumb a:hover {
+    text-decoration: underline !important;
+}
+
+.sales-breadcrumb i,
+.po-breadcrumb i,
+.vm-breadcrumb i,
+.client-breadcrumb i,
+.qtn-breadcrumb i {
+    font-size: 10px !important;
+    color: var(--text-muted, #cbd5e1) !important;
+}
+
+.sales-breadcrumb span,
+.po-breadcrumb span,
+.vm-breadcrumb span,
+.client-breadcrumb span,
+.qtn-breadcrumb span {
+    color: var(--text-secondary, #64748b) !important;
+    font-weight: 500 !important;
+}
+
+/* ==========================================================================
+   4. PAGE HEADER STANDARDIZATION
+   ========================================================================== */
+
+.sales-page-header,
+.po-page-header,
+.vm-header,
+.client-header,
+.qtn-page-header {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    margin-bottom: 16px !important;
+    flex-wrap: wrap !important;
+    gap: 12px !important;
+}
+
+.sales-page-header h1,
+.po-page-header h1,
+.vm-header h1,
+.client-header h1,
+.qtn-page-header h1 {
+    font-size: 24px !important;
+    font-weight: 700 !important;
+    color: var(--text-heading, #1e293b) !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    margin: 0 !important;
+}
+
+.sales-page-header h1 i,
+.po-page-header h1 i,
+.vm-header h1 i,
+.client-header h1 i,
+.qtn-page-header h1 i {
+    color: var(--accent, #0B4A3D) !important;
+}
+
+.sales-page-header-actions,
+.po-page-header-actions,
+.vm-header-actions,
+.client-header-actions,
+.qtn-page-header-actions {
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+}
+
+.po-page-header-subtitle,
+.vm-header-desc,
+.client-header-desc,
+.qtn-page-header-subtitle {
+    font-size: 13px !important;
+    color: var(--text-muted, #6b7280) !important;
+    margin: 2px 0 0 0 !important;
+}
+
+/* ==========================================================================
+   5. TOOLBAR STANDARDIZATION
+   ========================================================================== */
+
+.sales-toolbar,
+.po-toolbar,
+.client-toolbar,
+.vm-toolbar,
+.qtn-toolbar,
+.table-toolbar {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    margin-bottom: 12px !important;
+    flex-wrap: wrap !important;
+    gap: 10px !important;
+}
+
+.sales-toolbar-left,
+.po-toolbar-left,
+.client-toolbar-left,
+.vm-toolbar-left,
+.qtn-toolbar-left,
+.table-toolbar-left {
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    flex-wrap: wrap !important;
+}
+
+.sales-toolbar-right,
+.po-toolbar-right,
+.client-toolbar-right,
+.vm-toolbar-right,
+.qtn-toolbar-right,
+.table-toolbar-right {
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+    flex-wrap: wrap !important;
+}
+
+/* Standard search input — consistent 360px, 40px height, 10px radius, search icon on left */
+.sales-search-input {
+    width: 360px !important;
+    padding: 8px 14px 8px 36px !important;
+    height: 40px !important;
+    border: 1px solid var(--border-input, #e5e7eb) !important;
+    border-radius: 10px !important;
+    font-size: 13px !important;
+    background: var(--bg-card, #fff) !important;
+    color: var(--text-body, #374151) !important;
+    font-family: var(--font, 'Inter', sans-serif) !important;
+    outline: none !important;
+    box-sizing: border-box !important;
+    transition: border-color 0.15s, box-shadow 0.15s !important;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%239ca3af' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cline x1='21' y1='21' x2='16.65' y2='16.65'/%3E%3C/svg%3E");
+    background-repeat: no-repeat !important;
+    background-position: left 12px center !important;
+    background-size: 14px !important;
+}
+.sales-search-input:focus {
+    border-color: var(--accent, #0B4A3D) !important;
+    box-shadow: var(--shadow-input, 0 0 0 3px rgba(11,74,61,0.12)) !important;
+}
+.sales-search-input::placeholder {
+    color: var(--text-muted, #9ca3af) !important;
+    font-size: 13px !important;
+}
+
+/* Tablet: narrower search */
+@media (max-width: 1200px) {
+    .sales-search-input {
+        width: 280px !important;
+    }
+}
+
+/* Mobile: full width search */
+@media (max-width: 768px) {
+    .sales-search-input {
+        width: 100% !important;
+    }
+}
+
+/* Legacy search box IDs — aliased to .sales-search-input for consistency */
+#vlSearchInput,
+#clientSearchInput,
+#fupSearchInput,
+#rfqSearch,
+#qaSearch,
+#cwSearchInput,
+#dcSearchInput,
+#scSearchInput,
+#soSearchInput,
+#qlSearch,
+#qtnSearchInput {
+    width: 360px !important;
+    padding: 8px 14px 8px 36px !important;
+    height: 40px !important;
+    border: 1px solid var(--border-input, #e5e7eb) !important;
+    border-radius: 10px !important;
+    font-size: 13px !important;
+    background: var(--bg-card, #fff) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%239ca3af' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cline x1='21' y1='21' x2='16.65' y2='16.65'/%3E%3C/svg%3E") no-repeat left 12px center !important;
+    background-size: 14px !important;
+    color: var(--text-body, #374151) !important;
+    font-family: var(--font, 'Inter', sans-serif) !important;
+    outline: none !important;
+    box-sizing: border-box !important;
+    transition: border-color 0.15s, box-shadow 0.15s !important;
+}
+#vlSearchInput:focus,
+#clientSearchInput:focus,
+#fupSearchInput:focus,
+#rfqSearch:focus,
+#qaSearch:focus,
+#cwSearchInput:focus,
+#dcSearchInput:focus,
+#scSearchInput:focus,
+#soSearchInput:focus,
+#qlSearch:focus,
+#qtnSearchInput:focus {
+    border-color: var(--accent, #0B4A3D) !important;
+    box-shadow: var(--shadow-input, 0 0 0 3px rgba(11,74,61,0.12)) !important;
+}
+#vlSearchInput::placeholder,
+#clientSearchInput::placeholder,
+#fupSearchInput::placeholder,
+#rfqSearch::placeholder,
+#qaSearch::placeholder,
+#cwSearchInput::placeholder,
+#dcSearchInput::placeholder,
+#scSearchInput::placeholder,
+#soSearchInput::placeholder,
+#qlSearch::placeholder,
+#qtnSearchInput::placeholder {
+    color: var(--text-muted, #9ca3af) !important;
+    font-size: 13px !important;
+}
+
+@media (max-width: 1200px) {
+    #vlSearchInput,
+    #clientSearchInput,
+    #fupSearchInput,
+    #rfqSearch,
+    #qaSearch,
+    #cwSearchInput,
+    #dcSearchInput,
+    #scSearchInput,
+    #soSearchInput,
+    #qlSearch,
+    #qtnSearchInput {
+        width: 280px !important;
+    }
+}
+@media (max-width: 768px) {
+    #vlSearchInput,
+    #clientSearchInput,
+    #fupSearchInput,
+    #rfqSearch,
+    #qaSearch,
+    #cwSearchInput,
+    #dcSearchInput,
+    #scSearchInput,
+    #soSearchInput,
+    #qlSearch,
+    #qtnSearchInput {
+        width: 100% !important;
+    }
+}
+
+/* ===== Toolbar standardization: finance-toolbar ===== */
+.finance-toolbar {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    margin-bottom: 12px !important;
+    flex-wrap: wrap !important;
+    gap: 10px !important;
+}
+.finance-toolbar-left {
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    flex-wrap: wrap !important;
+}
+.finance-toolbar-right {
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+    flex-wrap: wrap !important;
+}
+
+/* ==========================================================================
+   6. TABLE STANDARDIZATION — All tables get the same headers
+   ========================================================================== */
+
+/* Card wrapper around tables */
+.po-table-card,
+.sales-table-card,
+.client-table-card,
+.client-card,
+.vm-card,
+.prm-card,
+.qtn-table-card,
+.purchase-table-card {
+    background: var(--bg-card, #ffffff) !important;
+    border: 1px solid var(--border-color, #e5e7eb) !important;
+    border-radius: var(--radius-lg, 14px) !important;
+    box-shadow: var(--shadow-xs, 0 1px 3px rgba(0,0,0,0.04)) !important;
+    margin-bottom: 20px !important;
+    overflow: hidden !important;
+}
+
+/* Table overflow wrapper */
+.po-table-wrap,
+.sales-table-wrap,
+.client-table-wrap,
+.vm-table-wrap,
+.prm-table-wrap,
+.qtn-table-wrap {
+    overflow-x: auto !important;
+}
+
+/* Table header standardization */
+.po-table thead th,
+.sales-table thead th,
+.client-table thead th,
+.vm-table thead th,
+.qtn-table thead th,
+.prm-table thead th,
+.so-table thead th,
+.sc-table thead th,
+.cn-table thead th,
+#vendorTable thead th,
+#poTable thead th,
+#invTable thead th,
+#qtnTable thead th,
+#clientTable thead th,
+#vlTable thead th,
+#prTable thead th,
+#soTable thead th,
+#scTable thead th,
+#cnTable thead th,
+#leadTable thead th,
+#fupTable thead th,
+#contactTable thead th,
+.por-records-table thead th,
+.linked-contacts-table thead th,
+.prc-payment-table thead th,
+.vm-contacts-table thead th,
+.pipe-table thead th,
+.pipe-stage-table thead th,
+.pr-ts-table thead th {
+    padding: 0 16px !important;
+    text-align: left !important;
+    font-weight: 600 !important;
+    font-size: 13px !important;
+    letter-spacing: 0.2px !important;
+    text-transform: none !important;
+    color: #ffffff !important;
+    background: var(--primary, #0B4A3D) !important;
+    border: 1px solid var(--primary-dark, #136754) !important;
+    white-space: nowrap !important;
+    vertical-align: middle !important;
+    height: 52px !important;
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 10 !important;
+}
+
+/* Override any dark theme overrides to keep headers consistent */
+[data-theme="dark"] .po-table thead th,
+[data-theme="dark"] .sales-table thead th,
+[data-theme="dark"] .client-table thead th,
+[data-theme="dark"] .vm-table thead th,
+[data-theme="dark"] .qtn-table thead th,
+[data-theme="dark"] .prm-table thead th,
+[data-theme="dark"] .so-table thead th,
+[data-theme="dark"] .sc-table thead th,
+[data-theme="dark"] .cn-table thead th,
+[data-theme="dark"] #vendorTable thead th,
+[data-theme="dark"] #poTable thead th,
+[data-theme="dark"] #invTable thead th,
+[data-theme="dark"] #qtnTable thead th,
+[data-theme="dark"] #clientTable thead th,
+[data-theme="dark"] #vlTable thead th,
+[data-theme="dark"] #prTable thead th,
+[data-theme="dark"] #soTable thead th,
+[data-theme="dark"] #scTable thead th,
+[data-theme="dark"] #cnTable thead th,
+[data-theme="dark"] #leadTable thead th,
+[data-theme="dark"] #fupTable thead th,
+[data-theme="dark"] #contactTable thead th {
+    background: var(--primary, #0B4A3D) !important;
+    color: #ffffff !important;
+    border-color: var(--primary-dark, #136754) !important;
+}
+
+/* Table body cell standardization */
+.po-table tbody td,
+.sales-table tbody td,
+.client-table tbody td,
+.vm-table tbody td,
+.qtn-table tbody td,
+.prm-table tbody td,
+.so-table tbody td,
+.sc-table tbody td,
+.cn-table tbody td,
+#vendorTable tbody td,
+#poTable tbody td,
+#invTable tbody td,
+#qtnTable tbody td,
+#clientTable tbody td,
+#vlTable tbody td,
+#prTable tbody td,
+#soTable tbody td,
+#scTable tbody td,
+#cnTable tbody td,
+#leadTable tbody td,
+#fupTable tbody td,
+#contactTable tbody td,
+.por-records-table tbody td,
+.linked-contacts-table tbody td,
+.prc-payment-table tbody td,
+.vm-contacts-table tbody td,
+.pipe-table tbody td,
+.pipe-stage-table tbody td,
+.pr-ts-table tbody td {
+    padding: 15px 16px !important;
+    border-bottom: 1px solid var(--border-color, #e5e7eb) !important;
+    color: var(--text-body, #4B5563) !important;
+    vertical-align: middle !important;
+    font-size: 13px !important;
+}
+
+.po-table tbody td:first-child,
+.sales-table tbody td:first-child,
+.client-table tbody td:first-child,
+.vm-table tbody td:first-child,
+.qtn-table tbody td:first-child,
+.prm-table tbody td:first-child,
+.so-table tbody td:first-child,
+.sc-table tbody td:first-child,
+.cn-table tbody td:first-child,
+#vendorTable tbody td:first-child,
+#poTable tbody td:first-child,
+#invTable tbody td:first-child,
+#qtnTable tbody td:first-child,
+#clientTable tbody td:first-child,
+#vlTable tbody td:first-child,
+#prTable tbody td:first-child,
+#soTable tbody td:first-child,
+#scTable tbody td:first-child,
+#cnTable tbody td:first-child,
+#leadTable tbody td:first-child,
+#fupTable tbody td:first-child,
+#contactTable tbody td:first-child {
+    padding-left: 20px !important;
+}
+
+.po-table tbody td:last-child,
+.sales-table tbody td:last-child,
+.client-table tbody td:last-child,
+.vm-table tbody td:last-child,
+.qtn-table tbody td:last-child,
+.prm-table tbody td:last-child,
+.so-table tbody td:last-child,
+.sc-table tbody td:last-child,
+.cn-table tbody td:last-child,
+#vendorTable tbody td:last-child,
+#poTable tbody td:last-child,
+#invTable tbody td:last-child,
+#qtnTable tbody td:last-child,
+#clientTable tbody td:last-child,
+#vlTable tbody td:last-child,
+#prTable tbody td:last-child,
+#soTable tbody td:last-child,
+#scTable tbody td:last-child,
+#cnTable tbody td:last-child,
+#leadTable tbody td:last-child,
+#fupTable tbody td:last-child,
+#contactTable tbody td:last-child {
+    padding-right: 20px !important;
+}
+
+/* Table hover */
+.po-table tbody tr:hover td,
+.sales-table tbody tr:hover td,
+.client-table tbody tr:hover td,
+.vm-table tbody tr:hover td,
+.qtn-table tbody tr:hover td,
+.prm-table tbody tr:hover td,
+.so-table tbody tr:hover td,
+.sc-table tbody tr:hover td,
+.cn-table tbody tr:hover td,
+#vendorTable tbody tr:hover td,
+#poTable tbody tr:hover td,
+#invTable tbody tr:hover td,
+#qtnTable tbody tr:hover td,
+#clientTable tbody tr:hover td,
+#vlTable tbody tr:hover td,
+#prTable tbody tr:hover td,
+#soTable tbody tr:hover td,
+#scTable tbody tr:hover td,
+#cnTable tbody tr:hover td,
+#leadTable tbody tr:hover td,
+#fupTable tbody tr:hover td,
+#contactTable tbody tr:hover td {
+    background: var(--bg-hover, #EDF7F4) !important;
+}
+
+/* Even row background */
+.po-table tbody tr:nth-child(even) td,
+.sales-table tbody tr:nth-child(even) td,
+.client-table tbody tr:nth-child(even) td,
+.vm-table tbody tr:nth-child(even) td,
+.qtn-table tbody tr:nth-child(even) td,
+.prm-table tbody tr:nth-child(even) td,
+.so-table tbody tr:nth-child(even) td,
+.sc-table tbody tr:nth-child(even) td,
+.cn-table tbody tr:nth-child(even) td,
+#vendorTable tbody tr:nth-child(even) td,
+#poTable tbody tr:nth-child(even) td,
+#invTable tbody tr:nth-child(even) td,
+#qtnTable tbody tr:nth-child(even) td,
+#clientTable tbody tr:nth-child(even) td,
+#vlTable tbody tr:nth-child(even) td,
+#prTable tbody tr:nth-child(even) td,
+#soTable tbody tr:nth-child(even) td,
+#scTable tbody tr:nth-child(even) td,
+#cnTable tbody tr:nth-child(even) td,
+#leadTable tbody tr:nth-child(even) td,
+#fupTable tbody tr:nth-child(even) td,
+#contactTable tbody tr:nth-child(even) td {
+    background: var(--bg-secondary, #FBFCFC) !important;
+}
+
+/* Sort icons */
+.po-table th .sort-icon,
+.sales-table th .sort-icon,
+.client-table th .sort-icon,
+.vm-table th .sort-icon,
+.qtn-table th .sort-icon,
+.prm-table th .sort-icon,
+.so-table th .sort-icon,
+.sc-table th .sort-icon,
+.cn-table th .sort-icon,
+#vendorTable th .sort-icon,
+#poTable th .sort-icon,
+#invTable th .sort-icon,
+#qtnTable th .sort-icon,
+#clientTable th .sort-icon,
+#vlTable th .sort-icon,
+#prTable th .sort-icon,
+#soTable th .sort-icon,
+#scTable th .sort-icon,
+#cnTable th .sort-icon,
+#leadTable th .sort-icon,
+#fupTable th .sort-icon,
+#contactTable th .sort-icon {
+    display: inline-block !important;
+    margin-left: 4px !important;
+    font-size: 10px !important;
+    opacity: 0.6 !important;
+    vertical-align: middle !important;
+    color: rgba(255,255,255,0.6) !important;
+}
+
+.po-table th:hover .sort-icon,
+.sales-table th:hover .sort-icon,
+#vendorTable th:hover .sort-icon,
+#vlTable th:hover .sort-icon {
+    opacity: 1 !important;
+}
+
+/* Document ID columns — never wrap (Lead No, CPR No, Quotation No, PO No, Client Code, Invoice No) */
+.col-doc-id { white-space: nowrap; word-break: keep-all; overflow-wrap: normal; }
+
+/* Table link styling — reuse vl-name component across CRM list pages */
+#vlTable .vl-name a,
+#clientTable .vl-name a { color: #0B4A3D; text-decoration: none; font-weight: 600; }
+#vlTable .vl-name a:hover,
+#clientTable .vl-name a:hover { text-decoration: underline; }
+
+/* ==========================================================================
+   7. PAGINATION STANDARDIZATION — Use vt-pagination pattern everywhere
+   ========================================================================== */
+
+/* Ensure all pagination containers use the standardized class pattern */
+#poPagination,
+#vlPagination,
+#clientPagination,
+#qtnPagination,
+#invPagination,
+#vendorPagination,
+#prListPagination,
+#cprPagination,
+#dcPagination,
+#cnPagination,
+#soPagination,
+#salesOrderPagination,
+#crPagination,
+#scPagination,
+#fupPagination,
+#contactPagination,
+#rfqPagination,
+#leadPagination,
+#prPagination,
+#cwPagination,
+.dnPagination,
+#expensePagination,
+#paymentPagination,
+#payoutPagination {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    padding: 12px 20px !important;
+    border-top: 1px solid var(--border-color, #e5e7eb) !important;
+    font-size: 13px !important;
+    color: var(--text-secondary, #6b7280) !important;
+    font-family: var(--font, 'Inter', sans-serif) !important;
+    flex-shrink: 0 !important;
+    flex-wrap: wrap !important;
+    gap: 8px !important;
+}
+
+/* Pagination buttons */
+#poPagination button,
+#vlPagination button,
+#clientPagination button,
+#qtnPagination button,
+#invPagination button,
+#vendorPagination button,
+#prListPagination button,
+#cprPagination button,
+#dcPagination button,
+#cnPagination button,
+#soPagination button,
+#salesOrderPagination button,
+#crPagination button,
+#scPagination button,
+#fupPagination button,
+#contactPagination button,
+#leadPagination button,
+#rfqPagination button,
+#cnPagination button,
+#cwPagination button,
+.dnPagination button,
+#expensePagination button,
+#paymentPagination button,
+#payoutPagination button,
+.vm-pagination .page-btns button,
+.vm-page-btns button,
+.prm-pagination button {
+    width: 36px !important;
+    height: 36px !important;
+    border-radius: 8px !important;
+    border: 1px solid var(--border-color, #e5e7eb) !important;
+    background: var(--bg-card, #fff) !important;
+    color: var(--text-body, #374151) !important;
+    cursor: pointer !important;
+    font-size: 13px !important;
+    font-family: var(--font, 'Inter', sans-serif) !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    transition: all 0.15s !important;
+    line-height: 1 !important;
+    padding: 0 !important;
+}
+
+#poPagination button:hover:not(:disabled):not(.active),
+#vlPagination button:hover:not(:disabled):not(.active),
+#clientPagination button:hover:not(:disabled):not(.active),
+#qtnPagination button:hover:not(:disabled):not(.active),
+#invPagination button:hover:not(:disabled):not(.active),
+#vendorPagination button:hover:not(:disabled):not(.active),
+#scPagination button:hover:not(:disabled):not(.active),
+#fupPagination button:hover:not(:disabled):not(.active),
+#cnPagination button:hover:not(:disabled):not(.active),
+#leadPagination button:hover:not(:disabled):not(.active),
+#contactPagination button:hover:not(:disabled):not(.active),
+#rfqPagination button:hover:not(:disabled):not(.active),
+#cwPagination button:hover:not(:disabled):not(.active) {
+    background: var(--bg-secondary, #f3f4f6) !important;
+    border-color: var(--border-input, #d1d5db) !important;
+}
+
+#poPagination button.active,
+#vlPagination button.active,
+#clientPagination button.active,
+#qtnPagination button.active,
+#invPagination button.active,
+#vendorPagination button.active,
+#scPagination button.active,
+#fupPagination button.active,
+#cnPagination button.active,
+#leadPagination button.active,
+#contactPagination button.active,
+#rfqPagination button.active,
+#cwPagination button.active,
+.vm-pagination .page-btns button.active,
+.prm-pagination button.active {
+    background: var(--primary, #0B4A3D) !important;
+    color: #fff !important;
+    border-color: var(--primary, #0B4A3D) !important;
+}
+
+#poPagination button:disabled,
+#vlPagination button:disabled,
+#clientPagination button:disabled,
+#qtnPagination button:disabled,
+#invPagination button:disabled,
+#vendorPagination button:disabled,
+#scPagination button:disabled,
+#fupPagination button:disabled,
+#cnPagination button:disabled,
+#leadPagination button:disabled,
+#contactPagination button:disabled,
+#rfqPagination button:disabled,
+#cwPagination button:disabled {
+    opacity: 0.4 !important;
+    cursor: default !important;
+    pointer-events: none !important;
+}
+
+/* Pagination info text */
+.po-page-info,
+.vm-page-info,
+.po-pagination .po-page-info {
+    font-size: 13px !important;
+    color: var(--text-secondary, #64748b) !important;
+}
+
+/* ==========================================================================
+   7b. REQUIRED INDICATOR STANDARDIZATION
+   ========================================================================== */
+
+.required,
+[class*="required"]:not(.form-required),
+span.required {
+    color: var(--danger, #ef4444) !important;
+    font-weight: 600 !important;
+    margin-left: 2px !important;
+    font-size: inherit !important;
+}
+
+/* ==========================================================================
+   7c. CONFIRM MODAL STANDARDIZATION (based on contacts.html confirm-modal-overlay)
+   ========================================================================== */
+
+.confirm-modal-overlay {
+    position: fixed !important;
+    inset: 0 !important;
+    background: rgba(0,0,0,0.5) !important;
+    z-index: 3000 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 20px !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    transition: all 0.2s ease !important;
+    backdrop-filter: blur(3px) !important;
+}
+
+.confirm-modal-overlay.open {
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+.confirm-modal {
+    background: var(--bg-card, #fff) !important;
+    border-radius: var(--radius, 12px) !important;
+    width: 100% !important;
+    max-width: 420px !important;
+    box-shadow: var(--shadow-lg, 0 20px 60px rgba(0,0,0,0.15)) !important;
+    transform: scale(0.95) !important;
+    transition: transform 0.2s ease !important;
+    overflow: hidden !important;
+    border: 1px solid var(--border-color, #e5e7eb) !important;
+}
+
+.confirm-modal-overlay.open .confirm-modal {
+    transform: scale(1) !important;
+}
+
+[data-theme="dark"] .confirm-modal {
+    background: var(--bg-card, #1a1a2e) !important;
+    border-color: rgba(255,255,255,0.1) !important;
+}
+
+/* ==========================================================================
+   8. KPI CARD STANDARDIZATION
+   ========================================================================== */
+
+/* Stat cards (po-stat-card pattern used in analytics, reports, approvals) */
+.po-stat-card {
+    background: var(--bg-card, #ffffff) !important;
+    border: 1px solid var(--border-color, #e5e7eb) !important;
+    border-radius: var(--radius, 10px) !important;
+    padding: 14px 16px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 2px !important;
+    box-shadow: var(--shadow-xs, 0 1px 2px rgba(0,0,0,0.04)) !important;
+    min-height: 70px !important;
+    justify-content: center !important;
+    transition: all 0.15s ease !important;
+}
+
+.po-stat-card:hover {
+    box-shadow: var(--shadow-sm, 0 2px 8px rgba(0,0,0,0.06)) !important;
+}
+
+.po-stat-value {
+    font-size: 22px !important;
+    font-weight: 700 !important;
+    color: var(--text-heading, #111827) !important;
+    line-height: 1.2 !important;
+}
+
+.po-stat-label {
+    font-size: 12px !important;
+    font-weight: 500 !important;
+    color: var(--text-secondary, #6b7280) !important;
+}
+
+/* Stat row flex container */
+.po-stats-row {
+    display: flex !important;
+    gap: 8px !important;
+    margin-bottom: 12px !important;
+    flex-wrap: wrap !important;
+}
+
+[data-theme="dark"] .po-stat-card {
+    background: var(--bg-card, #1a1a2e) !important;
+    border-color: rgba(255,255,255,0.1) !important;
+}
+[data-theme="dark"] .po-stat-value {
+    color: #f1f5f9 !important;
+}
+[data-theme="dark"] .po-stat-label {
+    color: #94a3b8 !important;
+}
+
+/* Dashboard kpi-grid → same layout as sales-kpi-grid */
+.kpi-grid {
+    display: grid !important;
+    grid-template-columns: repeat(4, 1fr) !important;
+    gap: 16px !important;
+    margin-bottom: 24px !important;
+}
+
+/* Dashboard kpi-card → same card style as sales-kpi-card */
+.kpi-card {
+    background: var(--bg-card, #ffffff) !important;
+    border: 1px solid var(--border-color, #e5e7eb) !important;
+    border-radius: var(--radius-lg, 16px) !important;
+    padding: 20px !important;
+    box-shadow: var(--shadow-sm, 0 1px 3px rgba(0,0,0,0.04)) !important;
+    transition: all 0.2s ease !important;
+    cursor: default !important;
+    position: relative !important;
+    overflow: hidden !important;
+}
+
+.kpi-card:hover {
+    box-shadow: var(--shadow-md, 0 6px 20px rgba(0,0,0,0.08)) !important;
+    transform: translateY(-2px) !important;
+}
+
+.kpi-card .kpi-top {
+    display: flex !important;
+    align-items: flex-start !important;
+    justify-content: space-between !important;
+    margin-bottom: 12px !important;
+}
+
+.kpi-card .kpi-icon {
+    width: 40px !important;
+    height: 40px !important;
+    border-radius: 50% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 16px !important;
+    flex-shrink: 0 !important;
+}
+
+.kpi-value {
+    font-size: 28px !important;
+    font-weight: 700 !important;
+    color: var(--text-heading, #111827) !important;
+    line-height: 1.2 !important;
+    margin-bottom: 4px !important;
+}
+
+.kpi-label {
+    font-size: 13px !important;
+    color: var(--text-muted, #9ca3af) !important;
+    font-weight: 500 !important;
+    margin: 0 !important;
+}
+
+/* Dashboard charts → same card style */
+.dash-chart {
+    background: var(--bg-card, #ffffff) !important;
+    border: 1px solid var(--border-color, #e5e7eb) !important;
+    border-radius: var(--radius-lg, 16px) !important;
+    padding: 20px !important;
+    box-shadow: var(--shadow-sm, 0 1px 3px rgba(0,0,0,0.04)) !important;
+}
+
+.dash-chart-grid-3 {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr 1fr !important;
+    gap: 20px !important;
+    margin-bottom: 24px !important;
+}
+
+.dash-chart-grid-2 {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 20px !important;
+    margin-bottom: 24px !important;
+}
+
+/* Dashboard view switcher */
+.dash-view-btn-group {
+    display: flex !important;
+    gap: 6px !important;
+    margin-bottom: 24px !important;
+    background: var(--bg-secondary, #f8fafc) !important;
+    padding: 4px !important;
+    border-radius: var(--radius, 12px) !important;
+    width: fit-content !important;
+    border: 1px solid var(--border-color, #e5e7eb) !important;
+}
+
+.dash-view-btn {
+    padding: 8px 18px !important;
+    border-radius: 8px !important;
+    font-size: 13px !important;
+    font-weight: 500 !important;
+    border: none !important;
+    background: transparent !important;
+    color: var(--text-secondary, #6B7280) !important;
+    cursor: pointer !important;
+    transition: all 0.15s ease !important;
+    font-family: var(--font, 'Inter', sans-serif) !important;
+}
+
+.dash-view-btn:hover {
+    color: var(--text-body, #374151) !important;
+}
+
+.dash-view-btn.active {
+    background: var(--bg-card, #fff) !important;
+    color: var(--text-heading, #111827) !important;
+    box-shadow: var(--shadow-xs, 0 1px 3px rgba(0,0,0,0.08)) !important;
+    font-weight: 600 !important;
+}
+
+.dash-view-content {
+    display: none !important;
+}
+
+.dash-view-content.active {
+    display: block !important;
+}
+
+/* Dashboard bottom grid */
+.bottom-grid {
+    display: grid !important;
+    grid-template-columns: 1.5fr 1fr !important;
+    gap: 20px !important;
+}
+
+/* Dashboard customers widget */
+.customers-widget {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 20px !important;
+    margin-bottom: 24px !important;
+}
+
+.customer-widget-card {
+    background: var(--bg-card, #fff) !important;
+    border: 1px solid var(--border-color, #e5e7eb) !important;
+    border-radius: var(--radius-lg, 16px) !important;
+    box-shadow: var(--shadow-sm, 0 1px 3px rgba(0,0,0,0.04)) !important;
+    overflow: hidden !important;
+}
+
+/* Dashboard chart center text */
+.chart-center-text {
+    position: absolute !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    text-align: center !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    color: var(--text-muted, #94a3b8) !important;
+    pointer-events: none !important;
+}
+
+/* Dashboard placeholder view */
+.placeholder-view {
+    text-align: center !important;
+    padding: 60px 20px !important;
+    color: var(--text-muted, #9ca3af) !important;
+}
+
+.placeholder-view i {
+    font-size: 48px !important;
+    color: var(--text-muted, #d1d5db) !important;
+    margin-bottom: 16px !important;
+    display: block !important;
+}
+
+.placeholder-view h3 {
+    font-size: 18px !important;
+    font-weight: 600 !important;
+    color: var(--text-heading, #111827) !important;
+    margin: 0 0 8px !important;
+}
+
+.placeholder-view p {
+    font-size: 14px !important;
+    color: var(--text-muted, #6b7280) !important;
+    margin: 0 !important;
+}
+
+/* Dashboard activity tabs */
+.act-tabs {
+    display: flex !important;
+    gap: 4px !important;
+    flex-wrap: wrap !important;
+}
+
+.act-tab-btn {
+    padding: 4px 10px !important;
+    border-radius: 6px !important;
+    font-size: 11px !important;
+    font-weight: 500 !important;
+    border: 1px solid transparent !important;
+    background: transparent !important;
+    color: var(--text-secondary, #6B7280) !important;
+    cursor: pointer !important;
+    transition: all 0.15s ease !important;
+    font-family: var(--font, 'Inter', sans-serif) !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 4px !important;
+}
+
+.act-tab-btn:hover {
+    color: var(--text-body, #374151) !important;
+    background: var(--bg-hover, #f3f4f6) !important;
+}
+
+.act-tab-btn.active {
+    background: var(--primary, #0B4A3D) !important;
+    color: #fff !important;
+    border-color: var(--primary, #0B4A3D) !important;
+}
+
+.act-badge {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    min-width: 16px !important;
+    height: 16px !important;
+    padding: 0 4px !important;
+    border-radius: 8px !important;
+    font-size: 10px !important;
+    font-weight: 600 !important;
+    background: rgba(255,255,255,0.2) !important;
+    color: inherit !important;
+}
+
+/* Dashboard quick actions */
+.quick-actions {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 8px !important;
+}
+
+.quick-action-card {
+    background: var(--bg-secondary, #F9FAFB) !important;
+    border: 1px solid var(--border-color, #e5e7eb) !important;
+    border-radius: var(--radius, 10px) !important;
+    padding: 16px 12px !important;
+    text-align: center !important;
+    cursor: pointer !important;
+    transition: all 0.2s ease !important;
+    text-decoration: none !important;
+    color: var(--text-body, #4B5563) !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 8px !important;
+}
+
+.quick-action-card:hover {
+    border-color: var(--accent, #0B4A3D) !important;
+    color: var(--accent, #0B4A3D) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: var(--shadow-sm, 0 4px 12px rgba(0,0,0,0.08)) !important;
+}
+
+[data-theme="dark"] .kpi-card {
+    background: var(--bg-card, #1e293b) !important;
+    border-color: rgba(255,255,255,0.08) !important;
+}
+[data-theme="dark"] .kpi-value {
+    color: #f1f5f9 !important;
+}
+[data-theme="dark"] .kpi-label {
+    color: #94a3b8 !important;
+}
+[data-theme="dark"] .dash-chart {
+    background: var(--bg-card, #1e293b) !important;
+    border-color: rgba(255,255,255,0.08) !important;
+}
+[data-theme="dark"] .customer-widget-card {
+    background: var(--bg-card, #1e293b) !important;
+    border-color: rgba(255,255,255,0.08) !important;
+}
+[data-theme="dark"] .quick-action-card {
+    background: rgba(255,255,255,0.04) !important;
+    border-color: rgba(255,255,255,0.08) !important;
+    color: #cbd5e1 !important;
+}
+[data-theme="dark"] .quick-action-card:hover {
+    background: rgba(11,74,61,0.15) !important;
+    border-color: var(--accent, #0B4A3D) !important;
+    color: var(--accent, #0B4A3D) !important;
+}
+[data-theme="dark"] .dash-view-btn-group {
+    background: rgba(255,255,255,0.04) !important;
+    border-color: rgba(255,255,255,0.06) !important;
+}
+[data-theme="dark"] .dash-view-btn.active {
+    background: #1e293b !important;
+    color: #f1f5f9 !important;
+}
+[data-theme="dark"] .placeholder-view i {
+    color: #334155 !important;
+}
+[data-theme="dark"] .placeholder-view h3 {
+    color: #e2e8f0 !important;
+}
+
+
+/* Vendor prm-kpi-cards → same layout as sales-kpi-grid */
+.prm-kpi-grid,
+.po-kpi-cards,
+.sales-kpi-grid,
+.qtn-kpi-cards,
+.vm-kpi-grid {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)) !important;
+    gap: 16px !important;
+    margin-bottom: 20px !important;
+}
+
+/* KPI card standardization */
+.po-kpi-card,
+.sales-kpi-card,
+.qtn-kpi-card,
+.prm-kpi-card,
+.vm-kpi-card,
+#vlKpiCards > div,
+#fupKpiCards > div,
+#scKpiCards > div,
+#invKpiCards > div,
+#qtnKpiCards > div,
+#cnSummaryCards > div,
+#prSummaryCards > div,
+#crmKpiGrid > div,
+#soLifetimeBody .sales-kpi-card,
+#soSummaryBody .sales-kpi-card {
+    background: var(--bg-card, #ffffff) !important;
+    border: 1px solid var(--border-color, #e5e7eb) !important;
+    border-radius: var(--radius-lg, 16px) !important;
+    padding: 16px 20px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    gap: 6px !important;
+    transition: all 0.2s ease !important;
+    cursor: pointer !important;
+    min-height: 100px !important;
+    box-shadow: var(--shadow-xs, 0 1px 2px rgba(0,0,0,0.04)) !important;
+    position: relative !important;
+    overflow: hidden !important;
+}
+
+.po-kpi-card:hover,
+.sales-kpi-card:hover,
+.qtn-kpi-card:hover,
+.prm-kpi-card:hover,
+.vm-kpi-card:hover,
+#vlKpiCards > div:hover,
+#fupKpiCards > div:hover,
+#scKpiCards > div:hover,
+#invKpiCards > div:hover,
+#qtnKpiCards > div:hover,
+#cnSummaryCards > div:hover,
+#prSummaryCards > div:hover,
+#crmKpiGrid > div:hover {
+    border-color: var(--accent, #0B4A3D) !important;
+    box-shadow: var(--shadow-sm, 0 2px 8px rgba(11,74,61,0.1)) !important;
+    transform: translateY(-2px) !important;
+}
+
+.po-kpi-card.active,
+.sales-kpi-card.active,
+.qtn-kpi-card.active,
+.prm-kpi-card.active,
+.vm-kpi-card.active,
+#vlKpiCards > .active,
+#fupKpiCards > .active,
+#scKpiCards > .active,
+#invKpiCards > .active,
+#qtnKpiCards > .active,
+#cnSummaryCards > .active,
+#prSummaryCards > .active {
+    border-color: var(--accent, #0B4A3D) !important;
+    background: var(--primary-light, #E8F0EE) !important;
+    box-shadow: 0 0 0 1.5px var(--accent, #0B4A3D) !important;
+}
+
+/* KPI card top section */
+.po-kpi-card > div:first-child,
+.sales-kpi-card-top,
+#vlKpiCards > div > div.kpi-card-top,
+.vl-kpi-card-top {
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+}
+
+/* KPI icon */
+.po-kpi-icon,
+.sales-kpi-icon,
+.qtn-kpi-icon,
+.prm-kpi-icon,
+.vm-kpi-icon,
+#vlKpiCards .sales-kpi-icon,
+#fupKpiCards .sales-kpi-icon {
+    width: 40px !important;
+    height: 40px !important;
+    border-radius: var(--radius, 10px) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 16px !important;
+    flex-shrink: 0 !important;
+}
+
+/* KPI count/value */
+.po-kpi-count,
+.sales-kpi-value,
+.qtn-kpi-count,
+.prm-kpi-value,
+.vm-kpi-value,
+#vlKpiCards .sales-kpi-value,
+#fupKpiCards .sales-kpi-value,
+#scKpiCards .sales-kpi-value {
+    font-size: 22px !important;
+    font-weight: 700 !important;
+    color: var(--text-heading, #111827) !important;
+    line-height: 1.2 !important;
+}
+
+/* KPI label */
+.po-kpi-label,
+.sales-kpi-label,
+.qtn-kpi-label,
+.prm-kpi-label,
+.vm-kpi-label,
+#vlKpiCards .sales-kpi-label,
+#fupKpiCards .sales-kpi-label,
+#scKpiCards .sales-kpi-label,
+#invKpiCards .qtn-kpi-label,
+#cnSummaryCards .sales-kpi-label,
+#prSummaryCards .qtn-kpi-label {
+    font-size: 12px !important;
+    font-weight: 500 !important;
+    color: var(--text-secondary, #6b7280) !important;
+    margin: 0 !important;
+}
+
+/* ==========================================================================
+   9. STATUS BADGE STANDARDIZATION
+   ========================================================================== */
+
+/* Sales CRM badges → map to po-badge */
+.po-badge-gray,
+.badge-gray,
+.badge-neutral,
+.status-draft {
+    background: var(--bg-secondary, #f3f4f6) !important;
+    color: var(--text-secondary, #6b7280) !important;
+}
+
+.po-badge-blue,
+.badge-blue,
+.badge-info,
+.status-pending,
+.status-new {
+    background: var(--info-bg, #eff6ff) !important;
+    color: var(--info, #2563eb) !important;
+}
+
+.po-badge-yellow,
+.badge-yellow,
+.badge-warning,
+.status-pending-approval,
+.status-hold {
+    background: var(--warning-bg, #fffbeb) !important;
+    color: var(--warning, #d97706) !important;
+}
+
+.po-badge-green,
+.badge-green,
+.badge-success,
+.status-approved,
+.status-active,
+.status-paid,
+.status-completed,
+.status-won {
+    background: var(--success-bg, #f0fdf4) !important;
+    color: var(--success, #16a34a) !important;
+}
+
+.po-badge-red,
+.badge-red,
+.badge-danger,
+.status-rejected,
+.status-overdue,
+.status-cancelled,
+.status-unpaid,
+.status-lost,
+.status-inactive {
+    background: var(--danger-bg, #fef2f2) !important;
+    color: var(--danger, #dc2626) !important;
+}
+
+.po-badge-purple,
+.badge-purple,
+.status-negotiation,
+.status-qualified {
+    background: var(--info-bg, #f5f3ff) !important;
+    color: var(--info, #7c3aed) !important;
+}
+
+.po-badge-indigo,
+.badge-indigo {
+    background: #eef2ff !important;
+    color: #4f46e5 !important;
+}
+
+.po-badge-cyan,
+.badge-cyan {
+    background: #ecfeff !important;
+    color: #0891b2 !important;
+}
+
+/* VM vendor statuses */
+.prm-status,
+.vm-status {
+    display: inline-flex !important;
+    align-items: center !important;
+    padding: 3px 10px !important;
+    border-radius: 20px !important;
+    font-size: 11px !important;
+    font-weight: 600 !important;
+    line-height: 1.4 !important;
+    white-space: nowrap !important;
+}
+
+.prm-status-approved,
+.status-active-vendor {
+    background: var(--success-bg, #f0fdf4) !important;
+    color: var(--success, #16a34a) !important;
+}
+
+.prm-status-rejected,
+.status-blacklisted {
+    background: var(--danger-bg, #fef2f2) !important;
+    color: var(--danger, #dc2626) !important;
+}
+
+.prm-status-draft,
+.status-inactive-vendor {
+    background: var(--bg-secondary, #f3f4f6) !important;
+    color: var(--text-secondary, #6b7280) !important;
+}
+
+.prm-status-cancelled {
+    background: var(--danger-bg, #fef2f2) !important;
+    color: var(--danger, #dc2626) !important;
+}
+
+/* Priority badges standardization */
+.po-priority,
+.priority-badge {
+    display: inline-flex !important;
+    align-items: center !important;
+    padding: 2px 8px !important;
+    border-radius: 12px !important;
+    font-size: 10px !important;
+    font-weight: 600 !important;
+}
+
+.po-priority-critical,
+.priority-critical {
+    background: var(--danger-bg, #fef2f2) !important;
+    color: var(--danger, #dc2626) !important;
+}
+
+.po-priority-high,
+.priority-high {
+    background: var(--warning-bg, #fffbeb) !important;
+    color: var(--warning, #d97706) !important;
+}
+
+.po-priority-medium,
+.priority-medium {
+    background: var(--bg-secondary, #f3f4f6) !important;
+    color: var(--text-secondary, #6b7280) !important;
+}
+
+.po-priority-low,
+.priority-low {
+    background: var(--success-bg, #f0fdf4) !important;
+    color: var(--success, #16a34a) !important;
+}
+
+/* ==========================================================================
+   10. BUTTON STANDARDIZATION
+   ========================================================================== */
+
+/* po-btn → map to .btn */
+.po-btn,
+.qtn-create-btn,
+.vm-create-btn,
+.so-btn {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 6px !important;
+    height: 40px !important;
+    padding: 0 22px !important;
+    border-radius: var(--radius-sm, 10px) !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    font-family: var(--font, 'Inter', sans-serif) !important;
+    cursor: pointer !important;
+    transition: all 0.2s ease !important;
+    border: 1px solid transparent !important;
+    text-decoration: none !important;
+    line-height: 1 !important;
+    white-space: nowrap !important;
+}
+
+.po-btn-primary,
+.qtn-create-btn,
+.vm-create-btn,
+.so-btn-primary,
+.so-btn.so-btn-primary {
+    background: var(--gradient-primary, linear-gradient(135deg, #136754 0%, #0B4A3D 55%, #003930 100%)) !important;
+    border-color: transparent !important;
+    color: var(--blush, #E8C9B5) !important;
+    box-shadow: 0 2px 8px rgba(11,74,61,0.25) !important;
+}
+
+.po-btn-primary:hover,
+.qtn-create-btn:hover,
+.vm-create-btn:hover,
+.so-btn-primary:hover,
+.so-btn.so-btn-primary:hover {
+    background: var(--gradient-primary-hover, linear-gradient(135deg, #17806A 0%, #0F5C4C 55%, #04473B 100%)) !important;
+    box-shadow: 0 6px 18px rgba(11,74,61,0.35) !important;
+    transform: translateY(-1px) !important;
+}
+
+.po-btn-ghost {
+    background: transparent !important;
+    color: var(--text-secondary, #6B7280) !important;
+    border: 1px solid var(--border-color, #e5e7eb) !important;
+}
+
+.po-btn-ghost:hover {
+    background: var(--bg-secondary, #f3f4f6) !important;
+    color: var(--primary, #0B4A3D) !important;
+    border-color: var(--primary, #0B4A3D) !important;
+}
+
+.po-btn-sm,
+.btn-sm,
+.so-btn-sm {
+    height: 32px !important;
+    padding: 0 14px !important;
+    font-size: 12px !important;
+    border-radius: var(--radius-sm, 8px) !important;
+}
+
+.po-btn-primary-outline {
+    background: transparent !important;
+    color: var(--primary, #0B4A3D) !important;
+    border: 1.5px solid var(--primary, #0B4A3D) !important;
+}
+
+.po-btn-primary-outline:hover {
+    background: var(--primary, #0B4A3D) !important;
+    color: #fff !important;
+}
+
+.po-btn-outline-danger {
+    background: transparent !important;
+    color: var(--danger, #dc2626) !important;
+    border-color: var(--danger, #dc2626) !important;
+}
+.po-btn-outline-danger:hover {
+    background: var(--danger-bg, #fef2f2) !important;
+}
+
+/* ==========================================================================
+   10b. SO-CARD (Sales Order collapsible card) STANDARDIZATION
+   ========================================================================== */
+
+.so-card {
+    background: var(--bg-card, #fff) !important;
+    border: 1px solid var(--border-color, #e5e7eb) !important;
+    border-radius: var(--radius-lg, 16px) !important;
+    box-shadow: var(--shadow-xs, 0 1px 3px rgba(0,0,0,0.04)) !important;
+    margin-bottom: 20px !important;
+    overflow: hidden !important;
+}
+
+.so-card-header {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    padding: 14px 20px !important;
+    border-bottom: 1px solid var(--border-color, #e5e7eb) !important;
+    cursor: pointer !important;
+    user-select: none !important;
+}
+
+.so-card-header h3 {
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    color: var(--text-heading, #1e293b) !important;
+    margin: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+}
+
+.so-card-header h3 i {
+    color: var(--accent, #0B4A3D) !important;
+    font-size: 13px !important;
+}
+
+.so-card-body {
+    padding: 20px !important;
+}
+
+[data-theme="dark"] .so-card {
+    background: var(--bg-card, #1a1a2e) !important;
+    border-color: rgba(255,255,255,0.1) !important;
+}
+[data-theme="dark"] .so-card-header {
+    border-color: rgba(255,255,255,0.06) !important;
+}
+[data-theme="dark"] .so-card-header h3 {
+    color: #f1f5f9 !important;
+}
+
+/* ==========================================================================
+   10c. CREATE DROPDOWN (VL, QTN, SO) STANDARDIZATION
+   ========================================================================== */
+
+.vl-create-dropdown,
+.qtn-create-dropdown,
+.so-create-dropdown {
+    position: relative !important;
+    display: inline-block !important;
+}
+
+.sales-export-menu,
+.qtn-create-menu,
+.so-create-menu,
+#vlCreateMenu,
+#qtnCreateMenu,
+#soCreateMenu {
+    position: absolute !important;
+    top: 100% !important;
+    right: 0 !important;
+    z-index: 9999 !important;
+    background: var(--bg-card, #ffffff) !important;
+    min-width: 220px !important;
+    border-radius: var(--radius, 12px) !important;
+    box-shadow: var(--shadow-lg, 0 10px 30px rgba(0,0,0,0.15)) !important;
+    display: none !important;
+    padding: 6px !important;
+    margin-top: 4px !important;
+    border: 1px solid var(--border-color, #e5e7eb) !important;
+}
+
+.sales-export-menu.show,
+.qtn-create-menu.show,
+.so-create-menu.show,
+#vlCreateMenu.show,
+#qtnCreateMenu.show,
+#soCreateMenu.show {
+    display: block !important;
+}
+
+.sales-export-item,
+.qtn-create-menu a,
+.so-create-menu a,
+#vlCreateMenu > div,
+#qtnCreateMenu > div,
+#soCreateMenu > a {
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    padding: 8px 12px !important;
+    font-size: 13px !important;
+    color: var(--text-body, #374151) !important;
+    text-decoration: none !important;
+    border-radius: 6px !important;
+    cursor: pointer !important;
+    font-family: var(--font, 'Inter', sans-serif) !important;
+    transition: background 0.12s !important;
+}
+
+.sales-export-item:hover,
+.qtn-create-menu a:hover,
+.so-create-menu a:hover,
+#vlCreateMenu > div:hover,
+#qtnCreateMenu > div:hover,
+#soCreateMenu > a:hover {
+    background: var(--bg-hover, #f3f4f6) !important;
+}
+
+.menu-divider {
+    height: 1px !important;
+    background: var(--border-color, #e5e7eb) !important;
+    margin: 6px 8px !important;
+}
+
+[data-theme="dark"] .sales-export-menu,
+[data-theme="dark"] .qtn-create-menu,
+[data-theme="dark"] .so-create-menu,
+[data-theme="dark"] #vlCreateMenu,
+[data-theme="dark"] #qtnCreateMenu,
+[data-theme="dark"] #soCreateMenu {
+    background: var(--bg-card, #1a1a2e) !important;
+    border-color: rgba(255,255,255,0.1) !important;
+}
+[data-theme="dark"] .sales-export-item:hover,
+[data-theme="dark"] .qtn-create-menu a:hover,
+[data-theme="dark"] .so-create-menu a:hover,
+[data-theme="dark"] #vlCreateMenu > div:hover,
+[data-theme="dark"] #qtnCreateMenu > div:hover {
+    background: rgba(255,255,255,0.06) !important;
+}
+
+/* ==========================================================================
+   11. EXPORT / COLUMNS DROPDOWN STANDARDIZATION
+   ========================================================================== */
+
+.po-export-menu,
+.sales-export-menu,
+.qtn-export-menu,
+.vm-export-menu {
+    position: absolute !important;
+    top: 100% !important;
+    right: 0 !important;
+    z-index: 9999 !important;
+    background: var(--bg-card, #ffffff) !important;
+    min-width: 200px !important;
+    border-radius: var(--radius, 12px) !important;
+    box-shadow: var(--shadow-lg, 0 10px 30px rgba(0,0,0,0.15)) !important;
+    display: none !important;
+    padding: 6px !important;
+    margin-top: 4px !important;
+    border: 1px solid var(--border-color, #e5e7eb) !important;
+}
+
+.po-export-menu.show,
+.sales-export-menu.show,
+.qtn-export-menu.show,
+.vm-export-menu.show {
+    display: block !important;
+}
+
+.po-export-menu a,
+.sales-export-item,
+.qtn-export-item,
+.vm-export-item {
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    padding: 8px 12px !important;
+    font-size: 13px !important;
+    color: var(--text-body, #374151) !important;
+    text-decoration: none !important;
+    border-radius: 6px !important;
+    cursor: pointer !important;
+    font-family: var(--font, 'Inter', sans-serif) !important;
+}
+
+.po-export-menu a:hover,
+.sales-export-item:hover,
+.qtn-export-item:hover,
+.vm-export-item:hover {
+    background: var(--bg-hover, #f3f4f6) !important;
+}
+
+/* Export/Columns wrap */
+.po-export-wrap,
+.po-colvis-wrap,
+.export-dropdown,
+.colvis-wrap {
+    position: relative !important;
+    display: inline-block !important;
+}
+
+/* ==========================================================================
+   12. TABS STANDARDIZATION
+   ========================================================================== */
+
+/* Main tabs (underline style) */
+.sales-tabs,
+.po-tabs {
+    display: flex !important;
+    gap: 2px !important;
+    margin-bottom: 16px !important;
+    border-bottom: 2px solid var(--border-color, #e5e7eb) !important;
+}
+
+.sales-tab,
+.po-tab,
+.prm-tab {
+    padding: 10px 20px !important;
+    border: none !important;
+    background: transparent !important;
+    color: var(--text-secondary, #64748b) !important;
+    font-size: 13px !important;
+    font-weight: 500 !important;
+    cursor: pointer !important;
+    font-family: var(--font, 'Inter', sans-serif) !important;
+    transition: all 0.15s !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    border-bottom: 2px solid transparent !important;
+    margin-bottom: -2px !important;
+}
+
+.sales-tab:hover,
+.po-tab:hover,
+.prm-tab:hover {
+    color: var(--accent, #0B4A3D) !important;
+}
+
+.sales-tab.active,
+.po-tab.active,
+.prm-tab-active {
+    color: var(--accent, #0B4A3D) !important;
+    border-bottom-color: var(--accent, #0B4A3D) !important;
+    font-weight: 600 !important;
+}
+
+/* Subtabs (pill style) */
+.sales-subtabs,
+.prm-subtabs,
+.vm-subtabs {
+    display: flex !important;
+    gap: 4px !important;
+    margin-bottom: 16px !important;
+    background: var(--bg-secondary, #f8fafc) !important;
+    padding: 4px !important;
+    border-radius: var(--radius, 10px) !important;
+    border: 1px solid var(--border-color, #e5e7eb) !important;
+    width: fit-content !important;
+}
+
+.sales-subtab,
+.prm-subtab,
+.vm-subtab {
+    padding: 6px 14px !important;
+    border-radius: 8px !important;
+    border: none !important;
+    background: transparent !important;
+    color: var(--text-secondary, #64748b) !important;
+    font-size: 12px !important;
+    font-weight: 500 !important;
+    cursor: pointer !important;
+    font-family: var(--font, 'Inter', sans-serif) !important;
+    transition: all 0.15s !important;
+}
+
+.sales-subtab:hover,
+.prm-subtab:hover,
+.vm-subtab:hover {
+    background: var(--bg-card, #fff) !important;
+    color: var(--text-body, #374151) !important;
+}
+
+.sales-subtab.active,
+.prm-subtab.active,
+.vm-subtab.active {
+    background: var(--bg-card, #fff) !important;
+    color: var(--accent, #0B4A3D) !important;
+    font-weight: 600 !important;
+    box-shadow: var(--shadow-xs, 0 1px 3px rgba(0,0,0,0.08)) !important;
+}
+
+/* Tab count badge */
+.sales-tab .tab-count,
+.po-tab .tab-count,
+.prm-tab .tab-count {
+    font-size: 11px !important;
+    background: var(--bg-secondary, #f1f5f9) !important;
+    color: var(--text-secondary, #64748b) !important;
+    padding: 1px 8px !important;
+    border-radius: 10px !important;
+    font-weight: 600 !important;
+}
+
+.sales-tab.active .tab-count,
+.po-tab.active .tab-count,
+.prm-tab-active .tab-count {
+    background: var(--primary-light, #E8F0EE) !important;
+    color: var(--accent, #0B4A3D) !important;
+}
+
+/* ==========================================================================
+   13. VENDOR AVATAR / CELL STANDARDIZATION
+   ========================================================================== */
+
+.po-vendor-cell,
+.vm-vendor-cell,
+.vendor-cell {
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+}
+
+.po-vendor-avatar,
+.vm-vendor-avatar,
+.vendor-avatar-cell {
+    width: 30px !important;
+    height: 30px !important;
+    border-radius: 6px !important;
+    background: var(--primary-light, #E8F0EE) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-weight: 600 !important;
+    color: var(--accent, #0B4A3D) !important;
+    font-size: 13px !important;
+    flex-shrink: 0 !important;
+}
+
+.po-vendor-name,
+.vm-vendor-name,
+.vendor-name-cell {
+    font-weight: 500 !important;
+    color: var(--text-heading, #111827) !important;
+    font-size: 13px !important;
+}
+
+.po-vendor-sub,
+.vm-vendor-sub,
+.vendor-sub-cell {
+    font-size: 11px !important;
+    color: var(--text-muted, #6b7280) !important;
+}
+
+/* ==========================================================================
+   14. FORM / INPUT STANDARDIZATION
+   ========================================================================== */
+
+/* All form input types across modules */
+.po-form-group input,
+.po-form-group select,
+.po-form-group textarea,
+.sales-form-input,
+.sales-form-select,
+.sales-form-textarea,
+.prm-form-group input,
+.prm-form-group select,
+.prm-form-group textarea,
+.vm-form-group input,
+.vm-form-group select,
+.vm-form-group textarea,
+.qtn-input,
+.qtn-form-group input,
+.qtn-form-group select,
+.qtn-form-group textarea,
+.client-form-group input,
+.client-form-group select,
+.client-form-group textarea {
+    width: 100% !important;
+    padding: 8px 12px !important;
+    border: 1px solid var(--border-input, #e5e7eb) !important;
+    border-radius: var(--radius-sm, 8px) !important;
+    font-size: 13px !important;
+    font-family: var(--font, 'Inter', sans-serif) !important;
+    color: var(--text-primary, #374151) !important;
+    background: var(--bg-card, #fff) !important;
+    outline: none !important;
+    height: 40px !important;
+    box-sizing: border-box !important;
+    transition: border-color 0.15s, box-shadow 0.15s !important;
+}
+
+.po-form-group textarea,
+.sales-form-textarea,
+.prm-form-group textarea,
+.vm-form-group textarea,
+.qtn-form-group textarea,
+.client-form-group textarea {
+    height: auto !important;
+    min-height: 80px !important;
+    resize: vertical !important;
+}
+
+.po-form-group input:focus,
+.po-form-group select:focus,
+.po-form-group textarea:focus,
+.sales-form-input:focus,
+.sales-form-select:focus,
+.sales-form-textarea:focus,
+.qtn-input:focus {
+    border-color: var(--accent, #0B4A3D) !important;
+    box-shadow: var(--shadow-input, 0 0 0 3px rgba(11,74,61,0.12)) !important;
+}
+
+/* Form labels */
+.po-form-group label,
+.sales-form-label,
+.prm-form-group label,
+.vm-form-group label,
+.qtn-form-group label,
+.client-form-group label,
+.form-label {
+    display: block !important;
+    font-size: 13px !important;
+    font-weight: 500 !important;
+    color: var(--text-primary, #374151) !important;
+    margin-bottom: 6px !important;
+}
+
+/* Form rows */
+.po-form-row,
+.sales-form-grid,
+.prm-form-row,
+.vm-form-row,
+.qtn-form-row,
+.client-form-row {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 16px !important;
+}
+
+@media (max-width: 768px) {
+    .po-form-row,
+    .sales-form-grid,
+    .prm-form-row,
+    .vm-form-row,
+    .qtn-form-row,
+    .client-form-row {
+        grid-template-columns: 1fr !important;
+    }
+}
+
+/* Form groups spacing */
+.po-form-group,
+.sales-form-field,
+.prm-form-group,
+.vm-form-group,
+.qtn-form-group,
+.client-form-group,
+.form-group {
+    margin-bottom: 14px !important;
+}
+
+/* Form cards */
+.sales-form-card,
+.po-form-card,
+.prm-form-card,
+.vm-form-card,
+.qtn-form-card,
+.client-form-card {
+    background: var(--bg-card, #fff) !important;
+    border: 1px solid var(--border-color, #e5e7eb) !important;
+    border-radius: var(--radius-lg, 16px) !important;
+    box-shadow: var(--shadow-xs, 0 1px 3px rgba(0,0,0,0.04)) !important;
+    margin-bottom: 20px !important;
+}
+
+/* Form footer — fixed at bottom, never overlaps content */
+.sales-form-footer,
+.po-form-footer,
+.prm-form-footer,
+.vm-form-footer,
+.qtn-form-footer,
+.client-form-footer,
+.form-footer,
+.vm-bottom-bar {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    padding: 10px 20px !important;
+    background: var(--bg-card, #fff) !important;
+    border-top: 1px solid var(--border-color, #e5e7eb) !important;
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 260px !important;
+    right: 0 !important;
+    z-index: 100 !important;
+    box-shadow: 0 -2px 8px rgba(0,0,0,0.06) !important;
+    gap: 8px !important;
+    flex-wrap: wrap !important;
+    min-height: 56px !important;
+    transition: left 0.2s ease !important;
+}
+.sidebar-collapsed .sales-form-footer,
+.sidebar-collapsed .po-form-footer,
+.sidebar-collapsed .prm-form-footer,
+.sidebar-collapsed .vm-form-footer,
+.sidebar-collapsed .qtn-form-footer,
+.sidebar-collapsed .client-form-footer,
+.sidebar-collapsed .form-footer,
+.sidebar-collapsed .vm-bottom-bar {
+    left: 64px !important;
+}
+
+/* Footer buttons — consistent height, padding, and vertical centering across all pages */
+.sales-form-footer .btn,
+.po-form-footer .btn,
+.prm-form-footer .btn,
+.vm-form-footer .btn,
+.qtn-form-footer .btn,
+.client-form-footer .btn,
+.form-footer .btn,
+.vm-bottom-bar .btn {
+    height: 38px !important;
+    padding: 0 18px !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    border-radius: 8px !important;
+    white-space: nowrap !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 6px !important;
+}
+.sales-form-footer-left,
+.po-form-footer-left,
+.prm-form-footer-left,
+.vm-form-footer-left,
+.qtn-form-footer-left,
+.client-form-footer-left,
+.form-footer-left,
+.vm-bottom-left {
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+}
+.sales-form-footer-right,
+.po-form-footer-right,
+.prm-form-footer-right,
+.vm-form-footer-right,
+.qtn-form-footer-right,
+.client-form-footer-right,
+.form-footer-right,
+.vm-bottom-right {
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+}
+
+/* Bottom padding — fallback only, JS overrides dynamically with measured footer height */
+.sales-form-inner,
+.po-form-inner,
+.prm-form-inner,
+.vm-form-inner,
+.qtn-form-inner,
+.client-form-inner,
+.qtn-create-inner,
+.cpr-create-inner {
+    padding-bottom: 80px;
+}
+
+@media (max-width: 1023px) {
+    .sales-form-footer,
+    .po-form-footer,
+    .prm-form-footer,
+    .vm-form-footer,
+    .qtn-form-footer,
+    .client-form-footer,
+    .form-footer,
+    .vm-bottom-bar {
+        left: 0 !important;
+    }
+}
+
+/* ==========================================================================
+   15. DRAWER / SIDEBAR OVERLAY STANDARDIZATION
+   ========================================================================== */
+
+.erp-drawer-overlay {
+    position: fixed !important;
+    inset: 0 !important;
+    background: rgba(0,0,0,0.4) !important;
+    z-index: 1500 !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    transition: all 0.2s ease !important;
+}
+
+.erp-drawer-overlay.show {
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+.erp-drawer {
+    position: fixed !important;
+    top: 0 !important;
+    right: 0 !important;
+    width: 560px !important;
+    max-width: 95vw !important;
+    height: 100vh !important;
+    background: var(--bg-card, #fff) !important;
+    z-index: 1501 !important;
+    box-shadow: var(--shadow-lg, -10px 0 30px rgba(0,0,0,0.1)) !important;
+    transform: translateX(100%) !important;
+    transition: transform 0.25s ease !important;
+    display: flex !important;
+    flex-direction: column !important;
+    overflow: hidden !important;
+}
+
+.erp-drawer.show {
+    transform: translateX(0) !important;
+}
+
+/* ==========================================================================
+   16. NOTIFICATION BADGE STANDARDIZATION
+   ========================================================================== */
+
+.notification-badge {
+    position: absolute !important;
+    top: -4px !important;
+    right: -4px !important;
+    min-width: 16px !important;
+    height: 16px !important;
+    border-radius: 10px !important;
+    background: var(--danger, #ef4444) !important;
+    color: #fff !important;
+    font-size: 10px !important;
+    font-weight: 700 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 0 4px !important;
+    line-height: 1 !important;
+    border: 2px solid var(--bg-card, #fff) !important;
+}
+
+/* ==========================================================================
+   17. SCORE BADGE STANDARDIZATION
+   ========================================================================== */
+
+.po-score,
+.score-badge {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    min-width: 26px !important;
+    height: 26px !important;
+    padding: 0 8px !important;
+    border-radius: 6px !important;
+    background: var(--primary-light, #E8F0EE) !important;
+    color: var(--accent, #0B4A3D) !important;
+    font-size: 12px !important;
+    font-weight: 700 !important;
+}
+
+/* ==========================================================================
+   18. BULK ACTION BAR STANDARDIZATION
+   ========================================================================== */
+
+.po-bulk-bar,
+.sales-bulk-bar,
+.bulk-action-bar,
+#bulkActionBar {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    padding: 10px 16px !important;
+    background: var(--primary-light, #E8F0EE) !important;
+    border: 1.5px solid var(--accent, #0B4A3D) !important;
+    border-radius: var(--radius, 10px) !important;
+    margin-bottom: 12px !important;
+    font-size: 13px !important;
+    color: var(--accent, #0B4A3D) !important;
+    flex-wrap: wrap !important;
+    gap: 8px !important;
+}
+
+.po-bulk-bar.visible,
+.sales-bulk-bar.visible,
+.bulk-action-bar.visible,
+#bulkActionBar.visible {
+    display: flex !important;
+}
+
+.bulk-actions-group {
+    display: flex !important;
+    gap: 6px !important;
+}
+
+.btn-bulk-restore,
+.btn-bulk-delete,
+.btn-bulk-cancel {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    padding: 6px 12px !important;
+    border-radius: 8px !important;
+    font-size: 12px !important;
+    font-weight: 500 !important;
+    font-family: var(--font, 'Inter', sans-serif) !important;
+    cursor: pointer !important;
+    transition: all 0.15s !important;
+    border: 1px solid var(--border-color, #e5e7eb) !important;
+    background: var(--bg-card, #fff) !important;
+    color: var(--text-body, #374151) !important;
+}
+.btn-bulk-restore:hover,
+.btn-bulk-delete:hover,
+.btn-bulk-cancel:hover {
+    background: var(--bg-secondary, #f3f4f6) !important;
+}
+.btn-bulk-delete {
+    color: var(--danger, #dc2626) !important;
+    border-color: var(--danger, #dc2626) !important;
+}
+.btn-bulk-restore {
+    color: var(--accent, #0B4A3D) !important;
+}
+
+/* ==========================================================================
+   19. ACTIVE FILTER BAR STANDARDIZATION
+   ========================================================================== */
+
+.po-filter-active,
+.filter-indicator {
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    margin-bottom: 10px !important;
+    min-height: 24px !important;
+}
+
+.po-filter-active span,
+.filter-indicator span {
+    font-size: 12px !important;
+    color: var(--text-muted, #6b7280) !important;
+}
+
+.po-filter-active strong,
+.filter-indicator strong {
+    color: var(--text-heading, #111827) !important;
+}
+
+.po-clear-btn,
+.filter-clear-btn {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 4px !important;
+    padding: 3px 10px !important;
+    border-radius: 6px !important;
+    font-size: 11px !important;
+    font-weight: 600 !important;
+    color: var(--danger, #dc2626) !important;
+    background: var(--danger-bg, #fee2e2) !important;
+    border: none !important;
+    cursor: pointer !important;
+    font-family: var(--font, 'Inter', sans-serif) !important;
+}
+
+.po-clear-btn:hover,
+.filter-clear-btn:hover {
+    background: var(--danger-bg, #fecaca) !important;
+}
+
+/* ==========================================================================
+   20. TOPBAR STANDARDIZATION
+   ========================================================================== */
+
+/* Fix inline-style overflows in various pages */
+.topbar {
+    justify-content: space-between !important;
+}
+
+/* ==========================================================================
+   21. DETAIL GRID STANDARDIZATION
+   ========================================================================== */
+
+.po-detail-grid,
+.detail-grid,
+.info-grid {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)) !important;
+    gap: 10px !important;
+}
+
+.po-detail-field,
+.detail-field {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 2px !important;
+}
+
+.po-detail-label,
+.detail-label {
+    font-size: 11px !important;
+    font-weight: 600 !important;
+    color: var(--text-secondary, #6b7280) !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+}
+
+.po-detail-value,
+.detail-value {
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    color: var(--text-heading, #111827) !important;
+    margin-top: 2px !important;
+}
+
+/* ==========================================================================
+   22. VIEW GRID STANDARDIZATION
+   ========================================================================== */
+
+.po-view-grid,
+.view-grid-2col {
+    display: grid !important;
+    grid-template-columns: 2fr 1fr !important;
+    gap: 20px !important;
+}
+
+@media (max-width: 768px) {
+    .po-view-grid,
+    .view-grid-2col {
+        grid-template-columns: 1fr !important;
+    }
+}
+
+/* ==========================================================================
+   22b. CRM TAB STANDARDIZATION
+   ========================================================================== */
+
+.crm-tabs {
+    display: flex !important;
+    gap: 2px !important;
+    margin-bottom: 16px !important;
+    border-bottom: 2px solid var(--border-color, #e5e7eb) !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+}
+
+.crm-tab {
+    padding: 10px 20px !important;
+    border: none !important;
+    background: transparent !important;
+    color: var(--text-secondary, #64748b) !important;
+    font-size: 13px !important;
+    font-weight: 500 !important;
+    cursor: pointer !important;
+    font-family: var(--font, 'Inter', sans-serif) !important;
+    transition: all 0.15s !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    border-bottom: 2px solid transparent !important;
+    margin-bottom: -2px !important;
+    white-space: nowrap !important;
+}
+
+.crm-tab:hover {
+    color: var(--accent, #0B4A3D) !important;
+}
+
+.crm-tab.active {
+    color: var(--accent, #0B4A3D) !important;
+    border-bottom-color: var(--accent, #0B4A3D) !important;
+    font-weight: 600 !important;
+}
+
+.crm-tab .tab-badge {
+    font-size: 11px !important;
+    background: var(--bg-secondary, #f1f5f9) !important;
+    color: var(--text-secondary, #64748b) !important;
+    padding: 1px 8px !important;
+    border-radius: 10px !important;
+    font-weight: 600 !important;
+}
+
+.crm-tab.active .tab-badge {
+    background: var(--primary-light, #E8F0EE) !important;
+    color: var(--accent, #0B4A3D) !important;
+}
+
+/* CRM sub-tabs (Table/Kanban toggle) */
+.sub-tabs {
+    display: flex !important;
+    gap: 4px !important;
+    margin-bottom: 16px !important;
+    background: var(--bg-secondary, #f8fafc) !important;
+    padding: 4px !important;
+    border-radius: var(--radius, 10px) !important;
+    border: 1px solid var(--border-color, #e5e7eb) !important;
+    width: fit-content !important;
+}
+
+.sub-tab {
+    padding: 6px 14px !important;
+    border-radius: 8px !important;
+    border: none !important;
+    background: transparent !important;
+    color: var(--text-secondary, #64748b) !important;
+    font-size: 12px !important;
+    font-weight: 500 !important;
+    cursor: pointer !important;
+    font-family: var(--font, 'Inter', sans-serif) !important;
+    transition: all 0.15s !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+}
+
+.sub-tab:hover {
+    background: var(--bg-card, #fff) !important;
+    color: var(--text-body, #374151) !important;
+}
+
+.sub-tab.active {
+    background: var(--bg-card, #fff) !important;
+    color: var(--accent, #0B4A3D) !important;
+    font-weight: 600 !important;
+    box-shadow: var(--shadow-xs, 0 1px 3px rgba(0,0,0,0.08)) !important;
+}
+
+[data-theme="dark"] .crm-tabs {
+    border-bottom-color: rgba(255,255,255,0.1) !important;
+}
+[data-theme="dark"] .crm-tab {
+    color: #94a3b8 !important;
+}
+[data-theme="dark"] .crm-tab.active {
+    color: var(--accent, #0B4A3D) !important;
+}
+[data-theme="dark"] .sub-tabs {
+    background: rgba(255,255,255,0.04) !important;
+    border-color: rgba(255,255,255,0.1) !important;
+}
+[data-theme="dark"] .sub-tab {
+    color: #94a3b8 !important;
+}
+[data-theme="dark"] .sub-tab.active {
+    background: rgba(255,255,255,0.08) !important;
+    color: var(--accent, #0B4A3D) !important;
+}
+
+/* ==========================================================================
+   22c. CRM DROP ZONE / LEADS TOOLBAR STANDARDIZATION
+   ========================================================================== */
+
+.drop-zone {
+    background: var(--bg-card, #fff) !important;
+    border: 2px dashed var(--border-color, #e5e7eb) !important;
+    border-radius: var(--radius-lg, 16px) !important;
+    padding: 16px 20px !important;
+    margin-bottom: 16px !important;
+    text-align: center !important;
+    transition: border-color 0.2s !important;
+}
+
+.drop-zone:hover {
+    border-color: var(--accent, #0B4A3D) !important;
+    background: var(--primary-light, #EDF7F4) !important;
+}
+
+.drop-indicator {
+    font-size: 13px !important;
+    color: var(--text-muted, #94a3b8) !important;
+    margin-bottom: 12px !important;
+}
+
+.drop-indicator i {
+    font-size: 24px !important;
+    display: block !important;
+    margin-bottom: 8px !important;
+    color: var(--accent, #0B4A3D) !important;
+}
+
+.leads-toolbar {
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+}
+
+.leads-toolbar .filter-group {
+    display: flex !important;
+    gap: 8px !important;
+    flex-wrap: wrap !important;
+}
+
+.leads-toolbar .filter-group select {
+    width: auto !important;
+    min-width: 140px !important;
+    height: 36px !important;
+    font-size: 12px !important;
+}
+
+[data-theme="dark"] .drop-zone {
+    background: rgba(255,255,255,0.04) !important;
+    border-color: rgba(255,255,255,0.15) !important;
+}
+[data-theme="dark"] .drop-zone:hover {
+    border-color: var(--accent, #0B4A3D) !important;
+}
+
+/* ==========================================================================
+   22d. CRM KANBAN BOARD STANDARDIZATION
+   ========================================================================== */
+
+.kanban-board {
+    display: flex !important;
+    gap: 16px !important;
+    overflow-x: auto !important;
+    padding: 8px 0 16px !important;
+}
+
+/* ==========================================================================
+   22e. CRM CHART CARD STANDARDIZATION
+   ========================================================================== */
+
+.crm-charts {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 20px !important;
+    margin-bottom: 20px !important;
+}
+
+.crm-chart-card {
+    background: var(--bg-card, #fff) !important;
+    border: 1px solid var(--border-color, #e5e7eb) !important;
+    border-radius: var(--radius-lg, 16px) !important;
+    padding: 20px !important;
+    box-shadow: var(--shadow-xs, 0 1px 3px rgba(0,0,0,0.04)) !important;
+}
+
+.crm-chart-header {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    margin-bottom: 16px !important;
+}
+
+.crm-chart-header h3 {
+    font-size: 15px !important;
+    font-weight: 600 !important;
+    color: var(--text-heading, #111827) !important;
+    margin: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+}
+
+.crm-activity {
+    padding: 8px 0 !important;
+}
+
+[data-theme="dark"] .crm-chart-card {
+    background: var(--bg-card, #1a1a2e) !important;
+    border-color: rgba(255,255,255,0.1) !important;
+}
+[data-theme="dark"] .crm-chart-header h3 {
+    color: #f1f5f9 !important;
+}
+
+@media (max-width: 768px) {
+    .crm-charts {
+        grid-template-columns: 1fr !important;
+    }
+}
+
+/* ==========================================================================
+   22f. IMPORT PROGRESS STANDARDIZATION
+   ========================================================================== */
+
+.import-progress {
+    position: fixed !important;
+    bottom: 24px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    z-index: 9999 !important;
+}
+
+.import-progress-card {
+    background: var(--bg-card, #fff) !important;
+    border: 1px solid var(--border-color, #e5e7eb) !important;
+    border-radius: var(--radius, 12px) !important;
+    padding: 16px 20px !important;
+    min-width: 320px !important;
+    box-shadow: var(--shadow-lg, 0 10px 30px rgba(0,0,0,0.15)) !important;
+}
+
+.import-progress-header {
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    margin-bottom: 12px !important;
+}
+
+.import-progress-bar {
+    height: 6px !important;
+    background: var(--border-color, #e5e7eb) !important;
+    border-radius: 3px !important;
+    overflow: hidden !important;
+    margin-bottom: 8px !important;
+}
+
+.import-progress-bar-fill {
+    height: 100% !important;
+    background: var(--accent, #0B4A3D) !important;
+    border-radius: 3px !important;
+    transition: width 0.3s ease !important;
+}
+
+.import-progress-footer {
+    display: flex !important;
+    justify-content: space-between !important;
+    font-size: 12px !important;
+    color: var(--text-secondary, #64748b) !important;
+}
+
+[data-theme="dark"] .import-progress-card {
+    background: var(--bg-card, #1a1a2e) !important;
+    border-color: rgba(255,255,255,0.1) !important;
+}
+
+/* ==========================================================================
+   23. EMPTY STATE STANDARDIZATION
+   ========================================================================== */
+
+.po-empty,
+.sales-empty-state,
+.empty-state {
+    text-align: center !important;
+    padding: 60px 20px !important;
+}
+
+.po-empty i,
+.sales-empty-state i,
+.empty-state i {
+    font-size: 48px !important;
+    color: var(--text-muted, #d1d5db) !important;
+    margin-bottom: 16px !important;
+}
+
+.po-empty h4,
+.sales-empty-state h4,
+.empty-state h4 {
+    font-size: 18px !important;
+    font-weight: 600 !important;
+    color: var(--text-heading, #111827) !important;
+    margin: 0 0 8px !important;
+}
+
+.po-empty p,
+.sales-empty-state p,
+.empty-state p {
+    font-size: 14px !important;
+    color: var(--text-muted, #6b7280) !important;
+    margin: 0 0 20px !important;
+}
+
+/* ==========================================================================
+   24. COLLAPSIBLE SECTION HEADER STANDARDIZATION
+   ========================================================================== */
+
+.po-advanced-header,
+.advanced-header {
+    cursor: pointer !important;
+    user-select: none !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    padding: 14px 16px !important;
+    background: var(--bg-secondary, #FAFBFC) !important;
+    border: 1px solid var(--border-color, #E5E7EB) !important;
+    border-radius: var(--radius, 12px) !important;
+    margin-bottom: 16px !important;
+}
+
+.po-advanced-header h4,
+.advanced-header h4 {
+    margin: 0 !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+}
+
+.po-advanced-header:hover,
+.advanced-header:hover {
+    border-color: var(--accent, #0B4A3D) !important;
+}
+
+/* ==========================================================================
+   25. TIMELINE / WORKFLOW STEP STANDARDIZATION
+   ========================================================================== */
+
+.erp-workflow-track,
+.po-workflow,
+.wf-timeline-steps {
+    display: flex !important;
+    align-items: center !important;
+    overflow-x: auto !important;
+    padding: 16px 0 !important;
+    gap: 0 !important;
+}
+
+.erp-workflow-step,
+.po-workflow-step,
+.wf-step {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+    flex: 1 !important;
+    min-width: 60px !important;
+    position: relative !important;
+}
+
+.erp-workflow-node,
+.po-workflow-node,
+.wf-step-icon {
+    width: 32px !important;
+    height: 32px !important;
+    border-radius: 50% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    border: 2px solid var(--border-color, #e5e7eb) !important;
+    color: var(--text-muted, #9ca3af) !important;
+    background: var(--bg-card, #fff) !important;
+    transition: all 0.2s ease !important;
+}
+
+.erp-workflow-step.completed .erp-workflow-node,
+.po-workflow-step.completed .po-workflow-node,
+.wf-icon-done {
+    background: var(--primary, #0B4A3D) !important;
+    border-color: var(--primary, #0B4A3D) !important;
+    color: #fff !important;
+}
+
+.erp-workflow-step.current .erp-workflow-node,
+.po-workflow-step.current .po-workflow-node,
+.wf-icon-current {
+    background: var(--primary-light, #f0fdf6) !important;
+    border-color: var(--primary, #0B4A3D) !important;
+    color: var(--primary, #0B4A3D) !important;
+    font-weight: 700 !important;
+    box-shadow: 0 0 0 4px rgba(11,74,61,0.15) !important;
+}
+
+.erp-workflow-step.rejected .erp-workflow-node {
+    background: var(--danger-bg, #fef2f2) !important;
+    border-color: var(--danger, #dc2626) !important;
+    color: var(--danger, #dc2626) !important;
+}
+
+.erp-workflow-label,
+.po-workflow-label,
+.wf-step-label {
+    font-size: 10px !important;
+    color: var(--text-muted, #6b7280) !important;
+    text-align: center !important;
+    min-width: 60px !important;
+    margin-top: 4px !important;
+    line-height: 1.3 !important;
+    max-width: 100px !important;
+}
+
+/* ==========================================================================
+   26. CURRENCY / AMOUNT FORMAT STANDARDIZATION
+   ========================================================================== */
+
+.amount,
+.amount-cell,
+.currency-cell {
+    font-weight: 600 !important;
+    color: var(--text-heading, #111827) !important;
+    white-space: nowrap !important;
+}
+
+.amount-negative {
+    color: var(--danger, #dc2626) !important;
+}
+
+.amount-positive {
+    color: var(--success, #059669) !important;
+}
+
+/* ==========================================================================
+   27. LINK / ANCHOR STANDARDIZATION
+   ========================================================================== */
+
+a.preview-link,
+a.erp-order-link,
+a.doc-link,
+a.vendor-link {
+    color: var(--accent, #0B4A3D) !important;
+    text-decoration: none !important;
+    font-weight: 500 !important;
+    cursor: pointer !important;
+    transition: color 0.15s !important;
+}
+
+a.preview-link:hover,
+a.erp-order-link:hover,
+a.doc-link:hover,
+a.vendor-link:hover {
+    color: var(--accent-hover, #136754) !important;
+    text-decoration: underline !important;
+}
+
+/* ==========================================================================
+   28. JSON / PRE TAG STANDARDIZATION
+   ========================================================================== */
+
+pre.json-display,
+pre.code-block {
+    background: var(--bg-secondary, #f8fafc) !important;
+    border: 1px solid var(--border-color, #e5e7eb) !important;
+    border-radius: var(--radius-sm, 8px) !important;
+    padding: 16px !important;
+    font-size: 12px !important;
+    font-family: 'SF Mono', 'Monaco', monospace !important;
+    overflow-x: auto !important;
+    color: var(--text-body, #374151) !important;
+    max-height: 400px !important;
+    margin: 0 !important;
+}
+
+/* ==========================================================================
+   29. RESPONSIVE FIXES
+   ========================================================================== */
+
+@media (max-width: 1200px) {
+    .po-kpi-cards,
+    .sales-kpi-grid,
+    .qtn-kpi-cards,
+    .prm-kpi-grid,
+    .vm-kpi-grid,
+    .kpi-grid {
+        grid-template-columns: repeat(3, 1fr) !important;
+    }
+    .dash-chart-grid-3 {
+        grid-template-columns: 1fr 1fr !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .po-kpi-cards,
+    .sales-kpi-grid,
+    .qtn-kpi-cards,
+    .prm-kpi-grid,
+    .vm-kpi-grid,
+    .kpi-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 12px !important;
+    }
+
+    .sales-page-header,
+    .po-page-header,
+    .vm-header,
+    .client-header,
+    .qtn-page-header {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+    }
+
+    .sales-toolbar,
+    .po-toolbar,
+    .client-toolbar,
+    .vm-toolbar,
+    .qtn-toolbar,
+    .table-toolbar {
+        flex-direction: column !important;
+        align-items: stretch !important;
+    }
+
+    .sales-toolbar-left,
+    .po-toolbar-left,
+    .client-toolbar-left,
+    .vm-toolbar-left,
+    .qtn-toolbar-left,
+    .table-toolbar-left,
+    .sales-toolbar-right,
+    .po-toolbar-right,
+    .client-toolbar-right,
+    .vm-toolbar-right,
+    .qtn-toolbar-right,
+    .table-toolbar-right {
+        flex-wrap: wrap !important;
+    }
+
+    .sales-filter-grid,
+    .po-filter-grid,
+    .prm-filter-grid,
+    .vm-filter-grid,
+    .client-filter-grid,
+    .qtn-filter-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    .po-table thead th,
+    .sales-table thead th,
+    .client-table thead th,
+    .vm-table thead th,
+    .qtn-table thead th,
+    .prm-table thead th,
+    .so-table thead th,
+    .sc-table thead th,
+    .cn-table thead th,
+    #leadTable thead th,
+    #fupTable thead th,
+    #contactTable thead th,
+    #prTable thead th,
+    #soTable thead th,
+    #scTable thead th,
+    #cnTable thead th {
+        font-size: 10px !important;
+        padding: 0 10px !important;
+        height: 40px !important;
+    }
+
+    .po-table tbody td,
+    .sales-table tbody td,
+    .client-table tbody td,
+    .vm-table tbody td,
+    .qtn-table tbody td,
+    .prm-table tbody td,
+    .so-table tbody td,
+    .sc-table tbody td,
+    .cn-table tbody td,
+    #leadTable tbody td,
+    #fupTable tbody td,
+    #contactTable tbody td,
+    #prTable tbody td,
+    #soTable tbody td,
+    #scTable tbody td,
+    #cnTable tbody td {
+        padding: 8px 10px !important;
+        font-size: 12px !important;
+    }
+
+    #poPagination,
+    #vlPagination,
+    #clientPagination,
+    #qtnPagination,
+    #invPagination,
+    #vendorPagination,
+    #scPagination,
+    #fupPagination,
+    #contactPagination,
+    #leadPagination,
+    #rfqPagination,
+    #cnPagination,
+    .vt-pagination {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 8px !important;
+        padding: 12px 16px !important;
+    }
+}
+
+@media (max-width: 576px) {
+    .po-kpi-cards,
+    .sales-kpi-grid,
+    .qtn-kpi-cards,
+    .prm-kpi-grid,
+    .vm-kpi-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    .sales-form-footer,
+    .po-form-footer,
+    .prm-form-footer,
+    .vm-form-footer,
+    .qtn-form-footer,
+    .client-form-footer,
+    .form-footer,
+    .vm-bottom-bar {
+        flex-direction: column !important;
+        padding: 10px 16px !important;
+        min-height: auto !important;
+    }
+    .sales-form-footer .btn,
+    .po-form-footer .btn,
+    .prm-form-footer .btn,
+    .vm-form-footer .btn,
+    .qtn-form-footer .btn,
+    .client-form-footer .btn,
+    .form-footer .btn,
+    .vm-bottom-bar .btn {
+        height: 36px !important;
+        font-size: 12px !important;
+        padding: 0 14px !important;
+    }
+}
+
+/* ==========================================================================
+   30. DARK MODE COMPATIBILITY
+   ========================================================================== */
+
+[data-theme="dark"] .sales-filter-panel,
+[data-theme="dark"] .po-filters,
+[data-theme="dark"] .prm-filters,
+[data-theme="dark"] .vm-filters,
+[data-theme="dark"] .client-filters,
+[data-theme="dark"] .qtn-filters,
+[data-theme="dark"] #filterPanel,
+[data-theme="dark"] #qtnFilters,
+[data-theme="dark"] #invFiltersCard,
+[data-theme="dark"] #vlFilterPanel,
+[data-theme="dark"] #clientFilterPanel,
+[data-theme="dark"] #scFiltersCard,
+[data-theme="dark"] #cnFiltersCard,
+[data-theme="dark"] #prFiltersCard,
+[data-theme="dark"] #fupFilterPanel {
+    background: var(--bg-card, #1a1a2e) !important;
+    border-color: rgba(255,255,255,0.1) !important;
+}
+
+[data-theme="dark"] .filter-label,
+[data-theme="dark"] .po-filter-group label,
+[data-theme="dark"] .prm-filter-label,
+[data-theme="dark"] .vm-filter-label,
+[data-theme="dark"] .client-filter-label,
+[data-theme="dark"] .qtn-filter-label,
+[data-theme="dark"] .sales-filter-panel .filter-label {
+    color: var(--text-primary, #e2e8f0) !important;
+}
+
+[data-theme="dark"] .filter-group select,
+[data-theme="dark"] .filter-group input,
+[data-theme="dark"] .po-filter-group select,
+[data-theme="dark"] .po-filter-group input,
+[data-theme="dark"] .prm-filter-group select,
+[data-theme="dark"] .prm-filter-group input,
+[data-theme="dark"] .vm-filter-group select,
+[data-theme="dark"] .vm-filter-group input,
+[data-theme="dark"] .client-filter-group select,
+[data-theme="dark"] .client-filter-group input,
+[data-theme="dark"] .qtn-filter-group select,
+[data-theme="dark"] .qtn-filter-group input,
+[data-theme="dark"] .finance-filter-grid select,
+[data-theme="dark"] .finance-filter-grid input,
+[data-theme="dark"] .sales-filter-panel select,
+[data-theme="dark"] .sales-filter-panel input,
+[data-theme="dark"] #scFiltersCard select,
+[data-theme="dark"] #scFiltersCard input,
+[data-theme="dark"] #cnFiltersCard select,
+[data-theme="dark"] #cnFiltersCard input,
+[data-theme="dark"] #prFiltersCard select,
+[data-theme="dark"] #prFiltersCard input,
+[data-theme="dark"] #fupFilterPanel select,
+[data-theme="dark"] #fupFilterPanel input {
+    background: rgba(255,255,255,0.06) !important;
+    border-color: rgba(255,255,255,0.1) !important;
+    color: var(--text-primary, #e2e8f0) !important;
+}
+
+/* ==========================================================================
+   31. DARK MODE — Additional module-specific overrides
+   ========================================================================== */
+
+[data-theme="dark"] .client-card,
+[data-theme="dark"] .client-table-card {
+    background: var(--bg-card, #1a1a2e) !important;
+    border-color: rgba(255,255,255,0.1) !important;
+}
+
+[data-theme="dark"] .client-table tbody td {
+    border-color: rgba(255,255,255,0.06) !important;
+    color: #cbd5e1 !important;
+}
+
+[data-theme="dark"] .client-table tbody tr:hover td {
+    background: rgba(255,255,255,0.03) !important;
+}
+
+[data-theme="dark"] .po-table-card {
+    background: var(--bg-card, #1a1a2e) !important;
+    border-color: rgba(255,255,255,0.1) !important;
+}
+
+[data-theme="dark"] .po-table tbody td,
+[data-theme="dark"] .so-table tbody td,
+[data-theme="dark"] .sc-table tbody td,
+[data-theme="dark"] .cn-table tbody td,
+[data-theme="dark"] #prTable tbody td,
+[data-theme="dark"] #leadTable tbody td,
+[data-theme="dark"] #fupTable tbody td {
+    color: #cbd5e1 !important;
+}
+
+[data-theme="dark"] .crm-kpi-grid > div {
+    background: var(--bg-card, #1a1a2e) !important;
+    border-color: rgba(255,255,255,0.1) !important;
+}
+
+[data-theme="dark"] .crm-kpi-grid .crm-kpi-value {
+    color: #f1f5f9 !important;
+}
+
+[data-theme="dark"] .crm-kpi-grid .crm-kpi-label {
+    color: #94a3b8 !important;
+}
+
+[data-theme="dark"] .crm-tab-content .card {
+    background: var(--bg-card, #1a1a2e) !important;
+    border-color: rgba(255,255,255,0.1) !important;
+}
+
+[data-theme="dark"] #viewLeadModal .modal-body,
+[data-theme="dark"] #viewLeadModal .modal-header,
+[data-theme="dark"] #viewLeadModal .modal-footer,
+[data-theme="dark"] #leadModal .modal-body,
+[data-theme="dark"] #leadModal .modal-header,
+[data-theme="dark"] #leadModal .modal-footer,
+[data-theme="dark"] #clientModal .modal-body,
+[data-theme="dark"] #clientModal .modal-header,
+[data-theme="dark"] #clientModal .modal-footer,
+[data-theme="dark"] #contactModal .modal-body,
+[data-theme="dark"] #contactModal .modal-header,
+[data-theme="dark"] #contactModal .modal-footer {
+    background: var(--bg-card, #1a1a2e) !important;
+    border-color: rgba(255,255,255,0.1) !important;
+}
+
+[data-theme="dark"] #viewLeadModal .modal,
+[data-theme="dark"] #leadModal .modal,
+[data-theme="dark"] #clientModal .modal,
+[data-theme="dark"] #contactModal .modal {
+    background: var(--bg-card, #1a1a2e) !important;
+    border-color: rgba(255,255,255,0.1) !important;
+}
+
+[data-theme="dark"] .leads-toolbar .filter-group select {
+    background: rgba(255,255,255,0.06) !important;
+    border-color: rgba(255,255,255,0.1) !important;
+    color: #e2e8f0 !important;
+}
+
+[data-theme="dark"] .po-btn-outline-danger {
+    color: #f87171 !important;
+    border-color: #f87171 !important;
+}
+
+[data-theme="dark"] #qaModal .po-modal-content,
+[data-theme="dark"] #srModal .po-modal-content {
+    background: var(--bg-card, #1a1a2e) !important;
+    border-color: rgba(255,255,255,0.1) !important;
+}
+
+[data-theme="dark"] .po-modal-content {
+    background: var(--bg-card, #1a1a2e) !important;
+    border-color: rgba(255,255,255,0.1) !important;
+}
+
+[data-theme="dark"] #qaTbody td {
+    color: #cbd5e1 !important;
+    border-color: rgba(255,255,255,0.06) !important;
+}
+
+[data-theme="dark"] .qc-vendor-card {
+    background: var(--bg-card, #1a1a2e) !important;
+    border-color: rgba(255,255,255,0.1) !important;
+}
+
+[data-theme="dark"] .qc-row {
+    border-color: rgba(255,255,255,0.04) !important;
+}
+
+[data-theme="dark"] .qc-row span {
+    color: #e2e8f0 !important;
+}
+
+[data-theme="dark"] .qc-row label {
+    color: #94a3b8 !important;
+}
+
+[data-theme="dark"] .qc-score-bar {
+    background: rgba(255,255,255,0.08) !important;
+}
+
+/* ==========================================================================
+   32. RESPONSIVE — Additional fixes
+   ========================================================================== */
+
+@media (max-width: 768px) {
+    .crm-tabs {
+        flex-wrap: nowrap !important;
+        overflow-x: auto !important;
+    }
+    .crm-tab {
+        white-space: nowrap !important;
+        padding: 8px 14px !important;
+    }
+    .sub-tabs {
+        width: 100% !important;
+    }
+    .sub-tab {
+        flex: 1 !important;
+        justify-content: center !important;
+    }
+    .drop-zone {
+        padding: 12px 16px !important;
+    }
+    .leads-toolbar .filter-group {
+        flex-direction: column !important;
+    }
+    .leads-toolbar .filter-group select {
+        width: 100% !important;
+    }
+    .confirm-modal {
+        max-width: 95vw !important;
+    }
+}
+
+/* ==========================================================================
+   END OF UNIFIED DESIGN SYSTEM
+   ========================================================================== */
+
+/* ==========================================================================
+   29. UTILITY CLASSES
+   ========================================================================== */
+
+.flex-1 {
+    flex: 1 !important;
+    min-width: 0 !important;
+}
+
+.export-dropdown-inline {
+    display: inline-block !important;
+}
+
+.sales-search-wrap {
+    position: relative !important;
+    display: inline-flex !important;
+    align-items: center !important;
+}
+
+.sales-search-wrap .fa-search,
+.sales-search-wrap i.fas.fa-search {
+    position: absolute !important;
+    left: 10px !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    color: var(--text-muted, #94a3b8) !important;
+    font-size: 13px !important;
+    pointer-events: none !important;
+}
+
+[data-theme="dark"] .sales-search-wrap .fa-search,
+[data-theme="dark"] .sales-search-wrap i.fas.fa-search {
+    color: #64748b !important;
+}
+
+.sr-grid {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)) !important;
+    gap: 10px !important;
+}
+
+.sd-chart-wrap {
+    height: 200px !important;
+    padding: 12px !important;
+    display: flex !important;
+    align-items: flex-end !important;
+    gap: 4px !important;
+}
+
+/* === ACTION MENU CONSOLIDATION === */
+.action-menu-wrap { display: inline-block !important; }
+.action-menu-btn { width: 32px !important; height: 32px !important; border-radius: 6px !important; border: none !important; background: transparent !important; color: var(--text-secondary, #6b7280) !important; cursor: pointer !important; display: inline-flex !important; align-items: center !important; justify-content: center !important; transition: all 0.15s ease !important; font-size: 16px !important; }
+.action-menu-btn:hover { background: var(--primary-light, #E8F0EE) !important; color: var(--primary, #0A4F44) !important; }
+.action-menu { position: fixed !important; width: 240px !important; background: var(--bg-card, #fff) !important; border-radius: 12px !important; box-shadow: 0 10px 35px rgba(0,0,0,.15) !important; padding: 8px !important; z-index: 99999 !important; border: none !important; }
+.action-item { display: flex !important; align-items: center !important; gap: 12px !important; width: 100% !important; padding: 10px 14px !important; border: none !important; border-radius: 8px !important; font-size: 13px !important; font-weight: 500 !important; font-family: 'Inter', sans-serif !important; color: var(--text-primary, #111827) !important; background: none !important; cursor: pointer !important; white-space: nowrap !important; text-align: left !important; text-decoration: none !important; }
+.action-item:hover { background: var(--primary-light, #E8F0EE) !important; color: var(--primary, #0A4F44) !important; }
+.action-item i { width: 18px !important; text-align: center !important; font-size: 14px !important; flex-shrink: 0 !important; color: var(--text-secondary, #6b7280) !important; }
+.action-item:hover i { color: var(--primary, #0A4F44) !important; }
+.action-item.text-danger { color: var(--danger, #dc2626) !important; }
+.action-item.text-danger i { color: var(--danger, #dc2626) !important; }
+.action-item.text-danger:hover { background: rgba(239,68,68,0.08) !important; }
+.action-item.text-success { color: var(--success, #16a34a) !important; }
+.action-item.text-success i { color: var(--success, #16a34a) !important; }
+.action-item.text-success:hover { background: rgba(34,197,94,0.08) !important; }
+.action-menu .menu-divider { height: 1px !important; background: var(--border-color, #e5e7eb) !important; margin: 6px 8px !important; }
+.action-menu-heading { padding: 8px 14px 4px !important; font-size: 10px !important; font-weight: 700 !important; color: var(--text-secondary, #6b7280) !important; text-transform: uppercase !important; letter-spacing: 0.06em !important; pointer-events: none !important; }
+[data-theme="dark"] .action-menu { box-shadow: 0 10px 35px rgba(0,0,0,.4) !important; border: 1px solid rgba(255,255,255,0.1) !important; background: var(--bg-card, #1e293b) !important; }
+[data-theme="dark"] .action-item { color: var(--text-primary, #e2e8f0) !important; }
+[data-theme="dark"] .action-item:hover { background: rgba(10,79,68,0.15) !important; }
+[data-theme="dark"] .action-menu .menu-divider { background: var(--border-color, #334155) !important; }
+
+/* === RELATED DOCUMENTS WIDGET === */
+.related-docs-widget { border-top: 1px solid var(--border-color, #e5e7eb); padding-top: 16px; margin-top: 16px; }
+.related-docs-title { font-size: 13px; font-weight: 600; color: var(--text, #374151); margin: 0 0 8px; display: flex; align-items: center; gap: 6px; }
+.related-docs-grid { display: flex; gap: 6px; flex-wrap: wrap; }
+.related-doc-link { display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 8px; font-size: 12px; font-weight: 500; background: var(--primary-light, #f0f4f3); color: var(--primary, #0A4F44); text-decoration: none; transition: all .15s; border: 1px solid transparent; }
+.related-doc-link:hover { background: var(--primary, #0A4F44); color: #fff; border-color: var(--primary, #0A4F44); }
+.related-doc-link i { font-size: 12px; }
+.related-docs-empty { color: var(--text-muted, #9ca3af); font-size: 12px; }
+[data-theme="dark"] .related-docs-title { color: var(--text, #e2e8f0); }
+[data-theme="dark"] .related-doc-link { background: rgba(10,79,68,0.15); color: #6ee7b7; }
+[data-theme="dark"] .related-doc-link:hover { background: #0A4F44; color: #fff; }
+
+/* === STANDARD FILTER ACTIONS === */
+.filter-actions { display: flex; align-items: flex-end; gap: 8px; padding-bottom: 2px; }
+.filter-actions .btn { white-space: nowrap; }
+
+/* === STANDARD THREE-DOT ACTION === */
+.three-dot-btn { width: 32px; height: 32px; border-radius: 6px; border: none; background: transparent; color: var(--text-secondary, #6b7280); cursor: pointer; display: inline-flex; align-items: center; justify-content: center; transition: all .15s; font-size: 16px; }
+.three-dot-btn:hover { background: var(--primary-light, #E8F0EE); color: var(--primary, #0A4F44); }
+
+/* ==========================================================================
+   END OF UNIFIED DESIGN SYSTEM
+   ========================================================================== */

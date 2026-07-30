@@ -1,0 +1,137 @@
+/* ===== SEGMENTED CONTROL (Active/Archived toggle) =====
+   STANDARD ERP COMPONENT — Use on ALL Sales list pages.
+   Active and Archived tabs share the EXACT SAME selected style.
+   ===== */
+.segmented-control {
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+    padding: 4px;
+    background: #f8fafc;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    width: fit-content;
+    margin-bottom: 12px;
+}
+
+.segmented-option {
+    padding: 0 20px;
+    height: 36px;
+    line-height: 36px;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    background: #fff;
+    color: #64748b;
+    font-size: 13px;
+    font-weight: 500;
+    font-family: 'Inter', sans-serif;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.2s ease;
+    outline: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.segmented-option:hover {
+    background: #f3f4f6;
+    color: #374151;
+    border-color: #d1d5db;
+}
+
+/* Selected state — same for Active AND Archived */
+.segmented-option.active {
+    background: #0F5B4C;
+    color: #fff;
+    font-weight: 600;
+    border-color: #0F5B4C;
+    border-width: 2px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.segmented-option.active:hover {
+    background: #0D4D40;
+    border-color: #0B4237;
+    color: #fff;
+}
+
+/* Count badge inside segmented-option (e.g. "Active 11") */
+.segmented-option .tab-count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 20px;
+    height: 20px;
+    padding: 0 6px;
+    border-radius: 10px;
+    background: #e5e7eb;
+    color: #64748b;
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 1;
+    transition: all 0.2s ease;
+}
+
+/* Badge when selected — white background with dark green text */
+.segmented-option.active .tab-count {
+    background: #fff;
+    color: #0F5B4C;
+}
+
+/* ===== DARK MODE ===== */
+[data-theme="dark"] .segmented-control {
+    background: rgba(255,255,255,0.04);
+    border-color: rgba(255,255,255,0.1);
+}
+
+[data-theme="dark"] .segmented-option {
+    color: #94a3b8;
+    background: rgba(255,255,255,0.06);
+    border-color: rgba(255,255,255,0.15);
+}
+
+[data-theme="dark"] .segmented-option:hover {
+    background: rgba(255,255,255,0.1);
+    color: #e2e8f0;
+    border-color: rgba(255,255,255,0.25);
+}
+
+[data-theme="dark"] .segmented-option.active {
+    background: #0D4D40;
+    color: #fff;
+    border-color: #0D4D40;
+}
+
+[data-theme="dark"] .segmented-option.active:hover {
+    background: #0F5B4C;
+    border-color: #0F5B4C;
+}
+
+[data-theme="dark"] .segmented-option .tab-count {
+    background: rgba(255,255,255,0.1);
+    color: #94a3b8;
+}
+
+[data-theme="dark"] .segmented-option.active .tab-count {
+    background: rgba(255,255,255,0.9);
+    color: #0D4D40;
+}
+
+/* Focus ring for keyboard accessibility */
+.segmented-option:focus-visible {
+    outline: 2px solid #0F5B4C;
+    outline-offset: 2px;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .segmented-control {
+        width: 100%;
+    }
+    .segmented-option {
+        flex: 1;
+        text-align: center;
+        padding: 0 12px;
+    }
+}

@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<script src="js/storage-guard.js"></script>
+<script src="js/modules/auth-shim.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5">
+    <title>Leads - VISHAK TECH Enterprise CRM</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/sidebar.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/clients.css">
+    <link rel="stylesheet" href="css/leads.css">
+    <link rel="stylesheet" href="css/sales-crm.css">
+    <link rel="stylesheet" href="css/pagination.css">
+    <link rel="stylesheet" href="css/theme.css">
+    <link rel="stylesheet" href="css/unified.css">
+    <link rel="stylesheet" href="css/segmented-control.css">
+</head>
+<body data-page="leads">
+    <nav class="sidebar">
+        <div class="sidebar-brand">
+            <div class="brand-logo">V</div>
+            <div class="brand-text">
+                <div class="brand-name">VISHAK TECH</div>
+                <div class="brand-sub">Enterprise Portal</div>
+            </div>
+        </div>
+        <div class="sidebar-user-card">
+            <div class="user-avatar-wrap">
+                <div class="user-avatar">A</div>
+                <span class="user-online"></span>
+            </div>
+            <div class="user-info">
+                <div class="user-name">Admin User</div>
+                <div class="user-role">Administrator</div>
+            </div>
+        </div>
+        <div class="sidebar-search">
+            <i class="fas fa-search sidebar-search-icon"></i>
+            <input type="text" placeholder="Search menu..." aria-label="Search menu" oninput="VT.Sidebar.filterMenu(this.value)">
+        </div>
+        <div class="sidebar-nav sidebar-menu"></div>
+        <div class="sidebar-bottom">
+            <a class="theme-toggle" onclick="VT.Theme.toggle()"><i class="fas fa-moon"></i><span>Dark Mode</span></a>
+            <a onclick="VT.Auth.logout()"><i class="fas fa-sign-out-alt"></i><span>Sign Out</span></a>
+        </div>
+    </nav>
+    <div class="sidebar-overlay"></div>
+    <div class="main-area">
+        <header class="topbar">
+            <button class="topbar-toggle sidebar-toggle" aria-label="Toggle sidebar"><i class="fas fa-bars"></i></button>
+            <h1 class="topbar-title">Leads</h1>
+            <div class="topbar-actions">
+                <button class="theme-toggle" onclick="VT.Theme.toggle()" aria-label="Toggle dark mode"><i class="fas fa-moon"></i></button>
+                <button class="notification-btn" aria-label="Notifications"><i class="fas fa-bell"></i><span class="notification-badge">3</span></button>
+                <div class="user-dropdown">
+                    <div class="user-dropdown-trigger" aria-label="User menu" role="button" tabindex="0"><div class="user-avatar small">A</div><i class="fas fa-chevron-down"></i></div>
+                    <div class="user-dropdown-menu"><a href="#"><i class="fas fa-user-cog"></i> Settings</a><a href="#" onclick="VT.Auth.logout()"><i class="fas fa-sign-out-alt"></i> Sign Out</a></div>
+                </div>
+            </div>
+        </header>
+        <div class="page-content">
+            <div class="sales-breadcrumb">
+                <a href="dashboard.html">Dashboard</a> <i class="fas fa-chevron-right"></i>
+                <a href="dashboard.html">Sales</a> <i class="fas fa-chevron-right"></i>
+                <span>Leads</span>
+            </div>
+            <div class="sales-page-header">
+                <h1><i class="fas fa-user-plus"></i> Your Leads</h1>
+                <div class="sales-page-header-actions">
+                    <a href="lead-pipeline.html" class="btn btn-ghost btn-sm"><span class="erp-btn-icon"><i class="fas fa-columns"></i></span> Pipeline</a>
+                    <a href="vl-create.html" class="erp-btn-primary"><span class="erp-btn-icon"><i class="fas fa-plus"></i></span> Add Lead</a>
+                </div>
+            </div>
+
+            <!-- KPI Cards -->
+            <div class="sales-kpi-grid" id="leadKpiGrid"></div>
+
+            <div class="sales-tabs">
+                <button class="sales-tab client-tab active" onclick="VT.Leads.switchTab(0)">All Leads <span class="tab-count">0</span></button>
+            </div>
+
+            <div class="segmented-control">
+                <button class="segmented-option active" onclick="VT.Leads.switchSubtab(0)">Active <span class="tab-count">0</span></button>
+                <button class="segmented-option" onclick="VT.Leads.switchSubtab(1)">Archived <span class="tab-count">0</span></button>
+                <button class="segmented-option" onclick="VT.Leads.switchSubtab(2)">Deleted <span class="tab-count">0</span></button>
+            </div>
+
+            <div class="sales-toolbar">
+                <div class="sales-toolbar-left">
+                    <button class="btn btn-ghost btn-sm" onclick="VT.Leads.toggleFilters(this)" aria-label="Toggle filters"><i class="fas fa-filter"></i> Show Filters</button>
+                </div>
+                <div class="sales-toolbar-right">
+                    <input type="text" id="vlSearchInput" class="sales-search-input" placeholder="Search by Lead No, Name, Phone, Email..." aria-label="Search leads" autocomplete="off">
+
+                    <div class="export-dropdown" id="leadsExportDD" style="display:inline-block"></div>
+                    <div style="position:relative">
+                        <button class="btn btn-ghost btn-sm" onclick="VT.Leads.toggleColVis(this)" aria-label="Toggle column visibility"><i class="fas fa-columns"></i> Columns</button>
+                        <div class="col-vis-menu" id="vlTable_colVisMenu"></div>
+                    </div>
+                    <span style="font-size:12px;color:#94a3b8" id="leadsPageInfo"></span>
+                </div>
+            </div>
+
+            <div class="sales-filter-panel" id="filterPanel">
+                <div class="sales-filter-grid">
+                    <div class="filter-group">
+                        <span class="filter-label">Status</span>
+                        <select id="filterStatus" aria-label="Filter by status" onchange="VT.Leads.render()">
+                            <option value="">All Statuses</option>
+                            <option value="new">New</option>
+                            <option value="contacted">Contacted</option>
+                            <option value="qualified">Qualified</option>
+                            <option value="proposal">Proposal</option>
+                            <option value="negotiation">Negotiation</option>
+                            <option value="won">Won</option>
+                            <option value="lost">Lost</option>
+                            <option value="converted">Converted</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <span class="filter-label">Stage</span>
+                        <select id="filterStage" aria-label="Filter by stage" onchange="VT.Leads.render()">
+                            <option value="">All Stages</option>
+                            <option value="new">New</option>
+                            <option value="contacted">Contacted</option>
+                            <option value="qualified">Qualified</option>
+                            <option value="proposal">Proposal</option>
+                            <option value="negotiation">Negotiation</option>
+                            <option value="won">Won</option>
+                            <option value="lost">Lost</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <span class="filter-label">Source</span>
+                        <select id="filterSource" aria-label="Filter by source" onchange="VT.Leads.render()">
+                            <option value="">All Sources</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <span class="filter-label">Priority</span>
+                        <select id="filterPriority" aria-label="Filter by priority" onchange="VT.Leads.render()">
+                            <option value="">All Priorities</option>
+                            <option value="low">Low</option>
+                            <option value="medium">Medium</option>
+                            <option value="high">High</option>
+                            <option value="critical">Critical</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <span class="filter-label">Owner</span>
+                        <select id="filterOwner" aria-label="Filter by owner" onchange="VT.Leads.render()">
+                            <option value="">All Owners</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <span class="filter-label">Date From</span>
+                        <input type="date" id="filterDateFrom" aria-label="Filter by date from" onchange="VT.Leads.render()">
+                    </div>
+                    <div class="filter-group">
+                        <span class="filter-label">Date To</span>
+                        <input type="date" id="filterDateTo" aria-label="Filter by date to" onchange="VT.Leads.render()">
+                    </div>
+                    <div class="filter-actions">
+                        <button class="btn btn-ghost btn-sm" id="filterClear" aria-label="Reset filters"><i class="fas fa-times"></i> Reset</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bulk-action-bar" id="bulkActionBar">
+                <span class="bulk-count">0 selected</span>
+                <div class="bulk-actions">
+                    <button class="btn btn-sm btn-ghost" onclick="VT.Leads.bulkRestore()" id="bulkRestoreBtn" style="display:none"><i class="fas fa-undo"></i> Restore</button>
+                    <button class="btn btn-sm btn-ghost" onclick="VT.Leads.bulkPermanentDelete()" id="bulkPermanentDeleteBtn" style="display:none"><i class="fas fa-times-circle"></i> Delete Permanently</button>
+                    <button class="btn btn-sm btn-ghost" onclick="VT.Leads.bulkDelete()" id="bulkDeleteBtn"><i class="fas fa-trash"></i> Delete</button>
+                    <button class="btn btn-sm btn-ghost" onclick="VT.Leads.bulkAssignOwner()" id="bulkAssignBtn"><i class="fas fa-user"></i> Assign Owner</button>
+                    <button class="btn btn-sm btn-ghost" onclick="VT.Leads.bulkChangeStage()" id="bulkStageBtn"><i class="fas fa-tag"></i> Change Stage</button>
+                    <button class="btn btn-sm btn-ghost" onclick="VT.Leads.bulkArchive()" id="bulkArchiveBtn"><i class="fas fa-archive"></i> Archive</button>
+                    <button class="btn btn-sm btn-ghost" onclick="VT.Leads.bulkExport()" id="bulkExportBtn"><i class="fas fa-file-export"></i> Export</button>
+                </div>
+            </div>
+
+            <div class="sales-table-card">
+                <div class="sales-table-wrap">
+                    <table class="sales-table" id="vlTable" style="table-layout:fixed">
+                        <colgroup>
+                            <col class="col-checkbox" style="width:52px">
+                            <col class="col-leadno" style="width:160px">
+                            <col class="col-business" style="width:260px">
+                            <col class="col-contact" style="width:200px">
+                            <col class="col-phone" style="width:170px">
+                            <col class="col-email" style="width:260px">
+                            <col class="col-industry" style="width:180px">
+                            <col class="col-source" style="width:160px">
+                            <col class="col-stage" style="width:150px">
+                            <col class="col-owner" style="width:170px">
+                            <col class="col-priority" style="width:120px">
+                            <col class="col-value" style="width:160px">
+                            <col class="col-lastfup" style="width:170px">
+                            <col class="col-nextfup" style="width:170px">
+                            <col class="col-status" style="width:120px">
+                            <col class="col-actions" style="width:70px">
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th class="checkbox-cell" scope="col"><input type="checkbox" id="selectAll" aria-label="Select all rows" onchange="var c=this.checked;document.querySelectorAll('.vl-checkbox').forEach(function(e){e.checked=c});if(window.VT&&VT.Leads)VT.Leads.updateBulkActionBar()"></th>
+                                <th class="col-doc-id" data-sort="leadNo" onclick="VT.Leads.sort('leadNo')" scope="col">Lead No <i class="fas fa-sort sort-icon"></i></th>
+                                <th data-sort="company" onclick="VT.Leads.sort('company')" scope="col">Business Name <i class="fas fa-sort sort-icon"></i></th>
+                                <th data-sort="name" onclick="VT.Leads.sort('name')" scope="col">Contact Person <i class="fas fa-sort sort-icon"></i></th>
+                                <th data-sort="phone" onclick="VT.Leads.sort('phone')" style="white-space:nowrap" scope="col">Phone <i class="fas fa-sort sort-icon"></i></th>
+                                <th data-sort="email" onclick="VT.Leads.sort('email')" scope="col">Email <i class="fas fa-sort sort-icon"></i></th>
+                                <th data-sort="industry" onclick="VT.Leads.sort('industry')" scope="col">Industry <i class="fas fa-sort sort-icon"></i></th>
+                                <th data-sort="source" onclick="VT.Leads.sort('source')" scope="col">Lead Source <i class="fas fa-sort sort-icon"></i></th>
+                                <th data-sort="stage" onclick="VT.Leads.sort('stage')" scope="col">Stage <i class="fas fa-sort sort-icon"></i></th>
+                                <th data-sort="assignee" onclick="VT.Leads.sort('assignee')" scope="col">Owner <i class="fas fa-sort sort-icon"></i></th>
+                                <th data-sort="priority" onclick="VT.Leads.sort('priority')" scope="col">Priority <i class="fas fa-sort sort-icon"></i></th>
+                                <th data-sort="expectedValue" onclick="VT.Leads.sort('expectedValue')" scope="col">Expected Value <i class="fas fa-sort sort-icon"></i></th>
+                                <th scope="col">Last Follow-up</th>
+                                <th scope="col">Next Follow-up</th>
+                                <th data-sort="status" onclick="VT.Leads.sort('status')" scope="col">Status <i class="fas fa-sort sort-icon"></i></th>
+                                <th scope="col">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="vlTableBody"></tbody>
+                    </table>
+                </div>
+                <div id="vlPagination"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="toastContainer"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="js/modules/data.js"></script>
+    <script src="js/modules/auth.js"></script>
+    <script src="js/modules/utils.js"></script>
+    <script src="js/modules/standard.js"></script>
+    <script src="js/modules/export.js"></script>
+    <script src="js/modules/column-manager.js"></script>
+    <script src="js/modules/data-table-toolbar.js"></script>
+    <script src="js/modules/theme.js?v=2"></script><script src="js/modules/session.js"></script>
+    <script src="js/sidebar.js"></script>
+    <script src="js/modules/master-data.js"></script>
+    <script src="js/modules/master-manager.js"></script>
+    <script src="js/modules/combobox.js"></script>
+    <script src="js/modules/client-nav.js"></script>
+    <script src="js/modules/notification-service.js"></script>
+    <script src="js/shared/format.js"></script>
+<script src="js/shared/lead-utils.js"></script>
+<script src="js/shared/datahub.js"></script>
+<script src="js/shared/view-state-persistence.js"></script>
+<script src="js/leads.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/pagination.js"></script>
+<script>
+(function() {
+    if (typeof VT !== 'undefined' && VT.NotificationService) {
+        VT.NotificationService.init({ pollInterval: 60000, enableSound: true });
+        VT.NotificationService.start();
+    }
+    document.addEventListener('VT:DataUpdated', function() {
+        if (VT.NotificationService) VT.NotificationService.checkNow();
+    });
+    document.addEventListener('visibilitychange', function() {
+        if (!document.hidden && VT.NotificationService) VT.NotificationService.checkNow();
+    });
+})();
+</script>
+</body>
+</html>

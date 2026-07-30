@@ -1,0 +1,299 @@
+/* Clients Module - Enterprise CRM */
+
+/* KPI grid uses .sales-kpi-grid from leads.css */
+
+/* ===== View Detail Tabs ===== */
+.view-tabs { display: flex; gap: 0; border-bottom: 2px solid #e5e7eb; margin-bottom: 24px; overflow-x: auto; /*overflow-y: hidden;*/ flex-wrap: nowrap; position: sticky; top: 72px; z-index: 5; background: var(--bg-page, #f8fafc); padding-top: 4px; }
+.view-tab { padding: 12px 20px; font-size: 13px; font-weight: 500; color: #64748b; background: none; border: none; cursor: pointer; border-bottom: 3px solid transparent; transition: all 0.2s ease; font-family: Inter, sans-serif; white-space: nowrap; display: flex; align-items: center; gap: 8px; flex-shrink: 0; margin-bottom: -2px; }
+.view-tab:hover { color: #374151; background: #f1f5f9; }
+.view-tab.active { color: #0B4A3D; border-bottom-color: #0B4A3D; background: transparent; font-weight: 600; }
+.view-tab i { font-size: 14px; }
+.view-tab-content { min-height: 320px; animation: tabFadeIn 0.2s ease; }
+@keyframes tabFadeIn { 0% { opacity: 0; transform: translateY(6px); } 100% { opacity: 1; transform: translateY(0); } }
+[data-theme="dark"] .view-tab { color: #94a3b8; }
+[data-theme="dark"] .view-tab:hover { color: #e2e8f0; background: rgba(255,255,255,0.05); }
+[data-theme="dark"] .view-tab.active { color: #0B4A3D; border-bottom-color: #0B4A3D; background: transparent; }
+[data-theme="dark"] .view-tabs { background: var(--bg-page, #0f172a); border-bottom-color: rgba(255,255,255,0.1); }
+
+/* ===== Client Profile Page ===== */
+
+/* ===== Detail Cards ===== */
+.sales-view-page .sales-info-grid {
+    margin-bottom: 24px;
+}
+
+/* Card styling */
+.sales-view-page .info-card {
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 0;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+}
+.sales-view-page .info-card h4 {
+    font-size: 14px;
+    font-weight: 600;
+    color: #111827;
+    margin: 0;
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid #f1f5f9;
+    background: #fafbfc;
+    border-radius: 12px 12px 0 0;
+}
+.sales-view-page .info-card h4 i { color: #0B4A3D; font-size: 16px; }
+
+/* ===== Info Row — ERP-style label|value layout ===== */
+.sales-view-page .info-card .info-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 12px 24px;
+    border-bottom: 1px solid #eef2f7;
+    min-height: 48px;
+}
+.sales-view-page .info-card .info-row:last-of-type {
+    border-bottom: none;
+}
+
+/* Label — fixed 200px width so values never touch labels */
+.sales-view-page .info-card .info-row .label {
+    width: 200px;
+    min-width: 200px;
+    flex-shrink: 0;
+    color: #6B7280 !important;
+    font-weight: 500 !important;
+    font-size: 14px;
+    line-height: 22px;
+}
+
+/* Value — takes remaining space */
+.sales-view-page .info-card .info-row .sales-detail-value {
+    flex: 1;
+    min-width: 0;
+    color: #111827 !important;
+    font-weight: 600 !important;
+    font-size: 14px;
+    line-height: 22px;
+}
+
+/* ===== KPI Summary Cards ===== */
+.sales-summary-card {
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+    cursor: default;
+}
+.sales-summary-card:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    transform: translateY(-2px);
+}
+
+/* ===== Professional Empty State ===== */
+.sales-view-page .info-card > div[style*="text-align"] {
+    padding: 48px 24px !important;
+    font-size: 14px !important;
+    color: #94a3b8 !important;
+    line-height: 1.6 !important;
+}
+.sales-view-page .info-card > div[style*="text-align"]::before {
+    content: "\f15c";
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    font-size: 40px;
+    display: block;
+    margin-bottom: 16px;
+    color: #d1d5db;
+}
+
+/* ===== Inline Tables (Contacts, Docs tabs) ===== */
+#viewTabContent table[style*="width:100"] {
+    border-collapse: collapse !important;
+    font-size: 13px !important;
+}
+#viewTabContent table[style*="width:100"] thead tr {
+    background: #f8fafc !important;
+}
+#viewTabContent table[style*="width:100"] th {
+    padding: 10px 16px !important;
+    text-align: left !important;
+    font-weight: 600 !important;
+    font-size: 12px !important;
+    color: #64748b !important;
+    border-bottom: 2px solid #e5e7eb !important;
+    white-space: nowrap !important;
+    text-transform: none !important;
+    letter-spacing: normal !important;
+}
+#viewTabContent table[style*="width:100"] th:last-child {
+    text-align: right !important;
+}
+#viewTabContent table[style*="width:100"] td {
+    padding: 10px 16px !important;
+    border-bottom: 1px solid #f3f4f6 !important;
+    font-size: 13px !important;
+    color: #374151 !important;
+    vertical-align: middle !important;
+}
+#viewTabContent table[style*="width:100"] td:last-child {
+    text-align: right !important;
+}
+#viewTabContent table[style*="width:100"] tbody tr:hover td {
+    background: #f8fafc !important;
+}
+#viewTabContent table[style*="width:100"] tbody tr:nth-child(even) td {
+    background: #fbfcfc !important;
+}
+#viewTabContent table[style*="width:100"] tbody tr:nth-child(even):hover td {
+    background: #f8fafc !important;
+}
+
+/* ===== Documents Grid Links ===== */
+.sales-view-page .info-card a[href*=".html"] {
+    transition: all 0.2s ease !important;
+}
+.sales-view-page .info-card a[href*=".html"]:hover {
+    border-color: #0B4A3D !important;
+    box-shadow: 0 2px 8px rgba(11,74,61,0.08) !important;
+}
+
+/* ===== Responsive: Tablet ===== */
+@media (max-width: 1023px) {
+    .sales-view-page .sales-info-grid {
+        grid-template-columns: 1fr !important;
+    }
+}
+
+/* ===== Responsive: Mobile ===== */
+@media (max-width: 640px) {
+    .sales-view-page .info-card .info-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+        padding: 12px 20px;
+    }
+    .sales-view-page .info-card .info-row .label {
+        width: auto;
+        min-width: auto;
+        font-size: 12px;
+        line-height: 18px;
+        color: #9ca3af !important;
+    }
+    .sales-view-page .info-card .info-row .sales-detail-value {
+        font-size: 14px;
+        line-height: 20px;
+    }
+    .sales-view-page .info-card h4 {
+        padding: 14px 20px;
+        font-size: 13px;
+    }
+}
+
+/* ===== Dark Mode ===== */
+[data-theme="dark"] .sales-view-page .info-card {
+    background: var(--bg-card, #1e293b);
+    border-color: rgba(255,255,255,0.1);
+}
+[data-theme="dark"] .sales-view-page .info-card h4 {
+    color: var(--text-heading, #f1f5f9);
+    background: rgba(255,255,255,0.03);
+    border-bottom-color: rgba(255,255,255,0.08);
+}
+[data-theme="dark"] .sales-view-page .info-card .info-row {
+    border-bottom-color: rgba(255,255,255,0.06);
+}
+[data-theme="dark"] .sales-view-page .info-card .info-row .label {
+    color: #94a3b8 !important;
+}
+[data-theme="dark"] .sales-view-page .info-card .info-row .sales-detail-value {
+    color: #e2e8f0 !important;
+}
+[data-theme="dark"] .sales-view-page .info-card > div[style*="text-align"] {
+    color: #64748b !important;
+}
+[data-theme="dark"] .sales-view-page .info-card > div[style*="text-align"]::before {
+    color: #475569;
+}
+[data-theme="dark"] #viewTabContent table[style*="width:100"] thead tr {
+    background: rgba(255,255,255,0.03) !important;
+}
+[data-theme="dark"] #viewTabContent table[style*="width:100"] th {
+    color: #94a3b8 !important;
+    border-bottom-color: rgba(255,255,255,0.1) !important;
+}
+[data-theme="dark"] #viewTabContent table[style*="width:100"] td {
+    color: #e2e8f0 !important;
+    border-bottom-color: rgba(255,255,255,0.06) !important;
+}
+[data-theme="dark"] #viewTabContent table[style*="width:100"] tbody tr:hover td {
+    background: rgba(255,255,255,0.03) !important;
+}
+[data-theme="dark"] #viewTabContent table[style*="width:100"] tbody tr:nth-child(even) td {
+    background: rgba(255,255,255,0.015) !important;
+}
+[data-theme="dark"] #viewTabContent table[style*="width:100"] tbody tr:nth-child(even):hover td {
+    background: rgba(255,255,255,0.03) !important;
+}
+/* Action menu uses .safe-action-menu from unified.css */
+
+/* Follow-up cells */
+.fu-cell { cursor: pointer; position: relative; }
+.fu-cell:hover { color: var(--accent, #0A4F44); }
+.fu-extra { font-size: 11px; font-weight: 600; color: var(--accent, #0A4F44); }
+[data-theme="dark"] .fu-extra { color: #0B4A3D; }
+
+/* Custom tooltip on hover */
+.fu-cell[data-tooltip]:hover::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    left: 0;
+    top: 100%;
+    z-index: 100;
+    background: #1f2937;
+    color: #f9fafb;
+    font-size: 12px;
+    line-height: 1.5;
+    padding: 8px 12px;
+    border-radius: 8px;
+    white-space: pre-line;
+    min-width: 220px;
+    max-width: 320px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+    pointer-events: none;
+    margin-top: 4px;
+}
+[data-theme="dark"] .fu-cell[data-tooltip]:hover::after {
+    background: #374151;
+    color: #e5e7eb;
+}
+
+/* Column visibility dropdown */
+
+/* Form uses .sales-form-card* from leads.css / unified.css */
+
+.link-contact-btn { padding: 6px 14px; border: 1px dashed var(--accent, #0A4F44); border-radius: 8px; color: var(--accent, #0A4F44); background: transparent; font-size: 13px; font-family: Inter, sans-serif; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; }
+.link-contact-btn:hover { background: var(--accent-light, #E8F0EE); }
+.linked-contacts-table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 12px; }
+.linked-contacts-table td { padding: 8px 12px; border-bottom: 1px solid #f3f4f6; }
+.copy-address { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; font-size: 12px; color: var(--accent, #0A4F44); background: var(--accent-light, #E8F0EE); border-radius: 6px; cursor: pointer; border: none; font-family: Inter, sans-serif; }
+/* Combobox dropdown option hover + focus styling */
+.combobox-option:hover {
+    background: #f3f4f6 !important;
+}
+.combobox-option:focus {
+    outline: none;
+    background: #0B4A3D15 !important;
+}
+[data-theme="dark"] .combobox-option:hover {
+    background: rgba(255,255,255,0.06) !important;
+}
+[data-theme="dark"] .combobox-option:focus {
+    background: rgba(11,74,61,0.25) !important;
+}
+
+/* View client uses .vl-view-* and .sales-view-page styles from leads.css */
+
+/* Empty table message (e.g. linked contacts) */
+.empty-table-msg { text-align: center; padding: 20px; color: #9ca3af; font-size: 14px; }
+
+

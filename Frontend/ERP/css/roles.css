@@ -1,0 +1,97 @@
+:root {
+  --rpm-primary: #0B4A3D;
+  --rpm-primary-dark: #136754;
+  --rpm-primary-light: #EDF7F4;
+  --rpm-gradient: linear-gradient(135deg, #0B4A3D, #136754);
+  --rpm-glass: rgba(255,255,255,0.75);
+  --rpm-glass-border: rgba(255,255,255,0.25);
+  --rpm-shadow: 0 8px 32px rgba(0,0,0,0.07);
+  --rpm-radius: 16px;
+  --rpm-radius-sm: 10px;
+}
+[data-theme="dark"] {
+  --rpm-glass: rgba(30,41,59,0.8);
+  --rpm-glass-border: rgba(255,255,255,0.06);
+  --rpm-shadow: 0 8px 32px rgba(0,0,0,0.4);
+}
+.rpm-stats { display:grid; grid-template-columns:repeat(auto-fill,minmax(160px,1fr)); gap:14px; margin-bottom:24px; }
+.rpm-stat-card {
+  background:var(--rpm-glass); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
+  border:1px solid var(--rpm-glass-border); border-radius:var(--rpm-radius);
+  padding:18px 16px; box-shadow:var(--rpm-shadow);
+  transition:all 0.3s cubic-bezier(0.4,0,0.2,1); position:relative; overflow:hidden;
+}
+.rpm-stat-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:var(--rpm-gradient); }
+.rpm-stat-card:hover { transform:translateY(-4px); box-shadow:0 16px 48px rgba(0,0,0,0.1); }
+[data-theme="dark"] .rpm-stat-card:hover { box-shadow:0 16px 48px rgba(0,0,0,0.35); }
+.rpm-stat-top { display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:8px; }
+.rpm-stat-icon { width:40px; height:40px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:18px; }
+.rpm-stat-icon.green { background:#dcfce7; color:#16a34a; }
+.rpm-stat-icon.blue { background:#dbeafe; color:#2563eb; }
+.rpm-stat-icon.amber { background:#fef3c7; color:#d97706; }
+.rpm-stat-icon.red { background:#fee2e2; color:#dc2626; }
+.rpm-stat-icon.purple { background:#ede9fe; color:#8b5cf6; }
+.rpm-stat-icon.teal { background:#cffafe; color:#0891b2; }
+[data-theme="dark"] .rpm-stat-icon.green { background:rgba(22,163,74,0.2); }
+[data-theme="dark"] .rpm-stat-icon.blue { background:rgba(37,99,235,0.2); }
+[data-theme="dark"] .rpm-stat-icon.amber { background:rgba(217,119,6,0.2); }
+[data-theme="dark"] .rpm-stat-icon.red { background:rgba(220,38,38,0.2); }
+[data-theme="dark"] .rpm-stat-icon.purple { background:rgba(139,92,246,0.2); }
+[data-theme="dark"] .rpm-stat-icon.teal { background:rgba(6,182,212,0.2); }
+.rpm-stat-value { font-size:24px; font-weight:700; color:var(--text-heading); line-height:1.1; }
+.rpm-stat-label { font-size:11px; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.4px; margin-top:2px; }
+.rpm-tabs { display:flex; gap:4px; background:var(--rpm-glass); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); border:1px solid var(--rpm-glass-border); border-radius:var(--rpm-radius); padding:6px; margin-bottom:24px; overflow-x:auto; box-shadow:var(--rpm-shadow); }
+.rpm-tab { padding:10px 22px; border:none; border-radius:var(--rpm-radius-sm); font-size:13px; font-weight:500; color:var(--text-secondary); background:transparent; cursor:pointer; white-space:nowrap; display:flex; align-items:center; gap:8px; transition:all 0.25s cubic-bezier(0.4,0,0.2,1); }
+.rpm-tab:hover { background:var(--rpm-primary-light); color:var(--rpm-primary); }
+.rpm-tab.active { background:var(--rpm-gradient); color:#fff; box-shadow:0 4px 16px rgba(11,74,61,0.35); }
+.rpm-tab i { font-size:15px; }
+[data-theme="dark"] .rpm-tab:hover { background:rgba(11,74,61,0.15); color:#6EE7B7; }
+.rpm-tab-pane { display:none; }
+.rpm-tab-pane.active { display:block; animation:rpmFadeIn 0.35s ease; }
+@keyframes rpmFadeIn { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
+.rpm-matrix-wrap { overflow-x:auto; border:1px solid var(--border-color); border-radius:12px; }
+.rpm-matrix-wrap table { width:100%; border-collapse:collapse; font-size:13px; min-width:800px; }
+.rpm-matrix-wrap th { background:var(--rpm-gradient); color:#fff; padding:12px 14px; text-align:left; font-weight:600; font-size:12px; letter-spacing:.3px; text-transform:uppercase; white-space:nowrap; position:sticky; top:0; z-index:3; border:1px solid rgba(255,255,255,0.1); }
+.rpm-matrix-wrap th:first-child { padding-left:20px; }
+.rpm-matrix-wrap th .rpm-matrix-actions { font-weight:400; text-transform:none; font-size:11px; display:block; margin-top:4px; letter-spacing:0; }
+.rpm-matrix-wrap th .rpm-matrix-actions a { color:rgba(255,255,255,.7); cursor:pointer; text-decoration:none; margin-right:6px; }
+.rpm-matrix-wrap th .rpm-matrix-actions a:hover { color:#fff; }
+.rpm-matrix-wrap td { padding:10px 14px; border-bottom:1px solid var(--border-color); color:var(--text-body); vertical-align:middle; }
+.rpm-matrix-wrap td:first-child { font-weight:600; color:var(--text-heading); padding-left:20px; white-space:nowrap; }
+.rpm-matrix-wrap td:first-child i { width:18px; color:var(--rpm-primary); margin-right:8px; }
+.rpm-matrix-wrap tr:hover td { background:var(--rpm-primary-light); }
+.rpm-matrix-wrap tr:last-child td { border-bottom:none; }
+.rpm-matrix-wrap .rpm-check { width:18px; height:18px; accent-color:var(--rpm-primary); cursor:pointer; display:block; margin:0 auto; }
+.rpm-role-badge { display:inline-flex; align-items:center; gap:6px; padding:4px 12px; border-radius:20px; font-size:11px; font-weight:600; }
+.rpm-role-badge.admin { background:#fee2e2; color:#dc2626; }
+.rpm-role-badge.sales { background:#dbeafe; color:#2563eb; }
+.rpm-role-badge.production { background:#dcfce7; color:#16a34a; }
+.rpm-role-badge.purchase { background:#fef3c7; color:#d97706; }
+.rpm-role-badge.accounts { background:#ede9fe; color:#8b5cf6; }
+.rpm-role-badge.management { background:#cffafe; color:#0891b2; }
+[data-theme="dark"] .rpm-role-badge.admin { background:rgba(220,38,38,0.15); color:#fca5a5; }
+[data-theme="dark"] .rpm-role-badge.sales { background:rgba(37,99,235,0.15); color:#93c5fd; }
+[data-theme="dark"] .rpm-role-badge.production { background:rgba(22,163,74,0.15); color:#86efac; }
+[data-theme="dark"] .rpm-role-badge.purchase { background:rgba(217,119,6,0.15); color:#fde68a; }
+[data-theme="dark"] .rpm-role-badge.accounts { background:rgba(139,92,246,0.15); color:#c4b5fd; }
+[data-theme="dark"] .rpm-role-badge.management { background:rgba(6,182,212,0.15); color:#67e8f9; }
+.rpm-action-btn { width:30px; height:30px; border:none; border-radius:6px; background:transparent; color:var(--text-secondary); cursor:pointer; font-size:13px; transition:all 0.2s; }
+.rpm-action-btn:hover { background:var(--rpm-primary-light); color:var(--rpm-primary); }
+.rpm-action-btn.danger:hover { background:#fee2e2; color:#dc2626; }
+.rpm-user-cell { display:flex; align-items:center; gap:10px; }
+.rpm-user-avatar { width:32px; height:32px; border-radius:50%; background:var(--rpm-gradient); color:#fff; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:600; flex-shrink:0; }
+.rpm-session-card { display:flex; align-items:center; gap:16px; padding:16px 20px; background:var(--rpm-glass); backdrop-filter:blur(8px); border:1px solid var(--rpm-glass-border); border-radius:var(--rpm-radius-sm); margin-bottom:10px; transition:all .2s; }
+.rpm-session-card:hover { box-shadow:var(--rpm-shadow); }
+.rpm-session-icon { width:44px; height:44px; border-radius:10px; background:var(--rpm-primary-light); color:var(--rpm-primary); display:flex; align-items:center; justify-content:center; font-size:20px; flex-shrink:0; }
+.rpm-session-info { flex:1; }
+.rpm-session-info .name { font-size:14px; font-weight:600; color:var(--text-heading); }
+.rpm-session-info .meta { font-size:12px; color:var(--text-secondary); display:flex; gap:16px; flex-wrap:wrap; margin-top:2px; }
+.rpm-session-info .meta span { display:flex; align-items:center; gap:4px; }
+.rpm-empty { text-align:center; padding:60px 20px; color:var(--text-muted); }
+.rpm-empty i { font-size:48px; margin-bottom:16px; opacity:0.4; }
+.rpm-empty h4 { font-size:16px; color:var(--text-secondary); margin:0 0 8px; }
+.rpm-empty p { font-size:13px; margin:0; }
+[data-theme="dark"] .btn-soft-primary { background:rgba(11,74,61,0.2); color:#6EE7B7; border:none; }
+[data-theme="dark"] .btn-soft-primary:hover { background:var(--rpm-primary); color:#fff; }
+.rpm-table-toolbar { display:flex; align-items:center; flex-wrap:wrap; gap:10px; padding:14px 20px; border-bottom:1px solid var(--border-color); }
+@media(max-width:768px){.rpm-stats{grid-template-columns:repeat(2,1fr)}.rpm-tab{padding:8px 14px;font-size:12px}}

@@ -1,0 +1,319 @@
+/* ===== SHARED ITEM TABLE ===== */
+/* Table-based layout with table-layout:fixed for perfect column alignment */
+
+.item-table-section {
+    border: 1px solid var(--iv-border, #E5E7EB);
+    border-radius: var(--iv-radius, 12px);
+    margin-bottom: 24px;
+    width: 100%;
+}
+
+/* Toolbar inside item-table-section – buttons above the table */
+.item-table-toolbar {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--iv-border, #E5E7EB);
+    background: #FAFBFC;
+}
+.item-table-toolbar .item-link-btn {
+    background: #E8F0EE;
+}
+.item-table-toolbar .item-link-btn:hover {
+    background: #EDF7F4;
+}
+
+/* Scroll wrapper */
+.item-table-wrap {
+    overflow-x: auto;
+    width: 100%;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Table – fixed layout for perfect column alignment */
+.item-table-wrap table {
+    table-layout: fixed;
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 1100px;
+}
+
+/* === THEAD === */
+.item-table-wrap thead {
+    background: linear-gradient(135deg, #0A4F44, #0B4A3D);
+    color: #fff;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+}
+.item-table-wrap thead tr {
+    height: 44px;
+}
+.item-table-wrap thead th {
+    padding: 0 8px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: #fff;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+}
+.item-table-wrap thead th:nth-child(2) {
+    text-align: left;
+}
+
+/* === TBODY ROWS === */
+.item-table-wrap tbody tr {
+    border-bottom: 1px solid #F3F4F6;
+}
+.item-table-wrap tbody tr:last-child {
+    border-bottom: none;
+}
+.item-table-wrap tbody tr:hover {
+    background: #FAFBFC;
+}
+
+/* === TD CELLS === */
+.item-table-wrap tbody td {
+    padding: 4px;
+    vertical-align: middle;
+    height: 48px;
+    overflow: hidden;
+}
+.item-table-wrap tbody td:first-child {
+    text-align: center;
+    color: #9ca3af;
+    font-size: 12px;
+}
+.item-table-wrap tbody td:nth-child(2) {
+    text-align: left;
+}
+
+/* Inputs inside td */
+.item-table-wrap tbody td input {
+    width: 100%;
+    border: 1px solid transparent;
+    outline: none;
+    font-family: var(--iv-font, 'Inter', -apple-system, sans-serif);
+    font-size: 13px;
+    color: var(--iv-text, #1E293B);
+    padding: 6px 3px;
+    border-radius: 4px;
+    transition: border-color 0.15s, background 0.15s;
+    background: transparent;
+    text-align: center;
+    box-sizing: border-box;
+    height: 36px;
+    line-height: 1.4;
+}
+.item-table-wrap tbody td:nth-child(2) input {
+    text-align: left;
+}
+.item-table-wrap tbody td input:focus {
+    border-color: #E5E7EB;
+    background: #fff;
+    box-shadow: 0 0 0 2px rgba(10,79,68,0.08);
+}
+.item-table-wrap tbody td input[readonly] {
+    font-weight: 600;
+    color: var(--iv-text, #1E293B);
+    background: transparent;
+}
+
+/* Delete button cell – centered */
+.item-actions {
+    text-align: center;
+}
+.item-actions button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--iv-text-light, #9CA3AF);
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    transition: all 0.15s;
+}
+.item-actions button:hover {
+    background: #FEE2E2;
+    color: #EF4444;
+}
+
+/* Description row – spans all columns */
+.item-desc-row td {
+    padding: 4px 10px 8px;
+    height: auto;
+}
+.item-desc-row textarea {
+    width: 100%;
+    border: 1px solid #E5E7EB;
+    border-radius: 6px;
+    padding: 8px;
+    font-family: var(--iv-font, 'Inter', -apple-system, sans-serif);
+    font-size: 13px;
+    resize: vertical;
+    min-height: 50px;
+    outline: none;
+}
+.item-desc-row textarea:focus {
+    border-color: #0A4F44;
+    box-shadow: 0 0 0 2px rgba(10,79,68,0.08);
+}
+
+/* Group row */
+.item-group-row {
+    background: #E8F0EE;
+    border-bottom: 2px solid #0A4F44;
+    font-weight: 600;
+}
+.item-group-row td {
+    padding: 4px 10px;
+    height: auto;
+}
+.item-group-row input {
+    font-weight: 600;
+    border: none;
+    background: transparent;
+    width: 100%;
+    outline: none;
+    font-family: var(--iv-font, 'Inter', -apple-system, sans-serif);
+    font-size: 13px;
+    color: var(--iv-text, #1E293B);
+}
+
+/* Bottom actions toolbar */
+.item-table-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    padding: 10px 14px;
+    border-top: 1px solid var(--iv-border, #E5E7EB);
+    background: #FAFBFC;
+}
+
+.item-link-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: var(--iv-font, 'Inter', -apple-system, sans-serif);
+    font-size: 12px;
+    font-weight: 500;
+    color: #0A4F44;
+    padding: 6px 12px;
+    border-radius: 6px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.15s;
+}
+.item-link-btn:hover {
+    background: #E8F0EE;
+}
+
+/* ===== COLUMN WIDTHS for item tables ===== */
+/* # col */
+.item-table-wrap table col:nth-child(1),
+.item-table-wrap table th:nth-child(1),
+.item-table-wrap table td:nth-child(1) { width: 40px; min-width: 36px; max-width: 44px; }
+
+/* Description / Product col */
+.item-table-wrap table col:nth-child(2),
+.item-table-wrap table th:nth-child(2),
+.item-table-wrap table td:nth-child(2) { width: 300px; min-width: 250px; max-width: 350px; }
+
+/* HSN / SAC col */
+.item-table-wrap table col:nth-child(3),
+.item-table-wrap table th:nth-child(3),
+.item-table-wrap table td:nth-child(3) { width: 85px; min-width: 75px; max-width: 95px; }
+
+/* Qty col */
+.item-table-wrap table col:nth-child(4),
+.item-table-wrap table th:nth-child(4),
+.item-table-wrap table td:nth-child(4) { width: 75px; min-width: 65px; max-width: 85px; }
+
+/* Unit col */
+.item-table-wrap table col:nth-child(5),
+.item-table-wrap table th:nth-child(5),
+.item-table-wrap table td:nth-child(5) { width: 65px; min-width: 55px; max-width: 75px; }
+
+/* Rate col */
+.item-table-wrap table col:nth-child(6),
+.item-table-wrap table th:nth-child(6),
+.item-table-wrap table td:nth-child(6) { width: 105px; min-width: 90px; max-width: 120px; }
+
+/* Disc% col */
+.item-table-wrap table col:nth-child(7),
+.item-table-wrap table th:nth-child(7),
+.item-table-wrap table td:nth-child(7) { width: 70px; min-width: 60px; max-width: 80px; }
+
+/* GST% col */
+.item-table-wrap table col:nth-child(8),
+.item-table-wrap table th:nth-child(8),
+.item-table-wrap table td:nth-child(8) { width: 65px; min-width: 55px; max-width: 75px; }
+
+/* Amount col */
+.item-table-wrap table col:nth-child(9),
+.item-table-wrap table th:nth-child(9),
+.item-table-wrap table td:nth-child(9) { width: 115px; min-width: 100px; max-width: 130px; }
+
+/* CGST / SGST / IGST cols (10, 11, 12) */
+.item-table-wrap table col:nth-child(10),
+.item-table-wrap table th:nth-child(10),
+.item-table-wrap table td:nth-child(10) { width: 85px; min-width: 75px; max-width: 95px; }
+.item-table-wrap table col:nth-child(11),
+.item-table-wrap table th:nth-child(11),
+.item-table-wrap table td:nth-child(11) { width: 85px; min-width: 75px; max-width: 95px; }
+.item-table-wrap table col:nth-child(12),
+.item-table-wrap table th:nth-child(12),
+.item-table-wrap table td:nth-child(12) { width: 85px; min-width: 75px; max-width: 95px; }
+
+/* Actions col (last) */
+.item-table-wrap table th:last-child,
+.item-table-wrap table td:last-child { width: 50px; min-width: 44px; max-width: 56px; }
+
+/* Description cell text truncation */
+.item-table-wrap tbody td:nth-child(2) {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 350px;
+}
+
+/* Ensure all numeric cells don't wrap unnecessarily */
+.item-table-wrap tbody td:nth-child(3),
+.item-table-wrap tbody td:nth-child(4),
+.item-table-wrap tbody td:nth-child(5),
+.item-table-wrap tbody td:nth-child(6),
+.item-table-wrap tbody td:nth-child(7),
+.item-table-wrap tbody td:nth-child(8),
+.item-table-wrap tbody td:nth-child(9),
+.item-table-wrap tbody td:nth-child(10),
+.item-table-wrap tbody td:nth-child(11),
+.item-table-wrap tbody td:nth-child(12) {
+    white-space: nowrap;
+}
+
+/* Override components.css .sales-table width:max-content when inside item-table-wrap */
+.item-table-wrap .table,
+.item-table-wrap .sales-table,
+.item-table-wrap .so-table,
+.item-table-wrap .cn-table,
+.item-table-wrap .dc-table,
+.item-table-wrap .pr-table,
+.item-table-wrap .po-table,
+.item-table-wrap .items-table,
+.item-table-wrap .qtn-table,
+.item-table-wrap .sales-items-table {
+    table-layout: fixed;
+    width: 100%;
+    min-width: 1100px;
+}
+
+/* Desktop-first: horizontal scroll only if container narrower than content */
