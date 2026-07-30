@@ -1,0 +1,535 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id               String             @id @default(cuid())
+  employeeCode     String?            @unique
+  firstName        String
+  lastName         String?
+  email            String             @unique
+  phone            String?
+  password         String
+  role             UserRole           @default(SALES_EXECUTIVE)
+  status           UserStatus         @default(ACTIVE)
+  avatar           String?
+  department       String?
+  designation      String?
+  lastLogin        DateTime?
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
+  createdBy        String?
+  deletedAt        DateTime?
+  deletedBy        String?
+  isDeleted        Boolean            @default(false)
+  refreshToken     String?
+  updatedBy        String?
+  username         String?            @unique
+  contactsCreated  Contact[]          @relation("contactCreatedBy")
+  feedbackCreated  CustomerFeedback[]
+  visitsCreated    CustomerVisit[]    @relation("visitCreatedBy")
+  customersCreated Customer[]         @relation("customerCreatedBy")
+  leadActivities   LeadActivity[]
+  leadAttachments  LeadAttachment[]
+  leadFollowUps    LeadFollowUp[]
+  leadsAssigned    Lead[]             @relation("leadAssignedTo")
+  leadsCreated     Lead[]             @relation("leadCreatedBy")
+
+  @@index([email])
+  @@index([role])
+  @@index([status])
+  @@map("users")
+}
+
+model Lead {
+  id                    String           @id @default(cuid())
+  leadNumber            String           @unique
+  company               String
+  contactPerson         String
+  phone                 String
+  mobile                String?
+  email                 String?
+  website               String?
+  industry              String?
+  leadSource            String?
+  leadStage             LeadStage        @default(NEW)
+  leadStatus            LeadStatus       @default(ACTIVE)
+  priority              LeadPriority     @default(MEDIUM)
+  assignedTo            String?
+  expectedValue         Decimal?         @db.Decimal(18, 2)
+  gstNumber             String?
+  address               String?
+  city                  String?
+  state                 String?
+  country               String?
+  postalCode            String?
+  description           String?
+  remarks               String?
+  createdBy             String?
+  updatedBy             String?
+  isDeleted             Boolean          @default(false)
+  deletedAt             DateTime?
+  deletedBy             String?
+  createdAt             DateTime         @default(now())
+  updatedAt             DateTime         @updatedAt
+  convertedToCustomerId String?
+  activities            LeadActivity[]
+  attachments           LeadAttachment[]
+  followUps             LeadFollowUp[]
+  assignedUser          User?            @relation("leadAssignedTo", fields: [assignedTo], references: [id])
+  createdByUser         User?            @relation("leadCreatedBy", fields: [createdBy], references: [id])
+
+  @@index([leadNumber])
+  @@index([company])
+  @@index([contactPerson])
+  @@index([phone])
+  @@index([email])
+  @@index([leadStage])
+  @@index([leadStatus])
+  @@index([assignedTo])
+  @@index([isDeleted])
+  @@map("leads")
+}
+
+model LeadFollowUp {
+  id                String    @id @default(cuid())
+  leadId            String
+  subject           String?
+  notes             String?
+  followUpDate      DateTime
+  followUpTime      String?
+  status            String?   @default("Open")
+  mode              String?
+  nextFollowUpDate  DateTime?
+  priority          String?   @default("Medium")
+  remarks           String?
+  createdBy         String?
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+
+  // Extended fields matching frontend data structure
+  leadNo            String?
+  entityType        String?   @default("lead")
+  entityId          String?
+  customerName      String?
+  contactPerson     String?
+  phone             String?
+  email             String?
+  leadStatus        String?
+  leadSource        String?
+  industry          String?
+  executive         String?
+  address           String?
+  feedback          String?
+  requirements      String?
+  outcome           String?
+  reminder          String?
+  reminderType      String?
+  assignTo          String?
+  attachmentCount   Int?      @default(0)
+  completedDate     String?
+
+  user              User?     @relation(fields: [createdBy], references: [id])
+  lead              Lead      @relation(fields: [leadId], references: [id], onDelete: Cascade)
+  attachments       FollowupAttachment[]
+
+  @@index([leadId])
+  @@index([leadNo])
+  @@index([entityId])
+  @@map("lead_followups")
+}
+
+model LeadActivity {
+  id          String   @id @default(cuid())
+  leadId      String
+  action      String
+  description String?
+  createdBy   String?
+  createdAt   DateTime @default(now())
+  user        User?    @relation(fields: [createdBy], references: [id])
+  lead        Lead     @relation(fields: [leadId], references: [id], onDelete: Cascade)
+
+  @@index([leadId])
+  @@map("lead_activities")
+}
+
+model LeadAttachment {
+  id           String    @id @default(cuid())
+  leadId       String
+  fileName     String
+  originalName String
+  mimeType     String
+  fileSize     Int
+  filePath     String
+  uploadedBy   String?
+  uploadedAt   DateTime  @default(now())
+  deletedAt    DateTime?
+  deletedBy    String?
+  isDeleted    Boolean   @default(false)
+  updatedAt    DateTime  @updatedAt
+  lead         Lead      @relation(fields: [leadId], references: [id], onDelete: Cascade)
+  user         User?     @relation(fields: [uploadedBy], references: [id])
+
+  @@index([leadId])
+  @@index([isDeleted])
+  @@map("lead_attachments")
+}
+
+model CustomerAttachment {
+  id           String    @id @default(cuid())
+  customerId   String
+  fileName     String
+  originalName String
+  mimeType     String
+  fileSize     Int
+  filePath     String
+  uploadedBy   String?
+  uploadedAt   DateTime  @default(now())
+  deletedAt    DateTime?
+  deletedBy    String?
+  isDeleted    Boolean   @default(false)
+  updatedAt    DateTime  @updatedAt
+
+  customer     Customer  @relation(fields: [customerId], references: [id], onDelete: Cascade)
+
+  @@index([customerId])
+  @@index([isDeleted])
+  @@map("customer_attachments")
+}
+
+model FollowupAttachment {
+  id           String        @id @default(cuid())
+  followUpId   String
+  fileName     String
+  originalName String
+  mimeType     String
+  fileSize     Int
+  filePath     String
+  uploadedBy   String?
+  uploadedAt   DateTime      @default(now())
+  deletedAt    DateTime?
+  deletedBy    String?
+  isDeleted    Boolean       @default(false)
+  updatedAt    DateTime      @updatedAt
+
+  leadFollowUp LeadFollowUp  @relation(fields: [followUpId], references: [id], onDelete: Cascade)
+
+  @@index([followUpId])
+  @@index([isDeleted])
+  @@map("followup_attachments")
+}
+
+model Contact {
+  id             String    @id @default(cuid())
+  contactNumber  String    @unique
+  title          String?
+  firstName      String
+  lastName       String?
+  company        String?
+  email          String?
+  secondaryEmail String?
+  phone          String?
+  secondaryPhone String?
+  country        String    @default("India")
+  status         String    @default("active")
+  gstin          String?
+  pan            String?
+  aadhaar        String?
+  passport       String?
+  linkedin       String?
+  twitter        String?
+  facebook       String?
+  instagram      String?
+  github         String?
+  addrCountry    String?
+  state          String?
+  district       String?
+  city           String?
+  building       String?
+  postalCode     String?
+  street         String?
+  notes          String?
+  profileImage   String?
+  createdBy      String?
+  updatedBy      String?
+  isDeleted      Boolean   @default(false)
+  deletedAt      DateTime?
+  deletedBy      String?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+  createdByUser  User?     @relation("contactCreatedBy", fields: [createdBy], references: [id])
+
+  @@index([firstName])
+  @@index([lastName])
+  @@index([email])
+  @@index([phone])
+  @@index([country])
+  @@index([status])
+  @@index([isDeleted])
+  @@map("contacts")
+}
+
+model Customer {
+  id             String             @id @default(cuid())
+  customerNumber String             @unique
+  name           String
+  contactPerson  String?
+  email          String?
+  phone          String?
+  mobile         String?
+  website        String?
+  gst            String?            @unique
+  pan            String?
+  address        String?
+  city           String?
+  state          String?
+  pincode        String?
+  country        String?            @default("India")
+  status         CustomerStatus     @default(ACTIVE)
+  creditLimit    Decimal?           @db.Decimal(18, 2)
+  category       String?
+  salesPerson    String?
+  notes          String?
+  description    String?
+  createdBy      String?
+  updatedBy      String?
+  isDeleted      Boolean            @default(false)
+  deletedAt      DateTime?
+  deletedBy      String?
+  createdAt      DateTime           @default(now())
+  updatedAt      DateTime           @updatedAt
+  addresses      CustomerAddress[]
+  attachments    CustomerAttachment[]
+  contacts       CustomerContact[]
+  feedbacks      CustomerFeedback[]
+  ledgerEntries  CustomerLedger[]
+  purchaseOrders CustomerPo[]
+  visits         CustomerVisit[]
+  createdByUser  User?              @relation("customerCreatedBy", fields: [createdBy], references: [id])
+
+  @@index([name])
+  @@index([email])
+  @@index([phone])
+  @@index([gst])
+  @@index([status])
+  @@index([isDeleted])
+  @@map("customers")
+}
+
+model CustomerAddress {
+  id         String   @id @default(cuid())
+  customerId String
+  type       String?
+  address    String?
+  city       String?
+  state      String?
+  pincode    String?
+  country    String?  @default("India")
+  isDefault  Boolean  @default(false)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  customer   Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
+
+  @@index([customerId])
+  @@map("customer_addresses")
+}
+
+model CustomerContact {
+  id          String   @id @default(cuid())
+  customerId  String
+  firstName   String
+  lastName    String?
+  designation String?
+  email       String?
+  phone       String?
+  mobile      String?
+  isPrimary   Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  customer    Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
+
+  @@index([customerId])
+  @@map("customer_contacts")
+}
+
+model CustomerVisit {
+  id            String    @id @default(cuid())
+  customerId    String
+  visitDate     DateTime
+  purpose       String?
+  notes         String?
+  outcome       String?
+  followUpDate  DateTime?
+  createdBy     String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  createdByUser User?     @relation("visitCreatedBy", fields: [createdBy], references: [id])
+  customer      Customer  @relation(fields: [customerId], references: [id], onDelete: Cascade)
+
+  @@index([customerId])
+  @@map("customer_visits")
+}
+
+model CustomerFeedback {
+  id            String   @id @default(cuid())
+  customerId    String
+  rating        Int?
+  feedback      String?
+  category      String?
+  source        String?
+  createdBy     String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  createdByUser User?    @relation(fields: [createdBy], references: [id])
+  customer      Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
+
+  @@index([customerId])
+  @@map("customer_feedback")
+}
+
+model CustomerPo {
+  id           String    @id @default(cuid())
+  customerId   String
+  poNumber     String    @unique
+  poDate       DateTime
+  deliveryDate DateTime?
+  status       String?
+  description  String?
+  subtotal     Decimal?  @db.Decimal(18, 2)
+  tax          Decimal?  @db.Decimal(18, 2)
+  total        Decimal?  @db.Decimal(18, 2)
+  notes        String?
+  createdBy    String?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  customer     Customer  @relation(fields: [customerId], references: [id], onDelete: Cascade)
+
+  @@index([customerId])
+  @@index([poNumber])
+  @@map("customer_pos")
+}
+
+model CustomerLedger {
+  id          String   @id @default(cuid())
+  customerId  String
+  date        DateTime
+  type        String
+  description String?
+  amount      Decimal  @db.Decimal(18, 2)
+  reference   String?
+  balance     Decimal  @db.Decimal(18, 2)
+  createdBy   String?
+  createdAt   DateTime @default(now())
+  customer    Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
+
+  @@index([customerId])
+  @@index([date])
+  @@map("customer_ledger")
+}
+
+model PasswordReset {
+  id        String    @id @default(cuid())
+  email     String
+  token     String    @unique
+  expiresAt DateTime
+  usedAt    DateTime?
+  createdAt DateTime  @default(now())
+
+  @@index([email])
+  @@index([token])
+  @@map("password_resets")
+}
+
+model RefreshToken {
+  id        String    @id @default(cuid())
+  userId    String
+  token     String    @unique
+  expiresAt DateTime
+  revokedAt DateTime?
+  createdAt DateTime  @default(now())
+
+  @@index([userId])
+  @@index([token])
+  @@map("refresh_tokens")
+}
+
+model ActivityLog {
+  id        String   @id @default(cuid())
+  userId    String?
+  action    String
+  entity    String
+  entityId  String?
+  details   String?
+  ipAddress String?
+  userAgent String?
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+  @@index([entity])
+  @@index([entityId])
+  @@index([createdAt])
+  @@map("activity_logs")
+}
+
+enum UserRole {
+  ADMIN
+  SALES_MANAGER
+  SALES_EXECUTIVE
+  ACCOUNTS
+  INVENTORY_MANAGER
+  VIEWER
+}
+
+enum UserStatus {
+  ACTIVE
+  INACTIVE
+}
+
+enum LeadStatus {
+  ACTIVE
+  INACTIVE
+  CONVERTED
+  LOST
+  ARCHIVED
+}
+
+enum LeadStage {
+  NEW
+  CONTACTED
+  QUALIFIED
+  PROPOSAL_SENT
+  NEGOTIATION
+  WON
+  LOST
+}
+
+enum LeadPriority {
+  LOW
+  MEDIUM
+  HIGH
+  URGENT
+}
+
+enum ContactStatus {
+  ACTIVE
+  INACTIVE
+  DELETED
+}
+
+enum CustomerStatus {
+  ACTIVE
+  INACTIVE
+  BLOCKED
+}
+
+enum FollowUpStatus {
+  PENDING
+  COMPLETED
+  CANCELLED
+}
